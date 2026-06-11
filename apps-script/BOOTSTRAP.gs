@@ -382,8 +382,58 @@ function _installTriggers(ss, formA, formB) {
     .onFormSubmit()
     .create();
 
+  // Auto-seed progress when a new row is added to the Roster sheet
+  ScriptApp.newTrigger('onRosterEdit')
+    .forSpreadsheet(ss)
+    .onEdit()
+    .create();
+
   Logger.log('   onHomeworkSubmit trigger → Form A');
   Logger.log('   onParentApproval trigger → Form B');
+  Logger.log('   onRosterEdit trigger → Roster sheet');
+}
+
+// ─── AUTO ENROL: fires when any cell in the spreadsheet is edited ─────────────
+// Detects new rows in the Roster sheet and seeds progress automatically.
+function onRosterEdit(e) {
+  // Only act on edits to the Roster sheet
+  if (!e || !e.range) return;
+  var sh = e.range.getSheet();
+  if (sh.getName() !== 'Roster') return;
+
+  // Only act when the edited row is a data row (not the header)
+  var row = e.range.getRow();
+  if (row < 2) return;
+
+  var ss = sh.getParent();
+
+  // Read the edited row
+  var rowData = sh.getRange(row, 1, 1, 7).getValues()[0];
+  var sid     = rowData[0]; // StudentID
+  var name    = rowData[1]; // StudentName
+  var active  = rowData[6]; // Active
+
+  // Only proceed if StudentID and Active = TRUE are both filled in
+  if (!sid || !name || active !== true) return;
+
+  // Check if progress rows already exist for this student
+  var progSh    = ss.getSheetByName('Progress');
+  var progData  = progSh.getDataRange().getValues();
+  var alreadySeeded = progData.some(function(r) {
+    return r[1] === sid;
+  });
+  if (alreadySeeded) return;
+
+  // Seed progress rows for this new student
+  var units = ss.getSheetByName('Units').getDataRange().getValues().slice(1);
+  var newRows = units.map(function(u, idx) {
+    return [sid+'_'+u[0], sid, u[0], idx===0?'available':'locked', '','','','','','','',''];
+  });
+  if (newRows.length > 0) {
+    progSh.getRange(progSh.getLastRow()+1, 1, newRows.length, 12).setValues(newRows);
+  }
+
+  Logger.log('Auto-enrolled: ' + name + ' (' + sid + ') — ' + units.length + ' progress rows created.');
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
