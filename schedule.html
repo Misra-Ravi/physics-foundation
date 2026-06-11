@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule — Physics Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--blue:#1d4ed8;--dark:#0f172a;--bg:#f8faff;--muted:#64748b;--border:#bfdbfe;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);}
+    nav{background:rgba(15,23,42,0.97);position:sticky;top:0;z-index:100;padding:0 32px;}
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;}
+    .nav-brand{font-size:.95rem;font-weight:900;color:white;text-decoration:none;margin-right:auto;}
+    .nav-brand span{color:#93c5fd;}
+    .nav-links{display:flex;gap:4px;}
+    .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.82rem;font-weight:700;padding:6px 12px;border-radius:8px;}
+    .nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,.1);color:white;}
+    .nav-cta{background:#1d4ed8;color:white;text-decoration:none;font-size:.82rem;font-weight:800;padding:8px 18px;border-radius:8px;margin-left:12px;}
+    .hero{background:linear-gradient(135deg,#0f172a,#1e3a5f,#1d4ed8);color:white;padding:72px 32px 60px;text-align:center;}
+    .hero-chip{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 18px;font-size:.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+    .hero h1{font-size:2.6rem;font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,#bfdbfe,#e0e7ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
+    .hero p{color:rgba(255,255,255,.7);font-size:1rem;max-width:560px;margin:0 auto;line-height:1.8;}
+    main{max-width:760px;margin:0 auto;padding:56px 32px 80px;}
+    .block{background:white;border-radius:16px;padding:32px;margin-bottom:20px;border:2px solid #e2e8f0;}
+    .block h2{font-size:1.1rem;font-weight:900;color:var(--blue);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #eff6ff;}
+    table{width:100%;border-collapse:collapse;}
+    th{background:#eff6ff;color:var(--blue);font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:10px 16px;text-align:left;}
+    td{padding:12px 16px;font-size:.92rem;color:#374151;border-bottom:1px solid #f1f5f9;line-height:1.6;}
+    tr:last-child td{border-bottom:none;}
+    tr:hover td{background:#f8faff;}
+    .timing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px;}
+    .timing-card{background:#f8faff;border-radius:10px;padding:14px 16px;border:1px solid var(--border);}
+    .timing-card .duration{font-size:1.1rem;font-weight:900;color:var(--blue);margin-bottom:4px;}
+    .timing-card .label{font-size:.8rem;color:var(--muted);font-weight:700;}
+    .bring-list{list-style:none;padding:0;}
+    .bring-list li{display:flex;gap:10px;padding:8px 0;font-size:.92rem;color:#374151;border-bottom:1px solid #f1f5f9;align-items:flex-start;line-height:1.6;}
+    .bring-list li:last-child{border-bottom:none;}
+    .bring-list li::before{content:'→';color:var(--blue);font-weight:800;flex-shrink:0;margin-top:1px;}
+    .contact-box{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:white;border-radius:16px;padding:28px 32px;}
+    .contact-box h2{color:#93c5fd;margin-bottom:14px;font-size:1.05rem;font-weight:800;}
+    .contact-box p{color:rgba(255,255,255,.8);font-size:.93rem;line-height:1.8;}
+    .contact-box a{color:#bfdbfe;font-weight:700;text-decoration:none;}
+    .note{font-size:.8rem;color:var(--muted);margin-top:16px;font-style:italic;}
+    @media(max-width:640px){.nav-links{display:none;}.hero h1{font-size:1.8rem;}.timing-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Physics Foundation <span>⚛️</span></a>
+    <div class="nav-links">
+      <a href="stories.html">Stories</a>
+      <a href="rules.html">Rules</a>
+      <a href="vision.html">Vision</a>
+      <a href="ideal-student.html">Ideal Student</a>
+      <a href="schedule.html" class="active">Schedule</a>
+    </div>
+    <a href="https://script.google.com/macros/s/AKfycbwc0-62SrefMlpwxJtBXZN1ud4clOT0CC9wSgzndq4n6XC2z-5HrlE_idQ6OhSv1WxJsQ/exec" class="nav-cta" target="_blank">Student Portal →</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-chip">Class Information</div>
+  <h1>Class Schedule</h1>
+  <p>When we meet, what to expect, and how to prepare</p>
+</div>
+<main>
+
+  <div class="block">
+    <h2>Weekly Structure</h2>
+    <table>
+      <tr><th>Session</th><th>What Happens</th></tr>
+      <tr><td><strong>Lesson Day</strong></td><td>New concept introduced. Lesson page reviewed together. Questions welcomed throughout.</td></tr>
+      <tr><td><strong>Classwork Day</strong></td><td>Classwork problems completed in class. Teacher available throughout.</td></tr>
+      <tr><td><strong>Homework Due</strong></td><td>Completed homework submitted via the portal before the next session begins.</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <h2>Time Per Unit</h2>
+    <div class="timing-grid">
+      <div class="timing-card">
+        <div class="duration">15–20 min</div>
+        <div class="label">Read the Lesson</div>
+      </div>
+      <div class="timing-card">
+        <div class="duration">20–30 min</div>
+        <div class="label">Complete Classwork</div>
+      </div>
+      <div class="timing-card">
+        <div class="duration">20–30 min</div>
+        <div class="label">Complete Homework</div>
+      </div>
+    </div>
+    <p class="note">There is no race. The next unit unlocks when the current one is genuinely understood and approved — not before.</p>
+  </div>
+
+  <div class="block">
+    <h2>What to Bring Every Session</h2>
+    <ul class="bring-list">
+      <li>Your device — to access the portal and lesson pages</li>
+      <li>A pen and paper — physics is always written by hand first</li>
+      <li>Your previous unit's homework if corrections were requested</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h2>Missed Sessions</h2>
+    <p style="font-size:.93rem;color:#374151;line-height:1.85;">If you miss a session, the portal is always available. Lessons and classwork can be completed independently at any time. Reach out if you need support before the next session.</p>
+  </div>
+
+  <div class="contact-box">
+    <h2>Contact</h2>
+    <p>Questions outside of class hours:</p>
+    <p style="margin-top:10px;font-size:1rem;">📧 <a href="mailto:misra.ravikant@gmail.com">misra.ravikant@gmail.com</a></p>
+    <p style="margin-top:8px;">Response time: within 24 hours on school days.</p>
+  </div>
+
+</main>
+<footer style="background:#0f172a;color:rgba(255,255,255,.4);text-align:center;padding:24px 32px;font-size:.82rem;">
+  Physics Foundation — where Concepts Click &nbsp;·&nbsp; <a href="mailto:misra.ravikant@gmail.com" style="color:rgba(255,255,255,.6);text-decoration:none;">misra.ravikant@gmail.com</a>
+</footer>
+</body>
+</html>

@@ -3,283 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IB Physics Portal</title>
+  <title>Physics Foundation — where Concepts Click</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
     :root {
-      --blue: #1d4ed8; --indigo: #4f46e5; --dark: #0f172a;
-      --bg: #f8faff; --muted: #64748b; --card: #ffffff;
+      --blue:#1d4ed8; --indigo:#4f46e5; --dark:#0f172a; --bg:#f8faff;
+      --muted:#64748b; --light:#eff6ff; --border:#bfdbfe;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      background-image: radial-gradient(circle, #c7d2fe 1px, transparent 1px);
-      background-size: 28px 28px;
-      color: var(--dark);
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);}
+
+    /* ── NAV ── */
+    nav{background:rgba(15,23,42,0.97);backdrop-filter:blur(8px);position:sticky;top:0;z-index:100;padding:0 32px;}
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:0;height:56px;}
+    .nav-brand{font-size:.95rem;font-weight:900;color:white;text-decoration:none;margin-right:auto;letter-spacing:-.3px;}
+    .nav-brand span{color:#93c5fd;}
+    .nav-links{display:flex;gap:4px;}
+    .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.82rem;font-weight:700;padding:6px 12px;border-radius:8px;transition:background .15s,color .15s;}
+    .nav-links a:hover{background:rgba(255,255,255,.1);color:white;}
+    .nav-links a.active{background:#1d4ed8;color:white;}
+    .nav-cta{background:#1d4ed8;color:white;text-decoration:none;font-size:.82rem;font-weight:800;padding:8px 18px;border-radius:8px;margin-left:12px;transition:background .15s;}
+    .nav-cta:hover{background:#1e40af;}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 45%,#1d4ed8 100%);color:white;padding:96px 32px 80px;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(99,102,241,.25) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(59,130,246,.2) 0%,transparent 55%);pointer-events:none;}
+    .star{position:absolute;border-radius:50%;background:white;animation:twinkle 3s infinite alternate;}
+    @keyframes twinkle{from{opacity:.15;transform:scale(1);}to{opacity:.8;transform:scale(1.5);}}
+    .hero-chip{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 18px;font-size:.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;position:relative;}
+    .hero h1{font-size:3.2rem;font-weight:900;letter-spacing:-1.5px;position:relative;margin-bottom:8px;background:linear-gradient(90deg,#bfdbfe,#e0e7ff,#bfdbfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;}
+    .hero-tagline{font-size:1.1rem;color:rgba(255,255,255,.7);position:relative;margin-bottom:8px;}
+    .hero-sub{font-size:.95rem;color:rgba(255,255,255,.5);position:relative;margin-bottom:40px;font-style:italic;}
+    .hero-desc{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:580px;margin:0 auto 44px;line-height:1.8;position:relative;}
+    .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;}
+    .btn-primary{background:white;color:var(--blue);font-weight:900;font-size:1rem;padding:15px 36px;border-radius:12px;text-decoration:none;box-shadow:0 4px 24px rgba(0,0,0,.2);transition:transform .15s,box-shadow .15s;}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.25);}
+    .btn-secondary{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);color:white;font-weight:800;font-size:1rem;padding:13px 32px;border-radius:12px;text-decoration:none;transition:background .15s;}
+    .btn-secondary:hover{background:rgba(255,255,255,.2);}
+
+    /* ── SECTIONS ── */
+    section{padding:72px 32px;}
+    .section-inner{max-width:1100px;margin:0 auto;}
+    .section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-bottom:10px;}
+    .section-title{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:16px;}
+    .section-body{font-size:1rem;color:var(--muted);line-height:1.8;max-width:640px;}
+
+    /* ── FEATURE CARDS ── */
+    .features{background:white;}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:40px;}
+    .card{background:var(--bg);border-radius:16px;padding:28px;border:2px solid var(--border);}
+    .card-icon{width:48px;height:48px;border-radius:12px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px;}
+    .card h3{font-size:1.05rem;font-weight:800;margin-bottom:8px;}
+    .card p{font-size:.9rem;color:var(--muted);line-height:1.7;}
+
+    /* ── HOW IT WORKS ── */
+    .how{background:linear-gradient(135deg,#f0f4f8,#e8f0fe);}
+    .steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;margin-top:40px;}
+    .step{text-align:center;padding:24px 16px;background:white;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+    .step-num{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1d4ed8,#4f46e5);color:white;font-weight:900;font-size:.95rem;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+    .step h4{font-size:.92rem;font-weight:800;margin-bottom:6px;}
+    .step p{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+    /* ── STORIES TEASER ── */
+    .stories-teaser{background:var(--dark);color:white;padding:72px 32px;}
+    .stories-teaser .section-label{color:#93c5fd;}
+    .stories-teaser .section-title{color:white;}
+    .stories-teaser .section-body{color:rgba(255,255,255,.65);}
+    .story-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+    .story-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:8px 18px;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.8);text-decoration:none;transition:background .15s;}
+    .story-chip:hover{background:rgba(255,255,255,.18);color:white;}
+    .stories-btn{display:inline-block;margin-top:28px;background:#1d4ed8;color:white;font-weight:800;padding:13px 28px;border-radius:10px;text-decoration:none;font-size:.92rem;}
+    .stories-btn:hover{background:#1e40af;}
+
+    /* ── PORTAL CTA ── */
+    .portal-cta{background:linear-gradient(135deg,#1d4ed8,#4f46e5);color:white;text-align:center;padding:80px 32px;}
+    .portal-cta h2{font-size:2.2rem;font-weight:900;margin-bottom:16px;letter-spacing:-.5px;}
+    .portal-cta p{font-size:1rem;color:rgba(255,255,255,.75);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto;}
+
+    /* ── FOOTER ── */
+    footer{background:var(--dark);color:rgba(255,255,255,.45);text-align:center;padding:28px 32px;font-size:.82rem;}
+    footer a{color:rgba(255,255,255,.6);text-decoration:none;}
+    footer a:hover{color:white;}
+
+    @media(max-width:640px){
+      .hero h1{font-size:2.1rem;}
+      .nav-links{display:none;}
+      .hero-btns{flex-direction:column;align-items:center;}
     }
-    header {
-      background: linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 60%, #1e40af 100%);
-      color: white;
-      padding: 56px 40px 48px;
-      text-align: center;
-    }
-    header .chip {
-      display: inline-block;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 4px 16px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    header h1 {
-      font-size: 2.8rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-      background: linear-gradient(90deg, #bfdbfe, #e0e7ff, #bfdbfe);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-    header p {
-      color: rgba(255,255,255,0.8);
-      font-size: 1.05rem;
-      max-width: 520px;
-      margin: 0 auto 28px;
-    }
-    .cta {
-      display: inline-block;
-      background: white;
-      color: var(--blue);
-      font-weight: 800;
-      font-size: 1rem;
-      padding: 14px 32px;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      transition: transform 0.15s;
-    }
-    .cta:hover { transform: translateY(-2px); }
-    main { max-width: 960px; margin: 0 auto; padding: 52px 24px 80px; }
-    .section-title {
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-    .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 52px; }
-    .topic-card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      border: 2px solid transparent;
-      transition: border-color 0.15s, transform 0.15s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .topic-card:hover { border-color: #93c5fd; transform: translateY(-2px); }
-    .topic-card.coming-soon { opacity: 0.45; pointer-events: none; }
-    .topic-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-    .topic-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; flex-shrink: 0;
-    }
-    .topic-num { font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
-    .topic-name { font-size: 1.05rem; font-weight: 800; color: var(--dark); }
-    .topic-meta { font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-top: 10px;
-    }
-    .badge.ready { background: #dcfce7; color: #15803d; }
-    .badge.soon  { background: #f1f5f9; color: #94a3b8; }
-    .how { background: white; border-radius: 20px; padding: 36px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 52px; }
-    .how h2 { font-size: 1.3rem; font-weight: 900; margin-bottom: 24px; }
-    .steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
-    .step { text-align: center; padding: 16px 8px; }
-    .step-num {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, #1d4ed8, #4f46e5);
-      color: white; font-weight: 800; font-size: 0.9rem;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 10px;
-    }
-    .step p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
-    .step strong { display: block; font-size: 0.92rem; color: var(--dark); margin-bottom: 4px; }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="chip">IB Physics · Diploma Programme</div>
-  <h1>Physics Learning Portal</h1>
-  <p>A guided, step-by-step journey through IB Physics. Complete each unit, submit your homework, and unlock the next chapter.</p>
-  <a href="#topics" class="cta">Browse Topics →</a>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Physics Foundation <span>⚛️</span></a>
+    <div class="nav-links">
+      <a href="stories.html">Stories</a>
+      <a href="rules.html">Rules</a>
+      <a href="vision.html">Vision</a>
+      <a href="ideal-student.html">Ideal Student</a>
+      <a href="schedule.html">Schedule</a>
+    </div>
+    <a href="https://script.google.com/macros/s/AKfycbwc0-62SrefMlpwxJtBXZN1ud4clOT0CC9wSgzndq4n6XC2z-5HrlE_idQ6OhSv1WxJsQ/exec" class="nav-cta" target="_blank">Student Portal →</a>
+  </div>
+</nav>
 
-<main>
+<!-- HERO -->
+<div class="hero">
+  <!-- Stars -->
+  <div class="star" style="width:3px;height:3px;top:12%;left:8%;animation-delay:0s"></div>
+  <div class="star" style="width:2px;height:2px;top:25%;left:18%;animation-delay:.5s"></div>
+  <div class="star" style="width:4px;height:4px;top:10%;left:35%;animation-delay:1s"></div>
+  <div class="star" style="width:3px;height:3px;top:60%;left:12%;animation-delay:.3s"></div>
+  <div class="star" style="width:2px;height:2px;top:15%;left:72%;animation-delay:.8s"></div>
+  <div class="star" style="width:4px;height:4px;top:35%;left:88%;animation-delay:1.2s"></div>
+  <div class="star" style="width:3px;height:3px;top:70%;left:80%;animation-delay:.6s"></div>
+  <div class="star" style="width:2px;height:2px;top:45%;left:55%;animation-delay:1.5s"></div>
 
-  <div class="how">
-    <h2>How it works</h2>
+  <div class="hero-chip">IB Physics · Diploma Programme</div>
+  <h1>Physics Foundation</h1>
+  <div class="hero-tagline">where Concepts Click</div>
+  <div class="hero-sub">Think Deeper. Learn Better. — with Ravi M.</div>
+  <p class="hero-desc">A structured, step-by-step journey through IB Physics. Every concept is built carefully before the next one begins. Every chapter unlocks only when the previous one is truly understood.</p>
+  <div class="hero-btns">
+    <a href="https://script.google.com/macros/s/AKfycbwc0-62SrefMlpwxJtBXZN1ud4clOT0CC9wSgzndq4n6XC2z-5HrlE_idQ6OhSv1WxJsQ/exec" class="btn-primary" target="_blank">Enter Student Portal →</a>
+    <a href="stories.html" class="btn-secondary">Read the Stories</a>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-inner">
+    <div class="section-label">How This Works</div>
+    <h2 class="section-title">Learning that builds, step by step</h2>
+    <p class="section-body">This is not a file dump. It is a guided course — each unit sequenced deliberately, each chapter gated until the one before it is mastered.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <h3>Learn at Your Own Pace</h3>
+        <p>Work through lessons, classwork, and homework unit by unit. Each chapter unlocks only when the previous one is complete and approved.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <h3>Parent-Reviewed Progress</h3>
+        <p>Every homework submission is reviewed by your parent against the answer key. Only after approval does the next chapter unlock.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔢</div>
+        <h3>Built on Strong Foundations</h3>
+        <p>Before physics, we build the mathematical tools — significant figures, vectors, graphs, uncertainty. No shortcuts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Progress Tracked Automatically</h3>
+        <p>Every submission, approval, and unlock is recorded in real time. Teacher and parents always know exactly where each student is.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📧</div>
+        <h3>Automatic Notifications</h3>
+        <p>Parents receive an email when homework is submitted. Students receive an email when their work is approved or corrections are needed.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h3>Answer Keys Stay Secure</h3>
+        <p>Students see questions only. Answer keys are sent directly to parents via email — never visible on the student portal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-inner">
+    <div class="section-label">The Workflow</div>
+    <h2 class="section-title">Five steps, every unit</h2>
+    <p class="section-body">Every unit follows the same rhythm. No guessing what comes next.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <strong>Read the Lesson</strong>
+        <h4>Read the Lesson</h4>
         <p>Study the concept page for your current unit</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <strong>Complete Classwork</strong>
-        <p>Work through the classwork exercises</p>
+        <h4>Complete Classwork</h4>
+        <p>Work through the exercises in class with your teacher</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <strong>Submit Homework</strong>
+        <h4>Submit Homework</h4>
         <p>Upload a photo of your completed homework via the portal</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <strong>Parent Review</strong>
-        <p>Your parent reviews your work against the answer key</p>
+        <h4>Parent Reviews</h4>
+        <p>Your parent receives the answer key and reviews your work</p>
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <strong>Next Chapter</strong>
-        <p>Once approved, your next unit unlocks automatically</p>
+        <h4>Next Chapter Unlocks</h4>
+        <p>Once approved, the next unit is automatically unlocked</p>
       </div>
     </div>
   </div>
+</section>
 
-  <p class="section-title" id="topics">Topics</p>
-  <div class="topics">
-
-    <a href="t0-appendix/s0.1-background-math/u01/lesson.html" class="topic-card">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#eff6ff;">🔢</div>
-        <div>
-          <div class="topic-num">Topic 0.1</div>
-          <div class="topic-name">Background Math</div>
-        </div>
-      </div>
-      <div class="topic-meta">27 units · Significant figures, vectors, trigonometry</div>
-      <span class="badge ready">Ready</span>
-    </a>
-
-    <a href="t0-appendix/s0.2-stories/u00/lesson.html" class="topic-card">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#fdf4ff;">📖</div>
-        <div>
-          <div class="topic-num">Topic 0.2</div>
-          <div class="topic-name">Stories of Science</div>
-        </div>
-      </div>
-      <div class="topic-meta">11 stories · Galileo, Newton, Einstein, Curie &amp; more</div>
-      <span class="badge ready">Ready</span>
-    </a>
-
-    <a href="t1-space-time-motion/s1.1-kinematics/u01/lesson.html" class="topic-card">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#f0fdf4;">🚀</div>
-        <div>
-          <div class="topic-num">Topic 1.1</div>
-          <div class="topic-name">Kinematics</div>
-        </div>
-      </div>
-      <div class="topic-meta">16 units · Motion, graphs, free fall, projectiles</div>
-      <span class="badge ready">Ready</span>
-    </a>
-
-    <div class="topic-card coming-soon">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#fff7ed;">⚡</div>
-        <div>
-          <div class="topic-num">Topic 1.2</div>
-          <div class="topic-name">Forces &amp; Momentum</div>
-        </div>
-      </div>
-      <div class="topic-meta">17 units</div>
-      <span class="badge soon">Coming Soon</span>
+<!-- STORIES TEASER -->
+<div class="stories-teaser">
+  <div class="section-inner">
+    <div class="section-label">Stories of Science</div>
+    <h2 class="section-title">Physics is a Human Story</h2>
+    <p class="section-body">Before equations, there were people — curious, stubborn, brilliant people who changed how we see the world. Explore their stories.</p>
+    <div class="story-chips">
+      <a href="stories.html#galileo" class="story-chip">🕰️ Galileo</a>
+      <a href="stories.html#newton" class="story-chip">🍎 Newton</a>
+      <a href="stories.html#faraday" class="story-chip">🧲 Faraday</a>
+      <a href="stories.html#curie" class="story-chip">☢️ Marie Curie</a>
+      <a href="stories.html#einstein" class="story-chip">🌌 Einstein</a>
+      <a href="stories.html#schrodinger" class="story-chip">🐱 Schrödinger</a>
+      <a href="stories.html#meitner" class="story-chip">⚡ Lise Meitner</a>
+      <a href="stories.html#bose" class="story-chip">🌟 Satyendra Bose</a>
     </div>
-
-    <div class="topic-card coming-soon">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#fefce8;">🔋</div>
-        <div>
-          <div class="topic-num">Topic 1.3</div>
-          <div class="topic-name">Work, Energy &amp; Power</div>
-        </div>
-      </div>
-      <div class="topic-meta">12 units</div>
-      <span class="badge soon">Coming Soon</span>
-    </div>
-
-    <div class="topic-card coming-soon">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#fdf4ff;">🌡️</div>
-        <div>
-          <div class="topic-num">Topic 2</div>
-          <div class="topic-name">Particulate Matter</div>
-        </div>
-      </div>
-      <div class="topic-meta">22 units · Thermal, gas laws, circuits</div>
-      <span class="badge soon">Coming Soon</span>
-    </div>
-
-    <div class="topic-card coming-soon">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#f0f9ff;">〰️</div>
-        <div>
-          <div class="topic-num">Topic 3</div>
-          <div class="topic-name">Wave Behavior</div>
-        </div>
-      </div>
-      <div class="topic-meta">20 units · SHM, wave model, resonance</div>
-      <span class="badge soon">Coming Soon</span>
-    </div>
-
-    <div class="topic-card coming-soon">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#fff1f2;">🧲</div>
-        <div>
-          <div class="topic-num">Topic 4</div>
-          <div class="topic-name">Fields</div>
-        </div>
-      </div>
-      <div class="topic-meta">9 units · Gravitational, electric &amp; magnetic</div>
-      <span class="badge soon">Coming Soon</span>
-    </div>
-
-    <div class="topic-card coming-soon">
-      <div class="topic-header">
-        <div class="topic-icon" style="background:#f0fdf4;">⚛️</div>
-        <div>
-          <div class="topic-num">Topic 5</div>
-          <div class="topic-name">Nuclear &amp; Quantum</div>
-        </div>
-      </div>
-      <div class="topic-meta">17 units · Atomic structure, fission, fusion</div>
-      <span class="badge soon">Coming Soon</span>
-    </div>
-
+    <a href="stories.html" class="stories-btn">Read All Stories →</a>
   </div>
+</div>
 
-</main>
+<!-- PORTAL CTA -->
+<div class="portal-cta">
+  <h2>Ready to begin?</h2>
+  <p>Sign in with your Google account to access your personalised dashboard, track your progress, and start learning.</p>
+  <a href="https://script.google.com/macros/s/AKfycbwc0-62SrefMlpwxJtBXZN1ud4clOT0CC9wSgzndq4n6XC2z-5HrlE_idQ6OhSv1WxJsQ/exec" class="btn-primary" target="_blank">Enter Student Portal →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Physics Foundation — where Concepts Click &nbsp;·&nbsp; <a href="mailto:misra.ravikant@gmail.com">misra.ravikant@gmail.com</a> &nbsp;·&nbsp; <a href="https://github.com/Ravi-Kant-Misra/physics-portal">GitHub</a></p>
+</footer>
 
 </body>
 </html>

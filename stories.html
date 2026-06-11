@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stories of Science — Physics Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--blue:#1d4ed8;--dark:#0f172a;--bg:#f8faff;--muted:#64748b;--border:#bfdbfe;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);}
+    nav{background:rgba(15,23,42,0.97);position:sticky;top:0;z-index:100;padding:0 32px;}
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;height:56px;}
+    .nav-brand{font-size:.95rem;font-weight:900;color:white;text-decoration:none;margin-right:auto;}
+    .nav-brand span{color:#93c5fd;}
+    .nav-links{display:flex;gap:4px;}
+    .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.82rem;font-weight:700;padding:6px 12px;border-radius:8px;}
+    .nav-links a:hover,.nav-links a.active{background:rgba(255,255,255,.1);color:white;}
+    .nav-cta{background:#1d4ed8;color:white;text-decoration:none;font-size:.82rem;font-weight:800;padding:8px 18px;border-radius:8px;margin-left:12px;}
+    .hero{background:linear-gradient(135deg,#0f172a,#1e3a5f,#1d4ed8);color:white;padding:72px 32px 60px;text-align:center;}
+    .hero-chip{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:5px 18px;font-size:.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+    .hero h1{font-size:2.6rem;font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,#bfdbfe,#e0e7ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
+    .hero p{color:rgba(255,255,255,.7);font-size:1rem;max-width:560px;margin:0 auto;line-height:1.8;}
+    main{max-width:1100px;margin:0 auto;padding:56px 32px 80px;}
+    .intro{background:white;border-radius:16px;padding:32px;border:2px solid var(--border);margin-bottom:48px;font-size:.97rem;line-height:1.8;color:#374151;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+    .story-card{background:white;border-radius:16px;padding:28px;border:2px solid #e2e8f0;transition:border-color .15s,transform .15s;text-decoration:none;color:inherit;display:block;}
+    .story-card:hover{border-color:var(--border);transform:translateY(-2px);}
+    .story-card .icon{font-size:2rem;margin-bottom:14px;}
+    .story-card h3{font-size:1rem;font-weight:800;margin-bottom:8px;color:var(--dark);}
+    .story-card p{font-size:.87rem;color:var(--muted);line-height:1.7;}
+    .story-card .read{display:inline-block;margin-top:14px;font-size:.8rem;font-weight:800;color:var(--blue);}
+    @media(max-width:640px){.nav-links{display:none;}.hero h1{font-size:1.8rem;}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Physics Foundation <span>⚛️</span></a>
+    <div class="nav-links">
+      <a href="stories.html" class="active">Stories</a>
+      <a href="rules.html">Rules</a>
+      <a href="vision.html">Vision</a>
+      <a href="ideal-student.html">Ideal Student</a>
+      <a href="schedule.html">Schedule</a>
+    </div>
+    <a href="https://script.google.com/macros/s/AKfycbwc0-62SrefMlpwxJtBXZN1ud4clOT0CC9wSgzndq4n6XC2z-5HrlE_idQ6OhSv1WxJsQ/exec" class="nav-cta" target="_blank">Student Portal →</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-chip">Stories of Science</div>
+  <h1>Physics is a Human Story</h1>
+  <p>Before equations, there were people — curious, stubborn, brilliant people who changed how we see the world. These are their stories.</p>
+</div>
+<main>
+  <div class="intro">
+    Read these not as history lessons but as examples of what it looks like to think carefully, question assumptions, and push through confusion until something becomes clear. Every physicist you will study had a moment where nothing made sense — and kept going anyway.
+  </div>
+  <div class="grid">
+    <a href="t0-appendix/s0.2-stories/u00/lesson.html" class="story-card" id="intro">
+      <div class="icon">⚛️</div>
+      <h3>Introduction — What is Physics?</h3>
+      <p>Before we meet the scientists, we ask the question: what are we actually trying to do when we do physics?</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u01/lesson.html" class="story-card" id="galileo">
+      <div class="icon">🕰️</div>
+      <h3>Galileo & the Pendulum</h3>
+      <p>A cathedral, a swinging lamp, and the beginning of the science of motion. Galileo's first insight came not in a laboratory but in a church.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u02/lesson.html" class="story-card" id="newton">
+      <div class="icon">🍎</div>
+      <h3>Newton & the Apple</h3>
+      <p>The apple may be a myth — but the thinking that followed it changed everything. How one man connected a falling object to a orbiting moon.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u03/lesson.html" class="story-card" id="faraday">
+      <div class="icon">🧲</div>
+      <h3>Faraday & the Field</h3>
+      <p>A blacksmith's apprentice with no formal education rewrites the rules of electricity and magnetism — and invents the concept of a field.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u04/lesson.html" class="story-card" id="light">
+      <div class="icon">💡</div>
+      <h3>Light — Wave or Particle?</h3>
+      <p>The argument that split physicists for two centuries — and the quantum answer that turned out to be stranger than anyone expected.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u05/lesson.html" class="story-card" id="curie">
+      <div class="icon">☢️</div>
+      <h3>Marie & Pierre Curie</h3>
+      <p>Two scientists, one mission, and a discovery that changed medicine, energy, and our understanding of the atom.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u06/lesson.html" class="story-card" id="einstein">
+      <div class="icon">🌌</div>
+      <h3>Einstein & Relativity</h3>
+      <p>A 26-year-old patent clerk asks what it would look like to ride a beam of light — and nothing is the same again.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u07/lesson.html" class="story-card">
+      <div class="icon">🚗</div>
+      <h3>Einstein's Chauffeur</h3>
+      <p>A story about the difference between understanding something deeply and simply knowing the words. A lesson every student needs.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u08/lesson.html" class="story-card" id="schrodinger">
+      <div class="icon">🐱</div>
+      <h3>Schrödinger's Cat</h3>
+      <p>A cat simultaneously alive and dead — and what this thought experiment tells us about the deeply strange rules of quantum mechanics.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u09/lesson.html" class="story-card" id="meitner">
+      <div class="icon">⚡</div>
+      <h3>Lise Meitner</h3>
+      <p>The woman who explained nuclear fission — and was written out of the Nobel Prize that followed. One of physics' greatest injustices.</p>
+      <span class="read">Read the story →</span>
+    </a>
+    <a href="t0-appendix/s0.2-stories/u10/lesson.html" class="story-card" id="bose">
+      <div class="icon">🌟</div>
+      <h3>Satyendra Bose</h3>
+      <p>An Indian physicist writes a letter to Einstein — and together they discover a new state of matter that only exists near absolute zero.</p>
+      <span class="read">Read the story →</span>
+    </a>
+  </div>
+</main>
+<footer style="background:#0f172a;color:rgba(255,255,255,.4);text-align:center;padding:24px 32px;font-size:.82rem;">
+  Physics Foundation — where Concepts Click &nbsp;·&nbsp; <a href="mailto:misra.ravikant@gmail.com" style="color:rgba(255,255,255,.6);text-decoration:none;">misra.ravikant@gmail.com</a>
+</footer>
+</body>
+</html>
