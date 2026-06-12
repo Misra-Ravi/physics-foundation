@@ -28,8 +28,9 @@ function doGet(e) {
 
   var action = e && e.parameter && e.parameter.action ? e.parameter.action : 'dashboard';
 
-  if (action === 'unlock')       return _adminActionUnlock(e);
-  if (action === 'addStudent')   return _adminActionAddStudent(e);
+  if (action === 'unlock')          return _adminActionUnlock(e);
+  if (action === 'addStudent')      return _adminActionAddStudent(e);
+  if (action === 'deactivateStudent') return _adminActionDeactivate(e);
 
   return _adminDashboard();
 }
@@ -98,8 +99,11 @@ function _adminDashboard() {
       '<td style="font-size:.8rem;">'+s.ParentEmail+'</td>'+
       '<td>'+done+' ✅ / '+available+' 📖</td>'+
       '<td>'+daysLabel+'</td>'+
-      '<td><a href="mailto:'+s.StudentEmail+'" class="btn-sm" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">Email</a>'+
-      ' <a href="mailto:'+s.ParentEmail+'" class="btn-sm" style="background:#f0fdf4;color:#15803d;border:1px solid #86efac;">Parent</a></td>'+
+      '<td>'+
+        '<a href="mailto:'+s.StudentEmail+'" class="btn-sm" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">Email</a> '+
+        '<a href="mailto:'+s.ParentEmail+'" class="btn-sm" style="background:#f0fdf4;color:#15803d;border:1px solid #86efac;">Parent</a> '+
+        '<a href="?action=deactivateStudent&sid='+s.StudentID+'" class="btn-sm" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;" onclick="return confirm(\'Remove '+s.StudentName+' from the portal? Their progress will be kept but they will no longer appear in the dashboard.\')">✕ Remove</a>'+
+      '</td>'+
       '</tr>';
   }).join('');
 
@@ -402,6 +406,41 @@ function _adminActionAddStudent(e) {
     '<p style="margin-top:16px;font-size:.82rem;color:rgba(255,255,255,.4);">Returning to dashboard in 4 seconds...</p>'+
     '<div class="progress-bar"><div class="progress-fill"></div></div>'+
     '</div></body></html>'
+  );
+}
+
+// ─── ACTION: DEACTIVATE STUDENT ───────────────────────────────────────────────
+function _adminActionDeactivate(e) {
+  var sid = e.parameter.sid;
+  var cfg = _cfg();
+  var ss  = SpreadsheetApp.openById(cfg.SHEET_ID);
+  var sh  = ss.getSheetByName('Roster');
+  var data = sh.getDataRange().getValues();
+
+  var found = false;
+  var name  = sid;
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] === sid) {
+      sh.getRange(i+1, 7).setValue(false); // Set Active = FALSE
+      name = data[i][1];
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    return HtmlService.createHtmlOutput(
+      '<html><head><meta http-equiv="refresh" content="2;url=?"></head>'+
+      '<body style="font-family:sans-serif;text-align:center;padding:60px;background:#0f172a;color:white;">'+
+      '<h2>⚠️ Student '+sid+' not found.</h2></body></html>'
+    );
+  }
+
+  return HtmlService.createHtmlOutput(
+    '<html><head><meta http-equiv="refresh" content="2;url=?">'+
+    '<style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#0f172a;color:white;text-align:center;}</style></head>'+
+    '<body><div><h2>✅ '+name+' removed</h2>'+
+    '<p>Student set to inactive. Their progress history is preserved.<br>Redirecting...</p></div></body></html>'
   );
 }
 
