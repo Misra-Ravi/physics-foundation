@@ -35,11 +35,11 @@ function doGet(e) {
   if (action === 'addStudent')        return _adminActionAddStudent(e, baseUrl);
   if (action === 'deactivateStudent') return _adminActionDeactivate(e, baseUrl);
 
-  return _adminDashboard();
+  return _adminDashboard(baseUrl);
 }
 
 // ─── MAIN DASHBOARD ───────────────────────────────────────────────────────────
-function _adminDashboard() {
+function _adminDashboard(baseUrl) {
   var cfg      = _cfg();
   var ss       = SpreadsheetApp.openById(cfg.SHEET_ID);
   var students = _students(ss);
@@ -105,7 +105,7 @@ function _adminDashboard() {
       '<td>'+
         '<a href="mailto:'+s.StudentEmail+'" class="btn-sm" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">Email</a> '+
         '<a href="mailto:'+s.ParentEmail+'" class="btn-sm" style="background:#f0fdf4;color:#15803d;border:1px solid #86efac;">Parent</a> '+
-        '<a href="?action=deactivateStudent&sid='+s.StudentID+'" class="btn-sm" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;" onclick="return confirm(\'Remove '+s.StudentName+' from the portal? Their progress will be kept but they will no longer appear in the dashboard.\')">✕ Remove</a>'+
+        '<a href="'+baseUrl+'?action=deactivateStudent&sid='+s.StudentID+'" class="btn-sm" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;" onclick="return confirm(\'Remove '+s.StudentName+' from the portal? Their progress will be kept but they will no longer appear in the dashboard.\')">✕ Remove</a>'+
       '</td>'+
       '</tr>';
   }).join('');
@@ -154,7 +154,7 @@ function _adminDashboard() {
       pendingRows += '<tr><td>'+student.StudentName+'</td><td>'+p.UnitID+'</td>'+
         '<td>'+(u?u.UnitName:'')+'</td><td>'+_formatDate(p.HomeworkSubmittedAt)+'</td>'+
         '<td>'+(p.HomeworkDriveURL?'<a href="'+p.HomeworkDriveURL+'" target="_blank">View</a>':'—')+'</td>'+
-        '<td><a href="?action=unlock&sid='+student.StudentID+'&uid='+p.UnitID+'" class="btn-sm btn-green" onclick="return confirm(\'Mark complete and unlock next unit for '+student.StudentName+'?\')">✅ Approve &amp; Unlock Next</a></td></tr>';
+        '<td><a href='+baseUrl+'?action=unlock&sid='+student.StudentID+'&uid='+p.UnitID+'" class="btn-sm btn-green" onclick="return confirm(\'Mark complete and unlock next unit for '+student.StudentName+'?\')">✅ Approve &amp; Unlock Next</a></td></tr>';
     });
   });
   if (!pendingRows) pendingRows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px;">No pending submissions</td></tr>';
@@ -189,7 +189,7 @@ function _adminDashboard() {
       var p = progMap[u.UnitID] || {Status:'locked'};
       var status = p.Status||'locked';
       var canUnlock = (status==='locked'||status==='corrections');
-      var unlockBtn = canUnlock?'<a href="?action=unlock&sid='+student.StudentID+'&uid='+u.UnitID+'" class="unlock-btn" onclick="return confirm(\'Unlock '+u.UnitName+' for '+student.StudentName+'?\')">unlock</a>':'';
+      var unlockBtn = canUnlock?'<a href='+baseUrl+'?action=unlock&sid='+student.StudentID+'&uid='+u.UnitID+'" class="unlock-btn" onclick="return confirm(\'Unlock '+u.UnitName+' for '+student.StudentName+'?\')">unlock</a>':'';
       return '<td style="background:'+(statusBg[status]||'#f1f5f9')+';text-align:center;" title="'+student.StudentName+' — '+u.UnitName+': '+status+'">'+(statusIcon[status]||'🔒')+'<br>'+unlockBtn+'</td>';
     }).join('');
     return '<tr><td class="sticky-col"><strong>'+student.StudentName+'</strong></td>'+cells+'</tr>';
@@ -215,7 +215,7 @@ function _adminDashboard() {
     '<div><div class="lbl">Physics Foundations — Admin Dashboard</div><h1>Command Centre</h1></div>'+
     '<div style="display:flex;align-items:center;gap:16px;">'+
     '<span style="color:rgba(255,255,255,.4);font-size:.75rem;">Last refresh: '+lastRefresh+'</span>'+
-    '<a href="?" class="back-link" style="background:rgba(255,255,255,.1);padding:6px 14px;border-radius:8px;">🔄 Refresh</a>'+
+    '<a href="'+baseUrl+'" class="back-link" style="background:rgba(255,255,255,.1);padding:6px 14px;border-radius:8px;">🔄 Refresh</a>'+
     '<a href="https://misra-ravi.github.io/physics-foundation/class-schedule.html" target="_blank" class="back-link">📅 Schedule</a>'+
     '<a href="https://misra-ravi.github.io/physics-foundation/" target="_blank" class="back-link">← Site</a>'+
     '</div>'+
@@ -243,7 +243,7 @@ function _adminDashboard() {
     // Add student
     '<section>'+
     '<h2>Add New Student</h2>'+
-    '<form action="?action=addStudent" method="get" class="add-form">'+
+    '<form action="'+baseUrl+'?action=addStudent" method="get" class="add-form">'+
     '<input type="hidden" name="action" value="addStudent">'+
     '<div class="form-grid">'+
     '<input name="sid"         placeholder="Student ID (e.g. s004)"   required>'+
