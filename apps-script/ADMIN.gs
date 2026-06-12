@@ -218,7 +218,7 @@ function _buildDashboard() {
       '<div><div class="lbl">Physics Foundations Admin</div><h1>Dashboard</h1></div>' +
       '<div style="display:flex;gap:10px;align-items:center">' +
         '<span style="color:rgba(255,255,255,.35);font-size:.7rem">'+_fd(now)+'</span>' +
-        '<button class="bl" onclick="location.reload()">🔄 Refresh</button>' +
+        '<button class="bl" onclick="doRefresh()">🔄 Refresh</button>' +
         '<a href="https://misra-ravi.github.io/physics-foundation/class-schedule.html" target="_blank" class="bl">📅 Schedule</a>' +
         '<a href="https://misra-ravi.github.io/physics-foundation/" target="_blank" class="bl">← Site</a>' +
       '</div>' +
@@ -270,6 +270,10 @@ function _buildDashboard() {
     '<script>' +
     'function showOverlay(icon,msg){var o=document.getElementById("overlay");document.getElementById("ov_icon").textContent=icon;document.getElementById("ov_msg").innerHTML=msg;o.style.display="flex";}' +
     'function hideOverlay(){document.getElementById("overlay").style.display="none";}' +
+    'function doRefresh(){' +
+      'showOverlay("⏳","Refreshing dashboard...");' +
+      'google.script.run.withSuccessHandler(function(html){document.open();document.write(html);document.close();}).withFailureHandler(fail).getAdminHtml();' +
+    '}' +
     'function done(r){' +
       'hideOverlay();' +
       'if(r&&r.ok===false){alert("Error: "+r.msg);}' +
