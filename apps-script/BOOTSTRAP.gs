@@ -738,13 +738,13 @@ function _unitCard(unit, prog, hwFormUrl) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // EMAIL TEMPLATES
 // ═══════════════════════════════════════════════════════════════════════════════
-var _ES='<style>@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");body{font-family:Nunito,Arial,sans-serif;background:#f8faff;margin:0;padding:0;}.w{max-width:560px;margin:32px auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);}.h{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:white;padding:32px 36px;}.h .lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;opacity:.8;margin-bottom:6px;}.h h1{font-size:1.35rem;font-weight:800;margin:0;}.b{padding:32px 36px;color:#1a1a2e;font-size:.94rem;line-height:1.7;}.badge{background:#eff6ff;border:2px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin:18px 0;font-weight:700;color:#1d4ed8;}.btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;}.bg{background:#22c55e;color:white;}.br{background:#ef4444;color:white;}.bb{background:#1d4ed8;color:white;}.note{font-size:.8rem;color:#64748b;margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;}.fb{background:#fff7ed;border:2px solid #fed7aa;border-radius:10px;padding:14px 18px;margin:16px 0;color:#92400e;}</style>';
+var _ES='<style>@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");body{font-family:Nunito,Arial,sans-serif;background:#f8faff;margin:0;padding:0;}.w{max-width:560px;margin:32px auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);}.h{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:white;padding:32px 36px;}.h .lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;opacity:.8;margin-bottom:6px;}.h h1{font-size:1.35rem;font-weight:800;margin:0;}.b{padding:32px 36px;color:#1a1a2e;font-size:.94rem;line-height:1.7;}.badge{background:#eff6ff;border:2px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin:18px 0;font-weight:700;color:#1d4ed8;}.btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none!important;margin:6px 6px 6px 0;}.bg{background:#22c55e!important;color:white!important;}.br{background:#ef4444!important;color:white!important;}.bb{background:#1d4ed8!important;color:white!important;border:none;}.note{font-size:.8rem;color:#64748b;margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;}.fb{background:#fff7ed;border:2px solid #fed7aa;border-radius:10px;padding:14px 18px;margin:16px 0;color:#92400e;}</style>';
 
 function _parentEmail(student,unit,fileUrl,approvalUrl,notes,fileAttached){
   var keyUrl = unit.HomeworkURL ? unit.HomeworkURL + '?key=show' : '';
   var attachmentNote = fileAttached
     ? '<div class="badge" style="background:#dcfce7;border-color:#86efac;color:#15803d;">📎 '+student.StudentName+'\'s homework is attached to this email</div>'
-    : (fileUrl ? '<p><a href="'+fileUrl+'" class="btn bb">View '+student.StudentName+'\'s Homework →</a></p>' : '');
+    : (fileUrl ? '<p><a href="'+fileUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">View '+student.StudentName+'\'s Homework →</a></p>' : '');
 
   return '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
     '<div class="h"><div class="lbl">Physics Foundations by Ravi</div><h1>'+student.StudentName+' submitted homework</h1></div>'+
@@ -753,12 +753,12 @@ function _parentEmail(student,unit,fileUrl,approvalUrl,notes,fileAttached){
     '<div class="badge">📖 '+unit.SectionNum+' '+unit.SectionName+' — '+unit.UnitName+'</div>'+
     attachmentNote+
     '<div class="badge" style="background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;">🔑 The answer key is available — click the button below to check '+student.StudentName+'\'s work</div>'+
-    (keyUrl?'<p><a href="'+keyUrl+'" class="btn bb">🔑 Open Answer Key →</a></p>':'')+
+    (keyUrl?'<p><a href="'+keyUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">🔑 Open Answer Key →</a></p>':'')+
     '<p>Once you have reviewed the work, please click one of the buttons below:</p>'+
     (notes?'<div class="fb"><strong>Note from '+student.StudentName+':</strong><br>'+notes+'</div>':'')+
     '<p>'+
-    '<a href="'+approvalUrl+'" class="btn bg">✅ Approve &amp; Record</a> '+
-    '<a href="'+approvalUrl+'" class="btn br">❌ Request Corrections</a>'+
+    '<a href="'+approvalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#22c55e;color:#ffffff;">✅ Approve &amp; Record</a> '+
+    '<a href="'+approvalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#ef4444;color:#ffffff;">❌ Request Corrections</a>'+
     '</p>'+
     '<p class="note">These links open a short Google Form to record your decision. The next unit will be unlocked by the teacher after review.</p>'+
     '</div></div></body></html>';
@@ -766,7 +766,7 @@ function _parentEmail(student,unit,fileUrl,approvalUrl,notes,fileAttached){
 
 function _approvalEmail(student,unit,nextUnit){
   var nxt=nextUnit&&nextUnit.LessonURL
-    ?'<p>Your next chapter is now unlocked:</p><div class="badge">🔓 '+nextUnit.SectionNum+' '+nextUnit.SectionName+' — '+nextUnit.UnitName+'</div><p><a href="'+nextUnit.LessonURL+'" class="btn bb">Start '+nextUnit.UnitName+' →</a></p>'
+    ?'<p>Your next chapter is now unlocked:</p><div class="badge">🔓 '+nextUnit.SectionNum+' '+nextUnit.SectionName+' — '+nextUnit.UnitName+'</div><p><a href="'+nextUnit.LessonURL+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Start '+nextUnit.UnitName+' →</a></p>'
     :'<p>You\'ve completed all available units — well done! 🎉</p>';
   return '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
     '<div class="h"><div class="lbl">IB Physics Portal</div><h1>Chapter Approved ✅</h1></div>'+
@@ -784,7 +784,7 @@ function _correctionsEmail(student,unit,comments,parentName,resubUrl){
     '<div class="badge">📖 '+unit.UnitName+'</div>'+
     '<p>'+(parentName||'Your parent')+' has some feedback:</p>'+
     '<div class="fb">'+(comments||'Please review and redo your homework.')+'</div>'+
-    '<p><a href="'+resubUrl+'" class="btn bb">📤 Resubmit Homework →</a></p>'+
+    '<p><a href="'+resubUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">📤 Resubmit Homework →</a></p>'+
     '<p class="note">Your next chapter will unlock once your teacher reviews your progress.</p>'+
     '</div></div></body></html>';
 }
@@ -816,7 +816,7 @@ function _sendWelcomeEmail(ss, rowData) {
     '5. Your parent reviews your work — next unit unlocks when approved</p>'+
     '<div class="badge">📋 What to Bring Every Session</div>'+
     '<p>— A pen and notebook for working<br>— A binder to organise all printed sheets<br>— <strong>Instruction Sheet</strong> (provided by teacher)<br>— <strong>Classwork Sheet</strong> for the unit<br>— <strong>Homework Sheet</strong> for the unit<br>— Your device to access the portal</p>'+
-    '<p><a href="'+portalUrl+'" class="btn bb">Enter Your Portal →</a></p>'+
+    '<p><a href="'+portalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;background:#1d4ed8;color:#ffffff;margin:6px 0;">Enter Your Portal →</a></p>'+
     '<p class="note">Sign in with this email address: <strong>'+email+'</strong></p>'+
     '</div></div></body></html>';
 
@@ -832,7 +832,7 @@ function _sendWelcomeEmail(ss, rowData) {
     '<div class="badge">🖨️ Printed Materials</div>'+
     '<p>'+name+' will need to <strong>print homework sheets</strong> for each unit. Please ensure they have:<br>'+
     '— A binder to organise all printed sheets<br>— A pen and notebook<br>— <strong>Printed Instruction Sheet</strong> (provided by teacher)<br>— <strong>Printed Classwork Sheet</strong> for each unit<br>— <strong>Printed Homework Sheet</strong> for each unit</p>'+
-    '<p><a href="'+siteUrl+'" class="btn bb">Visit the Class Site →</a></p>'+
+    '<p><a href="'+siteUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Visit the Class Site →</a></p>'+
     '<p class="note">Your child\'s portal is at: <strong>'+portalUrl+'</strong></p>'+
     '</div></div></body></html>';
 
@@ -1115,7 +1115,7 @@ function _unlockEmailHtml(student, unit, audience) {
       '<p>Your child\'s teacher has unlocked a new unit for <strong>'+student.StudentName+'</strong>:</p>'+
       '<div class="badge">🔓 '+unit.SectionNum+' '+unit.SectionName+' — '+unit.UnitName+'</div>'+
       '<p><strong>You are welcome to review this unit in advance</strong> before the class session:</p>'+
-      (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" class="btn bb">Preview Lesson →</a></p>' : '')+
+      (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Preview Lesson →</a></p>' : '')+
       '<div class="badge">📋 What '+student.StudentName+' needs to bring</div>'+
       '<p>— Binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet</strong> for this unit</p>'+
       '<p class="note">'+student.StudentName+' will complete this unit in the upcoming class session. Once homework is submitted you will receive the answer key for review.</p>'+
@@ -1127,11 +1127,11 @@ function _unlockEmailHtml(student, unit, audience) {
     '<div class="b"><p>Hi '+student.StudentName+',</p>'+
     '<p>Your teacher has unlocked your next unit:</p>'+
     '<div class="badge">🔓 '+unit.SectionNum+' '+unit.SectionName+' — '+unit.UnitName+'</div>'+
-    (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" class="btn bb">Preview Lesson →</a></p>' : '')+
+    (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Preview Lesson →</a></p>' : '')+
     '<p>You are welcome to <strong>read the lesson in advance</strong> before your class session.</p>'+
     '<div class="badge">📋 Remember to bring</div>'+
     '<p>— Your binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet</strong> for this unit</p>'+
-    '<p><a href="'+portalUrl+'" class="btn bb">Open Your Portal →</a></p>'+
+    '<p><a href="'+portalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Open Your Portal →</a></p>'+
     '<p class="note">Your dashboard has been updated. Sign in to see your progress.</p>'+
     '</div></div></body></html>';
 }
