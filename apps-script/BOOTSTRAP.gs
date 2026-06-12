@@ -860,6 +860,9 @@ function _sendWelcomeEmail(ss, rowData) {
 // ADMIN MENU — appears in Google Sheets under Extensions
 // ═══════════════════════════════════════════════════════════════════════════════
 function onOpen() {
+  // Auto-clean empty Roster rows every time the sheet is opened
+  try { _cleanRoster(); } catch(e) { Logger.log('Roster cleanup skipped: '+e); }
+
   SpreadsheetApp.getUi()
     .createMenu('⚛️ Physics Portal Admin')
     .addItem('Unlock next unit for a student',  'adminUnlockNext')
@@ -868,8 +871,97 @@ function onOpen() {
     .addItem('Re-send welcome email',            'adminResendWelcome')
     .addSeparator()
     .addItem('📧 Test email delivery',           'testEmailDelivery')
+    .addItem('🔧 Clean & sync Roster',           'cleanAndSync')
     .addItem('Seed progress (new students)',      'seedProgress')
     .addToUi();
+}
+
+// ── Roster self-healing — runs automatically on open ──────────────────────────
+function _cleanRoster() {
+  var ss   = SpreadsheetApp.getActiveSpreadsheet();
+  var sh   = ss.getSheetByName('Roster');
+  if (!sh) return;
+  var data = sh.getDataRange().getValues();
+  var hdr  = data[0];
+
+  // Keep header + any row that has a non-empty StudentID
+  var keep = [hdr].concat(data.slice(1).filter(function(r){
+    return r[0] && String(r[0]).trim() !== '';
+  }));
+
+  // Only rewrite if something changed
+  if (keep.length < data.length) {
+    sh.clearContents();
+    sh.getRange(1, 1, keep.length, hdr.length).setValues(keep);
+    sh.getRange(2, 7, 100, 1).setDataValidation(
+      SpreadsheetApp.newDataValidation().requireCheckbox().build()
+    );
+    sh.setFrozenRows(1);
+    Logger.log('_cleanRoster: removed '+(data.length - keep.length)+' empty rows.');
+  }
+}
+
+// ── Manual clean + sync from Admin menu ───────────────────────────────────────
+function cleanAndSync() {
+  var ss = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var sh = ss.getSheetByName('Roster');
+  var data = sh.getDataRange().getValues();
+  var hdr  = data[0];
+
+  // Remove empty rows
+  var keep = [hdr].concat(data.slice(1).filter(function(r){
+    return r[0] && String(r[0]).trim() !== '';
+  }));
+  sh.clearContents();
+  sh.getRange(1, 1, keep.length, hdr.length).setValues(keep);
+  sh.getRange(2, 7, 100, 1).setDataValidation(
+    SpreadsheetApp.newDataValidation().requireCheckbox().build()
+  );
+  sh.setFrozenRows(1);
+
+  // Find active students who have no progress rows
+  var activeStudents = keep.slice(1).filter(function(r){
+    return r[6] === true || String(r[6]).toUpperCase() === 'TRUE';
+  });
+  var progSh   = ss.getSheetByName('Progress');
+  var progData = progSh.getDataRange().getValues();
+  var seeded   = {};
+  progData.slice(1).forEach(function(r){ seeded[r[1]] = true; });
+
+  var units = ss.getSheetByName('Units').getDataRange().getValues().slice(1);
+  var newRows = [];
+  var added   = [];
+
+  activeStudents.forEach(function(s) {
+    var sid = String(s[0]).trim();
+    if (!seeded[sid]) {
+      units.forEach(function(u, idx) {
+        newRows.push([sid+'_'+u[0], sid, u[0], idx<3?'available':'locked','','','','','','','','']);
+      });
+      added.push(sid);
+    }
+  });
+
+  if (newRows.length > 0) {
+    progSh.getRange(progSh.getLastRow()+1, 1, newRows.length, 12).setValues(newRows);
+  }
+
+  // Also remove orphaned progress rows (student no longer in Roster)
+  var validIds = keep.slice(1).map(function(r){ return String(r[0]).trim(); });
+  var allProg  = progSh.getDataRange().getValues();
+  var cleanProg = [allProg[0]].concat(allProg.slice(1).filter(function(r){
+    return validIds.indexOf(String(r[1]).trim()) >= 0;
+  }));
+  if (cleanProg.length < allProg.length) {
+    progSh.clearContents();
+    if (cleanProg.length > 0) progSh.getRange(1, 1, cleanProg.length, cleanProg[0].length).setValues(cleanProg);
+  }
+
+  var ui = SpreadsheetApp.getUi();
+  var msg = 'Roster: '+keep.length-1+' active students.\n';
+  msg += added.length > 0 ? 'Progress seeded for: '+added.join(', ')+'.\n' : 'All students already have progress rows.\n';
+  msg += 'Orphaned progress rows removed: '+(allProg.length - cleanProg.length)+'.\n';
+  ui.alert('✅ Sync Complete', msg, ui.ButtonSet.OK);
 }
 
 // ── Unlock next locked unit for a student ─────────────────────────────────────
