@@ -815,7 +815,7 @@ function _sendWelcomeEmail(ss, rowData) {
     '4. <strong>Submit a photo</strong> of your completed homework via the portal<br>'+
     '5. Your parent reviews your work — next unit unlocks when approved</p>'+
     '<div class="badge">📋 What to Bring Every Session</div>'+
-    '<p>— A pen<br>— A notebook<br>— A binder to keep your printed sheets<br>— Your device to access the portal</p>'+
+    '<p>— A pen and notebook for working<br>— A binder to organise all printed sheets<br>— <strong>Instruction Sheet</strong> (provided by teacher)<br>— <strong>Classwork Sheet</strong> for the unit<br>— <strong>Homework Sheet</strong> for the unit<br>— Your device to access the portal</p>'+
     '<p><a href="'+portalUrl+'" class="btn bb">Enter Your Portal →</a></p>'+
     '<p class="note">Sign in with this email address: <strong>'+email+'</strong></p>'+
     '</div></div></body></html>';
@@ -831,7 +831,7 @@ function _sendWelcomeEmail(ss, rowData) {
     '<p>The next unit unlocks only after your teacher has reviewed progress — keeping learning structured and accountable.</p>'+
     '<div class="badge">🖨️ Printed Materials</div>'+
     '<p>'+name+' will need to <strong>print homework sheets</strong> for each unit. Please ensure they have:<br>'+
-    '— A binder to organise printed sheets<br>— A notebook for working<br>— A pen</p>'+
+    '— A binder to organise all printed sheets<br>— A pen and notebook<br>— <strong>Printed Instruction Sheet</strong> (provided by teacher)<br>— <strong>Printed Classwork Sheet</strong> for each unit<br>— <strong>Printed Homework Sheet</strong> for each unit</p>'+
     '<p><a href="'+siteUrl+'" class="btn bb">Visit the Class Site →</a></p>'+
     '<p class="note">Your child\'s portal is at: <strong>'+portalUrl+'</strong></p>'+
     '</div></div></body></html>';
@@ -1025,7 +1025,7 @@ function _unlockEmailHtml(student, unit, audience) {
       '<p><strong>You are welcome to review this unit in advance</strong> before the class session:</p>'+
       (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" class="btn bb">Preview Lesson →</a></p>' : '')+
       '<div class="badge">📋 What '+student.StudentName+' needs to bring</div>'+
-      '<p>— Binder with printed homework sheets<br>— A pen<br>— Notebook</p>'+
+      '<p>— Binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet</strong> for this unit</p>'+
       '<p class="note">'+student.StudentName+' will complete this unit in the upcoming class session. Once homework is submitted you will receive the answer key for review.</p>'+
       '</div></div></body></html>';
   }
@@ -1038,7 +1038,7 @@ function _unlockEmailHtml(student, unit, audience) {
     (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" class="btn bb">Preview Lesson →</a></p>' : '')+
     '<p>You are welcome to <strong>read the lesson in advance</strong> before your class session.</p>'+
     '<div class="badge">📋 Remember to bring</div>'+
-    '<p>— Your binder with printed homework sheets<br>— A pen<br>— Your notebook</p>'+
+    '<p>— Your binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet</strong> for this unit</p>'+
     '<p><a href="'+portalUrl+'" class="btn bb">Open Your Portal →</a></p>'+
     '<p class="note">Your dashboard has been updated. Sign in to see your progress.</p>'+
     '</div></div></body></html>';
