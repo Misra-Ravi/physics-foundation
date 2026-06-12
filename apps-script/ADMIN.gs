@@ -96,7 +96,6 @@ function adminRemove(sid) {
 
   SpreadsheetApp.flush();
   return {ok: true, msg: name + ' removed. Roster row and ' + toDelete.length + ' progress rows deleted. ID is now free to reuse.'};
-}  return {ok: false, msg: 'Student ID ' + sid + ' not found.'};
 }
 
 function getAdminHtml() {
