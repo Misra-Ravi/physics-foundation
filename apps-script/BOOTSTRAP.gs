@@ -807,15 +807,16 @@ function _sendWelcomeEmail(ss, rowData) {
     '<div class="b">'+
     '<p>You have been enrolled in <strong>Physics Foundations by Ravi</strong>.</p>'+
     '<p>Your first 3 units are already unlocked and waiting for you.</p>'+
-    '<div class="badge">📖 Your Learning Journey</div>'+
-    '<p><strong>For each unit you will:</strong></p>'+
+    '<div class="badge">🗺️ Your Learning Journey — How Each Unit Works</div>'+
+    '<p><strong>In class with your teacher:</strong></p>'+
     '<p>1. Read the <strong>Lesson</strong> — understand the concept<br>'+
-    '2. Complete <strong>Classwork</strong> — practice in class<br>'+
-    '3. Print and complete the <strong>Homework sheet</strong> — work independently<br>'+
-    '4. <strong>Submit a photo</strong> of your completed homework via the portal<br>'+
-    '5. Your parent reviews your work — next unit unlocks when approved</p>'+
-    '<div class="badge">📋 What to Bring Every Session</div>'+
-    '<p>— A pen and notebook for working<br>— A binder to organise all printed sheets<br>— <strong>Instruction Sheet</strong> (provided by teacher)<br>— <strong>Classwork Sheet</strong> for the unit<br>— <strong>Homework Sheet</strong> for the unit<br>— Your device to access the portal</p>'+
+    '2. Complete <strong>Classwork</strong> — practise with your teacher</p>'+
+    '<p><strong>At home after class:</strong></p>'+
+    '<p>3. Print and complete the <strong>Homework sheet</strong> — work independently<br>'+
+    '4. <strong>Upload a photo</strong> of your completed homework via the portal<br>'+
+    '5. Your parent reviews your work — your teacher unlocks the next unit when ready</p>'+
+    '<div class="badge">🎒 What to Bring Every Session</div>'+
+    '<p>— A pen and notebook for working<br>— A binder to organise all printed sheets<br>— <strong>Instruction Sheet</strong> (provided by teacher)<br>— <strong>Classwork Sheet</strong> for the unit<br>— <strong>Homework Sheet for the last class</strong><br>— Your device to access the portal</p>'+
     '<p><a href="'+portalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;background:#1d4ed8;color:#ffffff;margin:6px 0;">Enter Your Portal →</a></p>'+
     '<p class="note">Sign in with this email address: <strong>'+email+'</strong></p>'+
     '</div></div></body></html>';
@@ -825,7 +826,7 @@ function _sendWelcomeEmail(ss, rowData) {
     '<div class="b">'+
     '<p>Dear '+parentName+',</p>'+
     '<p><strong>'+name+'</strong> has been enrolled in Physics Foundations by Ravi.</p>'+
-    '<div class="badge">📋 How the Portal Works</div>'+
+    '<div class="badge">🗺️ How the Portal Works</div>'+
     '<p>For each unit, '+name+' will complete a lesson, classwork in class, and homework independently. '+
     'When homework is submitted, <strong>you will receive an email with the answer key</strong> and buttons to approve or request corrections.</p>'+
     '<p>The next unit unlocks only after your teacher has reviewed progress — keeping learning structured and accountable.</p>'+
@@ -1116,8 +1117,8 @@ function _unlockEmailHtml(student, unit, audience) {
       '<div class="badge">🔓 '+unit.SectionNum+' '+unit.SectionName+' — '+unit.UnitName+'</div>'+
       '<p><strong>You are welcome to review this unit in advance</strong> before the class session:</p>'+
       (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Preview Lesson →</a></p>' : '')+
-      '<div class="badge">📋 What '+student.StudentName+' needs to bring</div>'+
-      '<p>— Binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet</strong> for this unit</p>'+
+      '<div class="badge">🎒 What '+student.StudentName+' needs to bring</div>'+
+      '<p>— Binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet for the last class</strong></p>'+
       '<p class="note">'+student.StudentName+' will complete this unit in the upcoming class session. Once homework is submitted you will receive the answer key for review.</p>'+
       '</div></div></body></html>';
   }
@@ -1129,8 +1130,8 @@ function _unlockEmailHtml(student, unit, audience) {
     '<div class="badge">🔓 '+unit.SectionNum+' '+unit.SectionName+' — '+unit.UnitName+'</div>'+
     (unit.LessonURL ? '<p><a href="'+unit.LessonURL+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Preview Lesson →</a></p>' : '')+
     '<p>You are welcome to <strong>read the lesson in advance</strong> before your class session.</p>'+
-    '<div class="badge">📋 Remember to bring</div>'+
-    '<p>— Your binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet</strong> for this unit</p>'+
+    '<div class="badge">🎒 Remember to bring</div>'+
+    '<p>— Your binder with all printed sheets<br>— A pen and notebook<br>— <strong>Instruction Sheet</strong> (from teacher)<br>— <strong>Classwork Sheet</strong> for this unit<br>— <strong>Homework Sheet for the last class</strong></p>'+
     '<p><a href="'+portalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Open Your Portal →</a></p>'+
     '<p class="note">Your dashboard has been updated. Sign in to see your progress.</p>'+
     '</div></div></body></html>';
