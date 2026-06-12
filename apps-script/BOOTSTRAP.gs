@@ -314,9 +314,10 @@ function _createHomeworkForm(folder, ss) {
   q2.setTitle('Unit completed').setRequired(true);
   q2.setChoiceValues(unitLabels.length > 0 ? unitLabels : ['0.1.01 — Significant Figures']);
 
-  // Q3 — Homework link (file upload not available via Apps Script API)
-  var q3p = form.addParagraphTextItem();
-  q3p.setTitle('Paste a link to your homework (Google Drive share link or photo link)').setRequired(true);
+  // Q3 — File upload (saves to Drive, attached to parent email)
+  var q3 = form.addFileUploadItem();
+  q3.setTitle('Upload your completed homework (photo or PDF)').setRequired(true);
+  q3.setAllowedFileTypes([FormApp.FileType.IMAGE, FormApp.FileType.PDF]);
 
   // Q4 — Confirmation
   var q4 = form.addCheckboxItem();
@@ -515,7 +516,6 @@ function onHomeworkSubmit(e) {
 
   var studentName = _first(row['Your name']);
   var unitLabel   = _first(row['Unit completed']);
-  var fileUrl     = _first(row['Paste a link to your homework (Google Drive share link or photo link)']);
   var notes       = _first(row['Anything you found difficult? (optional)']) || '';
   var unitId      = unitLabel ? unitLabel.split(' — ')[0].trim() : '';
 
@@ -526,20 +526,66 @@ function onHomeworkSubmit(e) {
   var prog = _prog(ss, student.StudentID, unitId);
   if (prog && ['awaiting_review','complete'].indexOf(prog.Status) >= 0) { Logger.log('Duplicate ignored'); return; }
 
+  // ── Handle uploaded file ──────────────────────────────────────────────────────
+  var uploadedBlob = null;
+  var savedFileUrl = '';
+  var uploadTitle  = 'Upload your completed homework (photo or PDF)';
+
+  try {
+    var uploadedUrls = row[uploadTitle] || [];
+    if (uploadedUrls.length > 0) {
+      // Google Forms stores file upload as Drive file URL
+      var fileId = uploadedUrls[0].match(/[-\w]{25,}/);
+      if (fileId) {
+        var uploadedFile = DriveApp.getFileById(fileId[0]);
+        // Copy to Student Submissions folder so we own it
+        var destFolder = _getOrCreateStudentFolder(student.StudentName);
+        var datestamp  = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
+        var savedFile  = uploadedFile.makeCopy(
+          student.StudentName + ' — ' + unit.UnitName + ' — ' + datestamp,
+          destFolder
+        );
+        savedFileUrl  = savedFile.getUrl();
+        uploadedBlob  = savedFile.getBlob().setName(
+          student.StudentName.replace(/\s/g,'_') + '_' + unitId + '_homework' +
+          (savedFile.getMimeType().indexOf('pdf') >= 0 ? '.pdf' : '.jpg')
+        );
+      }
+    }
+  } catch(err) {
+    Logger.log('File upload handling error: ' + err);
+    _alertAdmin('Homework file upload failed for '+student.StudentName+' / '+unitId+': '+err);
+  }
+
   var token = Utilities.getUuid();
-  _setProg(ss, student.StudentID, unitId, { Status:'awaiting_review', HomeworkSubmittedAt:new Date(), HomeworkDriveURL:fileUrl, SubmissionToken:token });
+  _setProg(ss, student.StudentID, unitId, {
+    Status: 'awaiting_review',
+    HomeworkSubmittedAt: new Date(),
+    HomeworkDriveURL: savedFileUrl || '',
+    SubmissionToken: token
+  });
 
-  var approvalUrl = _prefilledUrl(cfg.APPROVAL_FORM_ID, { studentId:student.StudentID, unitId:unitId, token:token, studentName:student.StudentName, unitName:unit.UnitName });
+  var approvalUrl = _prefilledUrl(cfg.APPROVAL_FORM_ID, {
+    studentId: student.StudentID, unitId: unitId, token: token,
+    studentName: student.StudentName, unitName: unit.UnitName
+  });
 
+  // ── Attachments: homework file + answer key PDF (if exists) ───────────────────
   var attachments = [];
+  if (uploadedBlob) attachments.push(uploadedBlob);
   if (unit.AnswerKeyDriveID) {
-    try { attachments.push(DriveApp.getFileById(unit.AnswerKeyDriveID).getBlob().setName('AnswerKey_'+unit.UnitName.replace(/[^a-zA-Z0-9]/g,'_')+'.pdf')); } catch(err) {}
+    try {
+      attachments.push(DriveApp.getFileById(unit.AnswerKeyDriveID)
+        .getBlob().setName('AnswerKey_'+unit.UnitName.replace(/[^a-zA-Z0-9]/g,'_')+'.pdf'));
+    } catch(err) { Logger.log('Answer key not found: ' + err); }
   }
 
   var subj = '[IB Physics] '+student.StudentName+' submitted homework — '+unit.UnitName;
-  var body = _parentEmail(student, unit, fileUrl, approvalUrl, notes);
+  var body = _parentEmail(student, unit, savedFileUrl, approvalUrl, notes, !!uploadedBlob);
   try {
-    GmailApp.sendEmail(student.ParentEmail, subj, _stripHtml(body), { htmlBody:body, attachments:attachments, name:PORTAL_NAME, replyTo:ADMIN_EMAIL });
+    GmailApp.sendEmail(student.ParentEmail, subj, _stripHtml(body), {
+      htmlBody: body, attachments: attachments, name: PORTAL_NAME, replyTo: ADMIN_EMAIL
+    });
     _logEmail(ss,'homework_notification',student.StudentID,unitId,student.ParentEmail,subj,'sent');
   } catch(err) {
     _logEmail(ss,'homework_notification',student.StudentID,unitId,student.ParentEmail,subj,'error:'+err);
@@ -685,20 +731,27 @@ function _unitCard(unit, prog, hwFormUrl) {
 // ═══════════════════════════════════════════════════════════════════════════════
 var _ES='<style>@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");body{font-family:Nunito,Arial,sans-serif;background:#f8faff;margin:0;padding:0;}.w{max-width:560px;margin:32px auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);}.h{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:white;padding:32px 36px;}.h .lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;opacity:.8;margin-bottom:6px;}.h h1{font-size:1.35rem;font-weight:800;margin:0;}.b{padding:32px 36px;color:#1a1a2e;font-size:.94rem;line-height:1.7;}.badge{background:#eff6ff;border:2px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin:18px 0;font-weight:700;color:#1d4ed8;}.btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;}.bg{background:#22c55e;color:white;}.br{background:#ef4444;color:white;}.bb{background:#1d4ed8;color:white;}.note{font-size:.8rem;color:#64748b;margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;}.fb{background:#fff7ed;border:2px solid #fed7aa;border-radius:10px;padding:14px 18px;margin:16px 0;color:#92400e;}</style>';
 
-function _parentEmail(student,unit,fileUrl,approvalUrl,notes){
+function _parentEmail(student,unit,fileUrl,approvalUrl,notes,fileAttached){
   var keyUrl = unit.HomeworkURL ? unit.HomeworkURL + '?key=show' : '';
+  var attachmentNote = fileAttached
+    ? '<div class="badge" style="background:#dcfce7;border-color:#86efac;color:#15803d;">📎 '+student.StudentName+'\'s homework is attached to this email</div>'
+    : (fileUrl ? '<p><a href="'+fileUrl+'" class="btn bb">View '+student.StudentName+'\'s Homework →</a></p>' : '');
+
   return '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
-    '<div class="h"><div class="lbl">IB Physics Portal</div><h1>'+student.StudentName+' submitted homework</h1></div>'+
+    '<div class="h"><div class="lbl">Physics Foundations by Ravi</div><h1>'+student.StudentName+' submitted homework</h1></div>'+
     '<div class="b"><p>Dear '+student.ParentName+',</p>'+
     '<p>'+student.StudentName+' has submitted homework for:</p>'+
     '<div class="badge">📖 '+unit.SectionNum+' '+unit.SectionName+' — '+unit.UnitName+'</div>'+
-    (fileUrl?'<p><a href="'+fileUrl+'" class="btn bb">View '+student.StudentName+'\'s Homework →</a></p>':'')+
-    (keyUrl?'<p><a href="'+keyUrl+'" class="btn bb">🔑 View Answer Key →</a></p>':'')+
-    '<p>Please review '+student.StudentName+'\'s work against the answer key, then click a button:</p>'+
+    attachmentNote+
+    '<div class="badge" style="background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;">🔑 The answer key is available — click the button below to check '+student.StudentName+'\'s work</div>'+
+    (keyUrl?'<p><a href="'+keyUrl+'" class="btn bb">🔑 Open Answer Key →</a></p>':'')+
+    '<p>Once you have reviewed the work, please click one of the buttons below:</p>'+
     (notes?'<div class="fb"><strong>Note from '+student.StudentName+':</strong><br>'+notes+'</div>':'')+
-    '<p><a href="'+approvalUrl+'" class="btn bg">✅ Approve &amp; Unlock Next Chapter</a>'+
-    '<a href="'+approvalUrl+'" class="btn br">❌ Request Corrections</a></p>'+
-    '<p class="note">These links open a pre-filled Google Form — just choose your decision and submit.</p>'+
+    '<p>'+
+    '<a href="'+approvalUrl+'" class="btn bg">✅ Approve &amp; Record</a> '+
+    '<a href="'+approvalUrl+'" class="btn br">❌ Request Corrections</a>'+
+    '</p>'+
+    '<p class="note">These links open a short Google Form to record your decision. The next unit will be unlocked by the teacher after review.</p>'+
     '</div></div></body></html>';
 }
 
@@ -1010,6 +1063,35 @@ function testEmailDelivery() {
   } catch(err) {
     Logger.log('❌ Email test FAILED: ' + err);
   }
+}
+
+// ── Update existing homework form to use file upload ──────────────────────────
+// Run this ONCE to convert the live form from text link to file upload.
+function upgradeHomeworkFormToFileUpload() {
+  var cfg    = _cfg();
+  var formId = cfg.HOMEWORK_FORM_ID;
+  var form   = FormApp.openById(formId);
+  var items  = form.getItems();
+
+  // Find and delete the old paragraph text question
+  items.forEach(function(item) {
+    if (item.getTitle().indexOf('Paste a link') >= 0 ||
+        item.getTitle().indexOf('homework (Google Drive') >= 0) {
+      form.deleteItem(item);
+      Logger.log('Deleted old text field: ' + item.getTitle());
+    }
+  });
+
+  // Add file upload question at position 2 (after name and unit)
+  var uploadItem = form.addFileUploadItem();
+  uploadItem.setTitle('Upload your completed homework (photo or PDF)').setRequired(true);
+  uploadItem.setAllowedFileTypes([FormApp.FileType.IMAGE, FormApp.FileType.PDF]);
+
+  // Move it to position 2 (0-indexed)
+  form.moveItem(uploadItem.getIndex(), 2);
+
+  Logger.log('✅ Homework form upgraded to file upload.');
+  Logger.log('Form URL: ' + form.getPublishedUrl());
 }
 
 function seedProgress() {
