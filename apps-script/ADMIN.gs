@@ -1,18 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// PHYSICS FOUNDATION — ADMIN DASHBOARD
-// ═══════════════════════════════════════════════════════════════════════════════
-//
-// HOW TO DEPLOY (separate from student portal)
-// ─────────────────────────────────────────────
-// 1. In Apps Script editor: Deploy → New deployment
-// 2. Type: Web app
-// 3. Description: Admin Dashboard
-// 4. Execute as: Me (misra.ravikant@gmail.com)   ← IMPORTANT
-// 5. Who has access: Anyone with a Google Account
-// 6. Deploy → copy the URL
-// 7. Paste that URL into physics-portal/admin.html
-//
-// Only misra.ravikant@gmail.com can use it — everyone else is blocked.
+// PHYSICS FOUNDATION — ADMIN DASHBOARD (clean rewrite)
+// Execute as: Me (misra.ravikant@gmail.com) | Access: Anyone with Google Account
 // ═══════════════════════════════════════════════════════════════════════════════
 
 var ADMIN_EMAIL_ADDR = 'misra.ravikant@gmail.com';
@@ -21,283 +9,307 @@ function doGet(e) {
   var caller = Session.getActiveUser().getEmail();
   if (caller !== ADMIN_EMAIL_ADDR) {
     return HtmlService.createHtmlOutput(
-      '<html><head><style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#0f172a;color:white;}</style></head>' +
-      '<body><div style="text-align:center;"><h2>Access Denied</h2><p>This page is only accessible to the portal administrator.</p></div></body></html>'
-    ).setTitle('Admin — Access Denied');
+      '<html><body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#0f172a;color:white"><div style="text-align:center"><h2>Access Denied</h2></div></body></html>'
+    ).setTitle('Access Denied');
   }
-
-  var action = e && e.parameter && e.parameter.action ? e.parameter.action : 'dashboard';
-
-  // Store the base URL for redirects (current deployment URL without params)
-  var baseUrl = ScriptApp.getService().getUrl();
-
-  if (action === 'unlock')            return _adminActionUnlock(e, baseUrl);
-  if (action === 'addStudent')        return _adminActionAddStudent(e, baseUrl);
-  if (action === 'deactivateStudent') return _adminActionDeactivate(e, baseUrl);
-
-  return _adminDashboard(baseUrl);
+  var p    = (e && e.parameter) ? e.parameter : {};
+  var act  = p.action || 'dashboard';
+  var base = ScriptApp.getService().getUrl();
+  if (act === 'addStudent') return _doAddStudent(p, base);
+  if (act === 'unlock')     return _doUnlock(p, base);
+  if (act === 'remove')     return _doRemove(p, base);
+  return _buildDashboard(base);
 }
 
-// ─── MAIN DASHBOARD ───────────────────────────────────────────────────────────
-function _adminDashboard(baseUrl) {
-  var cfg      = _cfg();
-  var ss       = SpreadsheetApp.openById(cfg.SHEET_ID);
-  var students = _students(ss);
-  var units    = _units(ss).filter(function(u){ return u.LessonURL !== ''; });
-  var emailLog = _getEmailLog(ss);
-  var now      = new Date();
-
-  // ── Read ALL progress once — cache in a map keyed by studentID ───────────────
-  var allProgData = ss.getSheetByName('Progress').getDataRange().getValues();
-  var allProgHdr  = allProgData[0];
-  var allProgMap  = {}; // { studentID: { unitID: progressObj } }
-  allProgData.slice(1).forEach(function(row) {
-    var p = _rObj(allProgHdr, row);
-    if (!allProgMap[p.StudentID]) allProgMap[p.StudentID] = {};
-    allProgMap[p.StudentID][p.UnitID] = p;
+function _doAddStudent(p, base) {
+  if (!p.sid || !p.name || !p.email || !p.parentEmail || !p.parentName)
+    return _msg('Missing fields', 'All 5 fields are required.', base, 3);
+  var ss  = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var sh  = ss.getSheetByName('Roster');
+  var ids = sh.getDataRange().getValues().map(function(r){ return String(r[0]); });
+  if (ids.indexOf(p.sid) >= 0)
+    return _msg('ID exists', 'Student ID ' + p.sid + ' already exists.', base, 3);
+  sh.appendRow([p.sid, p.name, p.email, p.parentEmail, p.parentName, new Date(), true]);
+  var units  = ss.getSheetByName('Units').getDataRange().getValues().slice(1);
+  var progSh = ss.getSheetByName('Progress');
+  var rows   = units.map(function(u, i) {
+    return [p.sid+'_'+u[0], p.sid, u[0], i < 3 ? 'available' : 'locked', '','','','','','','',''];
   });
+  if (rows.length > 0) progSh.getRange(progSh.getLastRow()+1, 1, rows.length, 12).setValues(rows);
+  SpreadsheetApp.flush();
+  try { _sendWelcomeEmail(ss, [p.sid, p.name, p.email, p.parentEmail, p.parentName, new Date(), true]); } catch(e2){}
+  var first3 = units.slice(0,3).map(function(u){ return u[7]; }).join(', ');
+  return _msg('Enrolled: ' + p.name,
+    'First 3 units unlocked: ' + first3 + '<br><br>Welcome emails sent to:<br>' + p.email + '<br>' + p.parentEmail,
+    base, 3);
+}
 
-  // ── Read ALL units into a map once ────────────────────────────────────────────
-  var unitMap = {};
-  units.forEach(function(u){ unitMap[u.UnitID] = u; });
+function _doUnlock(p, base) {
+  if (!p.sid || !p.uid) return _msg('Error', 'Missing parameters.', base, 2);
+  var ss  = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var stu = _studentById(ss, p.sid);
+  var u   = _unit(ss, p.uid);
+  if (!stu || !u) return _msg('Error', 'Student or unit not found.', base, 2);
+  var prog = _prog(ss, p.sid, p.uid);
+  if (prog && prog.Status === 'awaiting_review')
+    _setProg(ss, p.sid, p.uid, {Status:'complete', ParentReviewedAt:new Date(), ParentDecision:'approved'});
+  else
+    _setProg(ss, p.sid, p.uid, {Status:'available', UnlockedAt:new Date()});
+  var nxt = _nextUnit(ss, p.uid);
+  if (nxt) _setProg(ss, p.sid, nxt.UnitID, {Status:'available', UnlockedAt:new Date()});
+  var ul = nxt || u;
+  var sb = _unlockEmailHtml(stu, ul, 'student');
+  var pb = _unlockEmailHtml(stu, ul, 'parent');
+  var ss2 = '🔓 New unit unlocked — ' + ul.UnitName;
+  var ps2 = '🔓 ' + stu.StudentName + "'s next unit is unlocked";
+  try {
+    GmailApp.sendEmail(stu.StudentEmail, ss2, _stripHtml(sb), {htmlBody:sb, name:PORTAL_NAME});
+    GmailApp.sendEmail(stu.ParentEmail,  ps2, _stripHtml(pb), {htmlBody:pb, name:PORTAL_NAME});
+    _logEmail(ss, 'admin_unlock', p.sid, p.uid, stu.StudentEmail, ss2, 'sent');
+    _logEmail(ss, 'admin_unlock', p.sid, p.uid, stu.ParentEmail,  ps2, 'sent');
+  } catch(e2){ _logEmail(ss, 'admin_unlock', p.sid, p.uid, stu.StudentEmail, ss2, 'error:'+e2); }
+  return _msg('Unlocked', ul.UnitName + ' unlocked for ' + stu.StudentName + '. Emails sent.', base, 2);
+}
 
-  // Helper: get student's progress array from cache
-  function getProgList(sid) {
-    var m = allProgMap[sid] || {};
-    return Object.keys(m).map(function(uid){ return m[uid]; });
-  }
-  function getProgMap(sid) { return allProgMap[sid] || {}; }
-
-  // ── Stats ─────────────────────────────────────────────────────────────────────
-  var totalComplete = 0, totalPending = 0, totalCorrections = 0, hwCount = 0;
-  students.forEach(function(s) {
-    getProgList(s.StudentID).forEach(function(p) {
-      if (p.Status==='complete')        totalComplete++;
-      if (p.Status==='awaiting_review') totalPending++;
-      if (p.Status==='corrections')     totalCorrections++;
-      if (p.HomeworkSubmittedAt && p.HomeworkSubmittedAt !== '') hwCount++;
-    });
-  });
-
-  // ── Student roster ────────────────────────────────────────────────────────────
-  var rosterRows = students.map(function(s) {
-    var prog      = getProgList(s.StudentID);
-    var done      = prog.filter(function(p){ return p.Status==='complete'; }).length;
-    var available = prog.filter(function(p){ return p.Status==='available'; }).length;
-    var lastSub   = prog.reduce(function(latest, p) {
-      if (!p.HomeworkSubmittedAt) return latest;
-      var d = new Date(p.HomeworkSubmittedAt);
-      return (!latest || d > latest) ? d : latest;
-    }, null);
-    var daysSince = lastSub ? Math.floor((now - lastSub) / 86400000) : null;
-    var daysLabel = daysSince === null ? '—' :
-      daysSince === 0 ? '<span style="color:#15803d;font-weight:700;">Today</span>' :
-      daysSince <= 7  ? '<span style="color:#1d4ed8;font-weight:700;">'+daysSince+'d ago</span>' :
-      daysSince <= 14 ? '<span style="color:#854d0e;font-weight:700;">'+daysSince+'d ago</span>' :
-                        '<span style="color:#dc2626;font-weight:700;">'+daysSince+'d ago ⚠️</span>';
-    return '<tr>'+
-      '<td><strong>'+s.StudentName+'</strong></td>'+
-      '<td style="font-size:.8rem;color:#64748b;">'+s.StudentID+'</td>'+
-      '<td style="font-size:.8rem;">'+s.StudentEmail+'</td>'+
-      '<td style="font-size:.8rem;">'+s.ParentEmail+'</td>'+
-      '<td>'+done+' ✅ / '+available+' 📖</td>'+
-      '<td>'+daysLabel+'</td>'+
-      '<td>'+
-        '<a href="mailto:'+s.StudentEmail+'" class="btn-sm" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">Email</a> '+
-        '<a href="mailto:'+s.ParentEmail+'" class="btn-sm" style="background:#f0fdf4;color:#15803d;border:1px solid #86efac;">Parent</a> '+
-        '<button class="btn-sm" style="background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;cursor:pointer;" onclick="if(confirm(\'Remove '+s.StudentName+' from the portal? Their progress will be kept but they will no longer appear in the dashboard.\')) window.top.location.href=\''+baseUrl+'?action=deactivateStudent&sid='+s.StudentID+'\'">✕ Remove</button>'+
-      '</td>'+
-      '</tr>';
-  }).join('');
-
-  // ── Needs attention ───────────────────────────────────────────────────────────
-  var attentionRows = '';
-  students.forEach(function(s) {
-    var prog = getProgList(s.StudentID);
-    prog.filter(function(p){ return p.Status==='corrections'; }).forEach(function(p) {
-      var u = unitMap[p.UnitID];
-      var days = p.ParentReviewedAt ? Math.floor((now - new Date(p.ParentReviewedAt)) / 86400000) : '?';
-      attentionRows += '<tr style="background:#fff7ed;"><td>⚠️ <strong>'+s.StudentName+'</strong></td>'+
-        '<td>Corrections not resubmitted</td><td>'+(u?u.UnitName:p.UnitID)+'</td>'+
-        '<td>'+days+' days since corrections requested</td>'+
-        '<td><a href="mailto:'+s.StudentEmail+'" class="btn-sm btn-green">📧 Nudge</a></td></tr>';
-    });
-    prog.filter(function(p){ return p.Status==='awaiting_review'; }).forEach(function(p) {
-      if (!p.HomeworkSubmittedAt) return;
-      var days = Math.floor((now - new Date(p.HomeworkSubmittedAt)) / 86400000);
-      if (days < 3) return;
-      var u = unitMap[p.UnitID];
-      attentionRows += '<tr style="background:#fef9c3;"><td>🕐 <strong>'+s.StudentName+'</strong></td>'+
-        '<td>Parent review overdue</td><td>'+(u?u.UnitName:p.UnitID)+'</td>'+
-        '<td>'+days+' days since submitted</td>'+
-        '<td><a href="mailto:'+s.ParentEmail+'" class="btn-sm" style="background:#1d4ed8;color:white;">📧 Remind Parent</a></td></tr>';
-    });
-    var lastAny = prog.reduce(function(latest, p) {
-      [p.HomeworkSubmittedAt,p.UnlockedAt,p.LessonOpened].filter(Boolean).forEach(function(d){
-        var dt=new Date(d); if(!latest||dt>latest) latest=dt;
-      }); return latest;
-    }, null);
-    if (lastAny && Math.floor((now-lastAny)/86400000) >= 14) {
-      var days = Math.floor((now-lastAny)/86400000);
-      attentionRows += '<tr style="background:#fee2e2;"><td>💤 <strong>'+s.StudentName+'</strong></td>'+
-        '<td>No activity</td><td>—</td><td>'+days+' days inactive</td>'+
-        '<td><a href="mailto:'+s.StudentEmail+'" class="btn-sm btn-green">📧 Check In</a></td></tr>';
+function _doRemove(p, base) {
+  if (!p.sid) return _msg('Error', 'Missing student ID.', base, 2);
+  var ss   = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var sh   = ss.getSheetByName('Roster');
+  var data = sh.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (String(data[i][0]) === String(p.sid)) {
+      sh.getRange(i+1, 7).setValue(false);
+      SpreadsheetApp.flush();
+      return _msg('Removed', data[i][1] + ' deactivated. Progress history preserved.', base, 2);
     }
-  });
-  if (!attentionRows) attentionRows = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:16px;">✅ No issues requiring attention</td></tr>';
+  }
+  return _msg('Not found', 'Student ID ' + p.sid + ' not found.', base, 2);
+}
 
-  // ── Pending reviews ───────────────────────────────────────────────────────────
-  var pendingRows = '';
-  students.forEach(function(student) {
-    getProgList(student.StudentID).filter(function(p){ return p.Status==='awaiting_review'; }).forEach(function(p) {
-      var u = unitMap[p.UnitID];
-      pendingRows += '<tr><td>'+student.StudentName+'</td><td>'+p.UnitID+'</td>'+
-        '<td>'+(u?u.UnitName:'')+'</td><td>'+_formatDate(p.HomeworkSubmittedAt)+'</td>'+
-        '<td>'+(p.HomeworkDriveURL?'<a href="'+p.HomeworkDriveURL+'" target="_blank">View</a>':'—')+'</td>'+
-        '<td><button class="btn-sm btn-green" style="cursor:pointer;" onclick="if(confirm(\'Mark complete and unlock next unit for '+student.StudentName+'?\')) window.top.location.href=\''+baseUrl+'?action=unlock&sid='+student.StudentID+'&uid='+p.UnitID+'\'">✅ Approve & Unlock Next</button></td></tr>';
+function _msg(title, body, base, secs) {
+  return HtmlService.createHtmlOutput(
+    '<html><head>' +
+    '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">' +
+    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Nunito,sans-serif;background:#0f172a;color:white;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center}.box{padding:48px 32px;max-width:480px}h2{font-size:1.6rem;font-weight:900;margin-bottom:16px}p{color:rgba(255,255,255,.7);line-height:1.8;font-size:.95rem}.bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:24px;overflow:hidden}.fill{height:100%;background:#1d4ed8;animation:go '+secs+'s linear forwards}@keyframes go{from{width:0}to{width:100%}}</style>' +
+    '<script>setTimeout(function(){window.top.location.href="'+base+'";},'+secs+'000);</script>' +
+    '</head><body><div class="box"><h2>'+title+'</h2><p>'+body+'</p><div class="bar"><div class="fill"></div></div></div></body></html>'
+  ).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function _buildDashboard(base) {
+  var ss  = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var stu = _students(ss);
+  var un  = _units(ss).filter(function(u){ return u.LessonURL !== ''; });
+  var el  = _getEmailLog(ss);
+  var now = new Date();
+
+  // Cache all progress
+  var pd  = ss.getSheetByName('Progress').getDataRange().getValues();
+  var apm = {};
+  pd.slice(1).forEach(function(r){
+    var p = _rObj(pd[0], r);
+    if (!apm[p.StudentID]) apm[p.StudentID] = {};
+    apm[p.StudentID][p.UnitID] = p;
+  });
+  var um = {};
+  un.forEach(function(u){ um[u.UnitID] = u; });
+  function pl(sid){ var m=apm[sid]||{}; return Object.keys(m).map(function(k){return m[k];}); }
+  function pm(sid){ return apm[sid]||{}; }
+
+  // Stats
+  var tC=0,tP=0,tX=0,tH=0;
+  stu.forEach(function(s){
+    pl(s.StudentID).forEach(function(p){
+      if(p.Status==='complete')totC++;
+      if(p.Status==='awaiting_review')tP++;
+      if(p.Status==='corrections')tX++;
+      if(p.HomeworkSubmittedAt&&p.HomeworkSubmittedAt!=='')tH++;
     });
   });
-  if (!pendingRows) pendingRows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px;">No pending submissions</td></tr>';
 
-  // ── Homework submissions ──────────────────────────────────────────────────────
-  var hwRows = '';
-  students.forEach(function(student) {
-    getProgList(student.StudentID).filter(function(p){ return p.HomeworkSubmittedAt && p.HomeworkSubmittedAt!==''; }).forEach(function(p) {
-      var u = unitMap[p.UnitID];
-      var statusBadge = {complete:'<span class="hw-badge hw-done">✅ Complete</span>',awaiting_review:'<span class="hw-badge hw-pending">🟡 Awaiting Review</span>',corrections:'<span class="hw-badge hw-corr">❌ Corrections</span>',available:'<span class="hw-badge hw-sub">📤 Submitted</span>'}[p.Status]||'<span class="hw-badge">'+p.Status+'</span>';
-      var parentDecision = p.ParentDecision?(p.ParentDecision==='approved'?'✅ Approved':'❌ Corrections Requested'):'⏳ Pending';
-      hwRows += '<tr><td><strong>'+student.StudentName+'</strong></td>'+
-        '<td style="font-family:monospace;font-size:.8rem;">'+p.UnitID+'</td>'+
-        '<td>'+(u?u.UnitName:'')+'</td><td>'+_formatDate(p.HomeworkSubmittedAt)+'</td>'+
-        '<td>'+statusBadge+'</td><td>'+parentDecision+'</td>'+
-        '<td>'+(p.ParentComments?'<span title="'+p.ParentComments+'" style="cursor:help;color:#64748b;">💬 '+p.ParentComments.substring(0,40)+(p.ParentComments.length>40?'…':'')+'</span>':'—')+'</td>'+
-        '<td>'+(p.HomeworkDriveURL?'<a href="'+p.HomeworkDriveURL+'" target="_blank" class="btn-sm" style="background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;">View</a>':'—')+'</td></tr>';
+  // Status icons/colours
+  var si={complete:'✅',available:'📖',in_progress:'✏',awaiting_review:'🟡',corrections:'❌',locked:'🔒'};
+  var sb={complete:'#dcfce7',available:'#dbeafe',in_progress:'#dbeafe',awaiting_review:'#fef9c3',corrections:'#fee2e2',locked:'#f1f5f9'};
+
+  // Roster
+  var rH = stu.map(function(s){
+    var p2=pl(s.StudentID);
+    var dn=p2.filter(function(p){return p.Status==='complete';}).length;
+    var av=p2.filter(function(p){return p.Status==='available';}).length;
+    var ls=p2.reduce(function(l,p){if(!p.HomeworkSubmittedAt)return l;var d=new Date(p.HomeworkSubmittedAt);return(!l||d>l)?d:l;},null);
+    var dy=ls?Math.floor((now-ls)/86400000):null;
+    var dl=dy===null?'—':dy===0?'<b style="color:#15803d">Today</b>':dy<=7?'<b style="color:#1d4ed8">'+dy+'d ago</b>':dy<=14?'<b style="color:#854d0e">'+dy+'d ago</b>':'<b style="color:#dc2626">'+dy+'d ago ⚠</b>';
+    return '<tr>'+
+      '<td><b>'+s.StudentName+'</b></td>'+
+      '<td style="color:#94a3b8;font-size:.78rem">'+s.StudentID+'</td>'+
+      '<td style="font-size:.78rem">'+s.StudentEmail+'</td>'+
+      '<td style="font-size:.78rem">'+s.ParentEmail+'</td>'+
+      '<td>'+dn+' ✅ / '+av+' 📖</td>'+
+      '<td>'+dl+'</td>'+
+      '<td>'+
+        '<a href="mailto:'+s.StudentEmail+'" class="bs be">Email</a> '+
+        '<a href="mailto:'+s.ParentEmail+'" class="bs bg">Parent</a> '+
+        '<button class="bs br" onclick="if(confirm(\'Remove '+s.StudentName+'? Progress kept.\'))go(\'remove\',{sid:\''+s.StudentID+'\'})">✕ Remove</button>'+
+      '</td></tr>';
+  }).join('');
+
+  // Attention
+  var aH='';
+  stu.forEach(function(s){
+    pl(s.StudentID).filter(function(p){return p.Status==='corrections';}).forEach(function(p){
+      var u=um[p.UnitID],d=p.ParentReviewedAt?Math.floor((now-new Date(p.ParentReviewedAt))/86400000):'?';
+      aH+='<tr style="background:#fff7ed"><td>⚠ <b>'+s.StudentName+'</b></td><td>Corrections not resubmitted</td><td>'+(u?u.UnitName:p.UnitID)+'</td><td>'+d+'d</td><td><a href="mailto:'+s.StudentEmail+'" class="bs bg">📧 Nudge</a></td></tr>';
+    });
+    pl(s.StudentID).filter(function(p){return p.Status==='awaiting_review'&&p.HomeworkSubmittedAt;}).forEach(function(p){
+      var d=Math.floor((now-new Date(p.HomeworkSubmittedAt))/86400000); if(d<3) return;
+      var u=um[p.UnitID];
+      aH+='<tr style="background:#fef9c3"><td>🕐 <b>'+s.StudentName+'</b></td><td>Parent review overdue</td><td>'+(u?u.UnitName:p.UnitID)+'</td><td>'+d+'d</td><td><a href="mailto:'+s.ParentEmail+'" class="bs" style="background:#1d4ed8;color:white">📧 Remind</a></td></tr>';
     });
   });
-  if (!hwRows) hwRows = '<tr><td colspan="8" style="text-align:center;color:#94a3b8;padding:20px;">No homework submitted yet</td></tr>';
+  if(!aH) aH='<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:12px">✅ No issues</td></tr>';
 
-  // ── Progress grid ─────────────────────────────────────────────────────────────
-  var statusIcon = {complete:'✅',available:'📖',in_progress:'✏️',awaiting_review:'🟡',corrections:'❌',locked:'🔒'};
-  var statusBg   = {complete:'#dcfce7',available:'#dbeafe',in_progress:'#dbeafe',awaiting_review:'#fef9c3',corrections:'#fee2e2',locked:'#f1f5f9'};
+  // Pending
+  var pH='';
+  stu.forEach(function(s){
+    pl(s.StudentID).filter(function(p){return p.Status==='awaiting_review';}).forEach(function(p){
+      var u=um[p.UnitID];
+      pH+='<tr>'+
+        '<td><b>'+s.StudentName+'</b></td>'+
+        '<td>'+p.UnitID+'</td>'+
+        '<td>'+(u?u.UnitName:'')+'</td>'+
+        '<td>'+_fd(p.HomeworkSubmittedAt)+'</td>'+
+        '<td>'+(p.HomeworkDriveURL?'<a href="'+p.HomeworkDriveURL+'" target="_blank" class="bs be">View</a>':'—')+'</td>'+
+        '<td><button class="bs bg" onclick="if(confirm(\'Approve and unlock for '+s.StudentName+'?\'))go(\'unlock\',{sid:\''+s.StudentID+'\',uid:\''+p.UnitID+'\'})">✅ Approve & Unlock</button></td>'+
+        '</tr>';
+    });
+  });
+  if(!pH) pH='<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:12px">No pending submissions</td></tr>';
 
-  var gridHeaders = '<th class="sticky-col">Student</th>'+
-    units.map(function(u){ return '<th class="unit-th" title="'+u.UnitName+'">'+u.UnitID+'</th>'; }).join('');
-
-  var gridRows = students.map(function(student) {
-    var progMap = getProgMap(student.StudentID);
-    var cells = units.map(function(u) {
-      var p = progMap[u.UnitID] || {Status:'locked'};
-      var status = p.Status||'locked';
-      var canUnlock = (status==='locked'||status==='corrections');
-      var unlockBtn = canUnlock?'<button class="unlock-btn" style="cursor:pointer;background:none;border:none;padding:0;" onclick="if(confirm(\'Unlock '+u.UnitName+' for '+student.StudentName+'?\')) window.top.location.href=\''+baseUrl+'?action=unlock&sid='+student.StudentID+'&uid='+u.UnitID+'\'">unlock</button>':'';
-      return '<td style="background:'+(statusBg[status]||'#f1f5f9')+';text-align:center;" title="'+student.StudentName+' — '+u.UnitName+': '+status+'">'+(statusIcon[status]||'🔒')+'<br>'+unlockBtn+'</td>';
+  // Grid
+  var gH='<th class="sc">Student</th>'+un.map(function(u){return '<th class="uth" title="'+u.UnitName+'">'+u.UnitID+'</th>';}).join('');
+  var gR=stu.map(function(s){
+    var cells=un.map(function(u){
+      var p2=pm(s.StudentID)[u.UnitID]||{Status:'locked'}, st=p2.Status||'locked';
+      var btn=(st==='locked'||st==='corrections')?'<button class="ub" onclick="if(confirm(\'Unlock '+u.UnitName+' for '+s.StudentName+'?\'))go(\'unlock\',{sid:\''+s.StudentID+'\',uid:\''+u.UnitID+'\'})">unlock</button>':'';
+      return '<td style="background:'+(sb[st]||'#f1f5f9')+';text-align:center" title="'+s.StudentName+' — '+st+'">'+(si[st]||'🔒')+'<br>'+btn+'</td>';
     }).join('');
-    return '<tr><td class="sticky-col"><strong>'+student.StudentName+'</strong></td>'+cells+'</tr>';
+    return '<tr><td class="sc"><b>'+s.StudentName+'</b></td>'+cells+'</tr>';
   }).join('');
 
-  // ── Email log ─────────────────────────────────────────────────────────────────
-  var logRows = emailLog.slice(0,20).map(function(r){
-    return '<tr><td>'+_formatDate(r[0])+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td class="'+(r[6]==='sent'?'sent':'error')+'">'+r[6]+'</td></tr>';
+  // HW
+  var hH='',hC=0;
+  stu.forEach(function(s){
+    pl(s.StudentID).filter(function(p){return p.HomeworkSubmittedAt&&p.HomeworkSubmittedAt!=='';}).forEach(function(p){
+      var u=um[p.UnitID];
+      var badge={complete:'<span class="hb hc">✅ Complete</span>',awaiting_review:'<span class="hb hp">🟡 Awaiting</span>',corrections:'<span class="hb hx">❌ Corrections</span>'}[p.Status]||p.Status;
+      var pd2=p.ParentDecision?(p.ParentDecision==='approved'?'✅ Approved':'❌ Corrections'):'⏳ Pending';
+      hH+='<tr>'+
+        '<td><b>'+s.StudentName+'</b></td>'+
+        '<td style="font-family:monospace;font-size:.78rem">'+p.UnitID+'</td>'+
+        '<td>'+(u?u.UnitName:'')+'</td>'+
+        '<td>'+_fd(p.HomeworkSubmittedAt)+'</td>'+
+        '<td>'+badge+'</td>'+
+        '<td>'+pd2+'</td>'+
+        '<td>'+(p.ParentComments?'<span title="'+p.ParentComments+'" style="cursor:help;color:#64748b">💬 '+p.ParentComments.substring(0,30)+'</span>':'—')+'</td>'+
+        '<td>'+(p.HomeworkDriveURL?'<a href="'+p.HomeworkDriveURL+'" target="_blank" class="bs be">View</a>':'—')+'</td>'+
+        '</tr>';
+      hC++;
+    });
+  });
+  if(!hH) hH='<tr><td colspan="8" style="text-align:center;color:#94a3b8;padding:12px">No homework yet</td></tr>';
+
+  // Email log
+  var eH=el.slice(0,20).map(function(r){
+    return '<tr><td>'+_fd(r[0])+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td class="'+(r[6]==='sent'?'st2':'er')+'">'+r[6]+'</td></tr>';
   }).join('');
-  if (!logRows) logRows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:16px;">No emails logged yet</td></tr>';
+  if(!eH) eH='<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:12px">No emails yet</td></tr>';
 
-  var lastRefresh = _formatDate(now);
+  var html =
+    '<!DOCTYPE html><html lang="en"><head>' +
+    '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>Admin — Physics Foundations</title>' +
+    '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+    '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">' +
+    _css() +
+    '</head><body>' +
+    '<header><div class="hi">' +
+      '<div><div class="lbl">Physics Foundations Admin</div><h1>Dashboard</h1></div>' +
+      '<div style="display:flex;gap:10px;align-items:center">' +
+        '<span style="color:rgba(255,255,255,.35);font-size:.7rem">'+_fd(now)+'</span>' +
+        '<button class="bl" onclick="window.top.location.reload()">🔄 Refresh</button>' +
+        '<a href="https://misra-ravi.github.io/physics-foundation/class-schedule.html" target="_blank" class="bl">📅 Schedule</a>' +
+        '<a href="https://misra-ravi.github.io/physics-foundation/" target="_blank" class="bl">← Site</a>' +
+      '</div>' +
+    '</div></header>' +
+    '<div class="sb">' +
+      '<div class="st"><div class="sn">'+stu.length+'</div><div class="sl">Students</div></div>' +
+      '<div class="st"><div class="sn">'+tC+'</div><div class="sl">Complete</div></div>' +
+      '<div class="st"><div class="sn">'+tH+'</div><div class="sl">HW Submitted</div></div>' +
+      '<div class="st"><div class="sn">'+tP+'</div><div class="sl">Awaiting Review</div></div>' +
+      '<div class="st"><div class="sn">'+tX+'</div><div class="sl">Corrections</div></div>' +
+    '</div>' +
+    '<main>' +
+      // Attention
+      '<section><h2>⚠ Needs Attention</h2>' +
+      '<table><thead><tr><th>Student</th><th>Issue</th><th>Unit</th><th>Days</th><th>Action</th></tr></thead>' +
+      '<tbody>'+aH+'</tbody></table></section>' +
 
-  var html = '<!DOCTYPE html><html lang="en"><head>'+
-    '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
-    '<title>Admin — Physics Foundations</title>'+
-    '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&amp;family=Space+Mono&amp;display=swap" rel="stylesheet">'+
-    _adminStyles()+
-    '</head><body>'+
+      // Add student — pure HTML inputs, JS reads values and navigates
+      '<section><h2>Add New Student</h2>' +
+      '<div class="fg">' +
+        '<input id="a_sid" placeholder="Student ID (e.g. s004)">' +
+        '<input id="a_nm"  placeholder="Full Name">' +
+        '<input id="a_em"  placeholder="Student Gmail" type="email">' +
+        '<input id="a_pe"  placeholder="Parent Gmail" type="email">' +
+        '<input id="a_pn"  placeholder="Parent Name (e.g. Mr Khan)">' +
+        '<button class="bp" onclick="addStu()">+ Enrol Student</button>' +
+      '</div></section>' +
 
-    '<header>'+
-    '<div class="header-inner">'+
-    '<div><div class="lbl">Physics Foundations — Admin Dashboard</div><h1>Command Centre</h1></div>'+
-    '<div style="display:flex;align-items:center;gap:16px;">'+
-    '<span style="color:rgba(255,255,255,.4);font-size:.75rem;">Last refresh: '+lastRefresh+'</span>'+
-    '<a href="'+baseUrl+'" class="back-link" style="background:rgba(255,255,255,.1);padding:6px 14px;border-radius:8px;">🔄 Refresh</a>'+
-    '<a href="https://misra-ravi.github.io/physics-foundation/class-schedule.html" target="_blank" class="back-link">📅 Schedule</a>'+
-    '<a href="https://misra-ravi.github.io/physics-foundation/" target="_blank" class="back-link">← Site</a>'+
-    '</div>'+
-    '</div>'+
-    '</header>'+
+      // Roster
+      '<section><h2>Student Roster</h2>' +
+      '<table><thead><tr><th>Name</th><th>ID</th><th>Student Email</th><th>Parent Email</th><th>Progress</th><th>Last Activity</th><th>Actions</th></tr></thead>' +
+      '<tbody>'+rH+'</tbody></table></section>' +
 
-    '<div class="stats-bar">'+
-    '<div class="stat"><div class="num">'+students.length+'</div><div class="lbl">Students</div></div>'+
-    '<div class="stat"><div class="num">'+totalComplete+'</div><div class="lbl">Units Complete</div></div>'+
-    '<div class="stat"><div class="num">'+hwCount+'</div><div class="lbl">HW Submitted</div></div>'+
-    '<div class="stat"><div class="num">'+totalPending+'</div><div class="lbl">Awaiting Review</div></div>'+
-    '<div class="stat"><div class="num">'+totalCorrections+'</div><div class="lbl">Needs Corrections</div></div>'+
-    '</div>'+
+      // Pending
+      '<section><h2>Pending Reviews ('+tP+')</h2>' +
+      '<table><thead><tr><th>Student</th><th>Unit ID</th><th>Unit</th><th>Submitted</th><th>Homework</th><th>Action</th></tr></thead>' +
+      '<tbody>'+pH+'</tbody></table></section>' +
 
-    '<main>'+
+      // Grid
+      '<section><h2>Progress Grid</h2>' +
+      '<p class="hint">Click "unlock" on any 🔒 cell to unlock that unit and email student + parent.</p>' +
+      '<div class="gs"><table class="gt"><thead><tr>'+gH+'</tr></thead><tbody>'+gR+'</tbody></table></div></section>' +
 
-    // Needs attention — top priority
-    '<section>'+
-    '<h2>⚠️ Needs Attention</h2>'+
-    '<p class="hint">Students requiring a follow-up — corrections not resubmitted, parent review overdue, or no recent activity.</p>'+
-    '<table><thead><tr><th>Student</th><th>Issue</th><th>Unit</th><th>Detail</th><th>Action</th></tr></thead>'+
-    '<tbody>'+attentionRows+'</tbody></table>'+
-    '</section>'+
+      // HW
+      '<section><h2>Homework Submissions ('+hC+')</h2>' +
+      '<table><thead><tr><th>Student</th><th>Unit ID</th><th>Unit</th><th>Submitted</th><th>Status</th><th>Parent Decision</th><th>Comments</th><th>File</th></tr></thead>' +
+      '<tbody>'+hH+'</tbody></table></section>' +
 
-    // Add student
-    '<section>'+
-    '<h2>Add New Student</h2>'+
-    '<form onsubmit="var f=this;var url=\''+baseUrl+'?action=addStudent\';var params=new URLSearchParams(new FormData(f));window.top.location.href=url+\'&\'+params.toString();return false;" class="add-form">'+
-    '<input type="hidden" name="action" value="addStudent">'+
-    '<div class="form-grid">'+
-    '<input name="sid"         placeholder="Student ID (e.g. s004)"   required>'+
-    '<input name="name"        placeholder="Full Name"                 required>'+
-    '<input name="email"       placeholder="Student Gmail"             required type="email">'+
-    '<input name="parentEmail" placeholder="Parent Gmail"              required type="email">'+
-    '<input name="parentName"  placeholder="Parent Name (e.g. Mr & Mrs Khan)" required>'+
-    '<button type="submit" class="btn-primary">+ Enrol Student</button>'+
-    '</div>'+
-    '</form>'+
-    '</section>'+
+      // Email log
+      '<section><h2>Email Log (last 20)</h2>' +
+      '<table><thead><tr><th>Time</th><th>Type</th><th>Student</th><th>Unit</th><th>Recipient</th><th>Status</th></tr></thead>' +
+      '<tbody>'+eH+'</tbody></table></section>' +
+    '</main>' +
+    '<footer>Physics Foundations by Ravi &nbsp;·&nbsp; Admin Dashboard</footer>' +
 
-    // Student roster
-    '<section>'+
-    '<h2>Student Roster</h2>'+
-    '<table><thead><tr><th>Name</th><th>ID</th><th>Student Email</th><th>Parent Email</th><th>Progress</th><th>Last Activity</th><th>Contact</th></tr></thead>'+
-    '<tbody>'+rosterRows+'</tbody></table>'+
-    '</section>'+
-
-    // Pending reviews
-    '<section>'+
-    '<h2>Pending Parent Reviews ('+totalPending+')</h2>'+
-    '<table><thead><tr><th>Student</th><th>Unit ID</th><th>Unit</th><th>Submitted</th><th>Homework</th><th>Action</th></tr></thead>'+
-    '<tbody>'+pendingRows+'</tbody></table>'+
-    '</section>'+
-
-    // Progress grid
-    '<section>'+
-    '<h2>Progress Grid</h2>'+
-    '<p class="hint">Click "unlock" in any 🔒 or ❌ cell to unlock that unit for the student. An email is sent to student and parent automatically.</p>'+
-    '<div class="grid-scroll"><table class="grid-table">'+
-    '<thead><tr>'+gridHeaders+'</tr></thead>'+
-    '<tbody>'+gridRows+'</tbody>'+
-    '</table></div>'+
-    '</section>'+
-
-    // Homework submissions
-    '<section>'+
-    '<h2>Homework Submissions ('+hwCount+' total)</h2>'+
-    '<table><thead><tr>'+
-    '<th>Student</th><th>Unit ID</th><th>Unit Name</th><th>Submitted</th>'+
-    '<th>Status</th><th>Parent Decision</th><th>Comments</th><th>Homework</th>'+
-    '</tr></thead><tbody>'+hwRows+'</tbody></table>'+
-    '</section>'+
-
-    // Email log
-    '<section>'+
-    '<h2>Email Log (last 20)</h2>'+
-    '<table><thead><tr><th>Time</th><th>Type</th><th>Student</th><th>Unit</th><th>Recipient</th><th>Status</th></tr></thead>'+
-    '<tbody>'+logRows+'</tbody></table>'+
-    '</section>'+
-
-    '</main>'+
-    '<footer>Physics Foundations by Ravi &nbsp;·&nbsp; Admin Dashboard &nbsp;·&nbsp; '+ADMIN_EMAIL_ADDR+'</footer>'+
+    // All navigation in one JS block — avoids Caja URL sanitization entirely
+    '<script>' +
+    'var BASE="'+base+'";' +
+    'function go(action,params){' +
+      'var url=BASE+"?action="+action;' +
+      'for(var k in params){url+="&"+k+"="+encodeURIComponent(params[k]);}' +
+      'window.top.location.href=url;' +
+    '}' +
+    'function addStu(){' +
+      'var sid=document.getElementById("a_sid").value.trim();' +
+      'var nm=document.getElementById("a_nm").value.trim();' +
+      'var em=document.getElementById("a_em").value.trim();' +
+      'var pe=document.getElementById("a_pe").value.trim();' +
+      'var pn=document.getElementById("a_pn").value.trim();' +
+      'if(!sid||!nm||!em||!pe||!pn){alert("Please fill in all 5 fields.");return;}' +
+      'go("addStudent",{sid:sid,name:nm,email:em,parentEmail:pe,parentName:pn});' +
+    '}' +
+    '</script>' +
     '</body></html>';
 
   return HtmlService.createHtmlOutput(html)
@@ -305,196 +317,55 @@ function _adminDashboard(baseUrl) {
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
-// ─── ACTION: UNLOCK UNIT ──────────────────────────────────────────────────────
-function _adminActionUnlock(e, baseUrl) {
-  var sid     = e.parameter.sid;
-  var uid     = e.parameter.uid;
-  var cfg     = _cfg();
-  var ss      = SpreadsheetApp.openById(cfg.SHEET_ID);
-  var student = _studentById(ss, sid);
-  var unit    = _unit(ss, uid);
-
-  if (!student || !unit) {
-    return HtmlService.createHtmlOutput('<p>Error: student or unit not found. <a href="'+baseUrl+'">Back</a></p>');
-  }
-
-  var prog = _prog(ss, sid, uid);
-  if (prog && prog.Status === 'awaiting_review') {
-    _setProg(ss, sid, uid, { Status:'complete', ParentReviewedAt:new Date(), ParentDecision:'approved' });
-  } else {
-    _setProg(ss, sid, uid, { Status:'available', UnlockedAt:new Date() });
-  }
-
-  var nextUnit = _nextUnit(ss, uid);
-  if (nextUnit) {
-    _setProg(ss, sid, nextUnit.UnitID, { Status:'available', UnlockedAt:new Date() });
-  }
-
-  var studentBody = _unlockEmailHtml(student, nextUnit || unit, 'student');
-  var parentBody  = _unlockEmailHtml(student, nextUnit || unit, 'parent');
-  var subj        = '🔓 New unit unlocked — '+(nextUnit ? nextUnit.UnitName : unit.UnitName);
-  var parentSubj  = '🔓 [Physics Foundations] '+student.StudentName+'\'s next unit is unlocked';
-  try {
-    GmailApp.sendEmail(student.StudentEmail, subj, _stripHtml(studentBody), { htmlBody:studentBody, name:PORTAL_NAME });
-    GmailApp.sendEmail(student.ParentEmail, parentSubj, _stripHtml(parentBody), { htmlBody:parentBody, name:PORTAL_NAME });
-    _logEmail(ss,'admin_unlock',sid,uid,student.StudentEmail,subj,'sent');
-    _logEmail(ss,'admin_unlock',sid,uid,student.ParentEmail,parentSubj,'sent');
-  } catch(err) {
-    _logEmail(ss,'admin_unlock',sid,uid,student.StudentEmail,subj,'error:'+err);
-  }
-
-  return HtmlService.createHtmlOutput(
-    '<html><head><meta http-equiv="refresh" content="2;url='+baseUrl+'">'+
-    '<style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#0f172a;color:white;text-align:center;}</style></head>'+
-    '<body><div><h2>✅ Done</h2><p>Unlocked <strong>'+(nextUnit?nextUnit.UnitName:unit.UnitName)+'</strong> for <strong>'+student.StudentName+'</strong>.</p><p>Emails sent. Redirecting...</p></div></body></html>'
-  );
-}
-
-// ─── ACTION: ADD STUDENT ──────────────────────────────────────────────────────
-function _adminActionAddStudent(e, baseUrl) {
-  var p   = e.parameter;
-  var cfg = _cfg();
-  var ss  = SpreadsheetApp.openById(cfg.SHEET_ID);
-  var sh  = ss.getSheetByName('Roster');
-
-  var existing = sh.getDataRange().getValues().map(function(r){ return r[0]; });
-  if (existing.indexOf(p.sid) >= 0) {
-    return HtmlService.createHtmlOutput(
-      '<html><head><meta http-equiv="refresh" content="3;url='+baseUrl+'"></head>'+
-      '<body style="font-family:sans-serif;text-align:center;padding:60px;background:#0f172a;color:white;">'+
-      '<h2>⚠️ Student ID '+p.sid+' already exists.</h2><p>Redirecting back...</p></body></html>'
-    );
-  }
-
-  sh.appendRow([p.sid, p.name, p.email, p.parentEmail, p.parentName, new Date(), true]);
-
-  // Seed progress — first 3 unlocked
-  var units   = ss.getSheetByName('Units').getDataRange().getValues().slice(1);
-  var progSh  = ss.getSheetByName('Progress');
-  var newRows = units.map(function(u, idx) {
-    return [p.sid+'_'+u[0], p.sid, u[0], idx<3?'available':'locked','','','','','','','',''];
-  });
-  if (newRows.length > 0) progSh.getRange(progSh.getLastRow()+1, 1, newRows.length, 12).setValues(newRows);
-  SpreadsheetApp.flush(); // write to sheet immediately
-
-  // Send welcome emails (async-friendly — fires after page returns)
-  _sendWelcomeEmail(ss, [p.sid, p.name, p.email, p.parentEmail, p.parentName, new Date(), true]);
-
-  var first3 = units.slice(0,3).map(function(u){ return u[7]; }).join(', ');
-
-  return HtmlService.createHtmlOutput(
-    '<html><head>'+
-    '<meta http-equiv="refresh" content="3;url='+baseUrl+'">'+
-    '<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&amp;display=swap" rel="stylesheet">'+
-    '<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Nunito,sans-serif;background:#0f172a;color:white;display:flex;align-items:center;justify-content:center;min-height:100vh;}'+
-    '.box{text-align:center;padding:48px 32px;max-width:480px;}'+
-    'h2{font-size:1.6rem;font-weight:900;margin-bottom:12px;}'+
-    '.badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px 20px;margin:16px 0;font-size:.88rem;}'+
-    '.badge strong{color:#4ade80;display:block;margin-bottom:6px;}'+
-    '.progress-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:24px;overflow:hidden;}'+
-    '.progress-fill{height:100%;background:#1d4ed8;animation:fill 4s linear forwards;}'+
-    '@keyframes fill{from{width:0}to{width:100%}}</style>'+
-    '</head><body><div class="box">'+
-    '<div style="font-size:3rem;margin-bottom:16px;">✅</div>'+
-    '<h2>'+p.name+' enrolled!</h2>'+
-    '<div class="badge"><strong>📖 First 3 units unlocked</strong>'+first3+'</div>'+
-    '<div class="badge"><strong>📧 Welcome emails sent to</strong>'+p.email+'<br>'+p.parentEmail+'</div>'+
-    '<p style="margin-top:16px;font-size:.82rem;color:rgba(255,255,255,.4);">Returning to dashboard in 4 seconds...</p>'+
-    '<div class="progress-bar"><div class="progress-fill"></div></div>'+
-    '</div></body></html>'
-  );
-}
-
-// ─── ACTION: DEACTIVATE STUDENT ───────────────────────────────────────────────
-function _adminActionDeactivate(e, baseUrl) {
-  var sid = e.parameter.sid;
-  var cfg = _cfg();
-  var ss  = SpreadsheetApp.openById(cfg.SHEET_ID);
-  var sh  = ss.getSheetByName('Roster');
-  var data = sh.getDataRange().getValues();
-
-  var found = false;
-  var name  = sid;
-  for (var i = 1; i < data.length; i++) {
-    if (data[i][0] === sid) {
-      sh.getRange(i+1, 7).setValue(false); // Set Active = FALSE
-      name = data[i][1];
-      found = true;
-      break;
-    }
-  }
-
-  if (!found) {
-    return HtmlService.createHtmlOutput(
-      '<html><head><meta http-equiv="refresh" content="2;url='+baseUrl+'"></head>'+
-      '<body style="font-family:sans-serif;text-align:center;padding:60px;background:#0f172a;color:white;">'+
-      '<h2>⚠️ Student '+sid+' not found.</h2></body></html>'
-    );
-  }
-
-  return HtmlService.createHtmlOutput(
-    '<html><head><meta http-equiv="refresh" content="2;url='+baseUrl+'">'+
-    '<style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#0f172a;color:white;text-align:center;}</style></head>'+
-    '<body><div><h2>✅ '+name+' removed</h2>'+
-    '<p>Student set to inactive. Their progress history is preserved.<br>Redirecting...</p></div></body></html>'
-  );
-}
-
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
 function _getEmailLog(ss) {
   var sh = ss.getSheetByName('EmailLog');
   if (!sh || sh.getLastRow() < 2) return [];
-  return ss.getSheetByName('EmailLog').getDataRange().getValues().slice(1).reverse();
+  return sh.getDataRange().getValues().slice(1).reverse();
 }
 
-function _formatDate(d) {
+function _fd(d) {
   if (!d) return '—';
-  try {
-    return new Date(d).toLocaleDateString('en-GB', {
-      day:'2-digit', month:'short', year:'numeric',
-      hour:'2-digit', minute:'2-digit'
-    });
-  } catch(e){ return String(d); }
+  try { return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+  catch(e){ return String(d); }
 }
 
-// ─── ADMIN CSS ────────────────────────────────────────────────────────────────
-function _adminStyles() {
-  return '<style>'+
-    '*{box-sizing:border-box;margin:0;padding:0;}'+
-    'body{font-family:"Nunito",sans-serif;background:#f0f4f8;color:#0f172a;}'+
-    'header{background:linear-gradient(135deg,#0f172a,#1e3a5f);color:white;padding:20px 32px;}'+
-    '.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}'+
-    '.header-inner .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;opacity:.55;margin-bottom:4px;}'+
-    '.header-inner h1{font-size:1.5rem;font-weight:900;}'+
-    '.back-link{color:rgba(255,255,255,.75);font-size:.8rem;font-weight:700;text-decoration:none;}'+
-    '.stats-bar{background:#1e293b;padding:14px 32px;display:flex;gap:28px;flex-wrap:wrap;}'+
-    '.stat{text-align:center;}.stat .num{font-size:1.5rem;font-weight:900;color:white;}'+
-    '.stat .lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;}'+
-    'main{max-width:1400px;margin:0 auto;padding:24px 24px 80px;}'+
-    'section{background:white;border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);}'+
-    'h2{font-size:.95rem;font-weight:800;margin-bottom:14px;color:#0f172a;}'+
-    '.hint{font-size:.78rem;color:#64748b;margin-bottom:10px;}'+
-    'table{width:100%;border-collapse:collapse;}'+
-    'thead th{background:#f1f5f9;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:8px 12px;text-align:left;border-bottom:2px solid #e2e8f0;}'+
-    'td{padding:7px 12px;font-size:.83rem;border-bottom:1px solid #f1f5f9;vertical-align:middle;}'+
-    'tr:hover td{background:#fafafa;}'+
-    '.sent{color:#15803d;font-weight:700;}.error{color:#dc2626;font-weight:700;}'+
-    '.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;align-items:end;}'+
-    '.form-grid input{border:2px solid #e2e8f0;border-radius:8px;padding:8px 12px;font-family:inherit;font-size:.85rem;width:100%;}'+
-    '.form-grid input:focus{outline:none;border-color:#3b82f6;}'+
-    '.btn-primary{background:#1d4ed8;color:white;border:none;border-radius:8px;padding:9px 18px;font-weight:800;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;}'+
-    '.btn-sm{display:inline-block;padding:4px 10px;border-radius:6px;font-size:.72rem;font-weight:800;text-decoration:none;white-space:nowrap;}'+
-    '.btn-green{background:#22c55e;color:white;}'+
-    '.unlock-btn{display:block;font-size:.65rem;color:#1d4ed8;text-decoration:none;font-weight:800;margin-top:2px;}'+
-    '.unlock-btn:hover{text-decoration:underline;}'+
-    '.hw-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:800;}'+
-    '.hw-done{background:#dcfce7;color:#15803d;}.hw-pending{background:#fef9c3;color:#854d0e;}'+
-    '.hw-corr{background:#fee2e2;color:#dc2626;}.hw-sub{background:#dbeafe;color:#1d4ed8;}'+
-    '.grid-scroll{overflow-x:auto;max-height:480px;overflow-y:auto;}'+
-    '.grid-table{border-collapse:collapse;font-size:.78rem;}'+
-    '.grid-table th,.grid-table td{border:1px solid #e2e8f0;padding:4px 6px;text-align:center;white-space:nowrap;}'+
-    '.unit-th{font-size:.65rem;font-weight:700;background:#f1f5f9;writing-mode:vertical-rl;transform:rotate(180deg);padding:8px 4px;max-height:80px;}'+
-    '.sticky-col{position:sticky;left:0;background:white;z-index:1;font-weight:700;min-width:130px;text-align:left !important;border-right:2px solid #e2e8f0;}'+
-    'footer{background:#0f172a;color:rgba(255,255,255,.35);text-align:center;padding:18px;font-size:.78rem;}'+
+function _css() {
+  return '<style>' +
+    '*{box-sizing:border-box;margin:0;padding:0}' +
+    'body{font-family:Nunito,sans-serif;background:#f0f4f8;color:#0f172a}' +
+    'header{background:linear-gradient(135deg,#0f172a,#1e3a5f);color:white;padding:16px 24px}' +
+    '.hi{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}' +
+    '.lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:2px;opacity:.5;margin-bottom:3px}' +
+    'h1{font-size:1.35rem;font-weight:900}' +
+    '.bl{color:rgba(255,255,255,.75);font-size:.76rem;font-weight:700;text-decoration:none;background:rgba(255,255,255,.1);padding:5px 11px;border-radius:6px;border:none;cursor:pointer}' +
+    '.sb{background:#1e293b;padding:10px 24px;display:flex;gap:20px;flex-wrap:wrap}' +
+    '.st{text-align:center}.sn{font-size:1.35rem;font-weight:900;color:white}.sl{font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#94a3b8}' +
+    'main{max-width:1400px;margin:0 auto;padding:18px 18px 80px}' +
+    'section{background:white;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.07)}' +
+    'h2{font-size:.9rem;font-weight:800;margin-bottom:11px}' +
+    '.hint{font-size:.74rem;color:#64748b;margin-bottom:9px}' +
+    'table{width:100%;border-collapse:collapse}' +
+    'thead th{background:#f1f5f9;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:7px 9px;text-align:left;border-bottom:2px solid #e2e8f0}' +
+    'td{padding:6px 9px;font-size:.81rem;border-bottom:1px solid #f1f5f9;vertical-align:middle}' +
+    'tr:hover td{background:#fafafa}' +
+    '.st2{color:#15803d;font-weight:700}.er{color:#dc2626;font-weight:700}' +
+    '.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:7px;align-items:end}' +
+    '.fg input{border:2px solid #e2e8f0;border-radius:6px;padding:7px 9px;font-family:inherit;font-size:.81rem;width:100%}' +
+    '.fg input:focus{outline:none;border-color:#3b82f6}' +
+    '.bp{background:#1d4ed8;color:white;border:none;border-radius:6px;padding:8px 14px;font-weight:800;font-size:.81rem;cursor:pointer;font-family:inherit;width:100%}' +
+    '.bs{display:inline-block;padding:3px 8px;border-radius:5px;font-size:.68rem;font-weight:800;text-decoration:none;white-space:nowrap;border:none;cursor:pointer;font-family:inherit}' +
+    '.be{background:#eff6ff;color:#1d4ed8}' +
+    '.bg{background:#22c55e;color:white}' +
+    '.br{background:#fee2e2;color:#dc2626}' +
+    '.ub{display:block;font-size:.6rem;color:#1d4ed8;background:none;border:none;cursor:pointer;font-weight:800;font-family:inherit;padding:0;margin-top:2px}' +
+    '.ub:hover{text-decoration:underline}' +
+    '.hb{display:inline-block;padding:2px 7px;border-radius:14px;font-size:.68rem;font-weight:800}' +
+    '.hc{background:#dcfce7;color:#15803d}.hp{background:#fef9c3;color:#854d0e}.hx{background:#fee2e2;color:#dc2626}' +
+    '.gs{overflow-x:auto;max-height:440px;overflow-y:auto}' +
+    '.gt{border-collapse:collapse;font-size:.74rem}' +
+    '.gt th,.gt td{border:1px solid #e2e8f0;padding:4px 5px;text-align:center;white-space:nowrap}' +
+    '.uth{font-size:.6rem;font-weight:700;background:#f1f5f9;writing-mode:vertical-rl;transform:rotate(180deg);padding:6px 3px}' +
+    '.sc{position:sticky;left:0;background:white;z-index:1;font-weight:700;min-width:110px;text-align:left!important;border-right:2px solid #e2e8f0}' +
+    'footer{background:#0f172a;color:rgba(255,255,255,.3);text-align:center;padding:14px;font-size:.74rem}' +
     '</style>';
 }
