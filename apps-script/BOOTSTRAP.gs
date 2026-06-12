@@ -130,6 +130,10 @@ function _setupRoster(ss) {
     ['s001','Alice Chen',  'alice.chen.student@gmail.com',  'parent.chen@gmail.com',  'Mr & Mrs Chen',  new Date(), true],
     ['s002','Bob Patel',   'bob.patel.student@gmail.com',   'parent.patel@gmail.com', 'Mr & Mrs Patel', new Date(), true],
   ]);
+  // Set Active column (col 7) as checkbox so it's always a boolean
+  sh.getRange(2, 7, 100, 1).setDataValidation(
+    SpreadsheetApp.newDataValidation().requireCheckbox().build()
+  );
   sh.setFrozenRows(1);
 }
 
@@ -261,7 +265,7 @@ function _seedProgress(ss) {
   var rData = rosterSh.getDataRange().getValues();
   var uData = unitsSh.getDataRange().getValues();
 
-  var students = rData.slice(1).filter(function(r){ return r[6]; }); // Active=true
+  var students = rData.slice(1).filter(function(r){ return r[6]===true||String(r[6]).toUpperCase()==='TRUE'; }); // Active=true
   var units    = uData.slice(1);
 
   if(progressSh.getLastRow() > 1){
@@ -414,7 +418,9 @@ function onRosterEdit(e) {
   var active  = rowData[6]; // Active
 
   // Only proceed if StudentID and Active = TRUE are both filled in
-  if (!sid || !name || active !== true) return;
+  // Accept boolean true OR string "TRUE" or "true"
+  var isActive = (active === true || String(active).toUpperCase() === 'TRUE');
+  if (!sid || !name || !isActive) return;
 
   // Check if progress rows already exist for this student
   var progSh    = ss.getSheetByName('Progress');
@@ -463,7 +469,7 @@ function _cfg() {
 function _ss()   { return SpreadsheetApp.openById(_cfg().SHEET_ID); }
 function _rObj(h,r){ var o={}; h.forEach(function(k,i){o[k]=r[i];}); return o; }
 
-function _students(ss){ var d=ss.getSheetByName('Roster').getDataRange().getValues(); return d.slice(1).map(function(r){return _rObj(d[0],r);}).filter(function(s){return s.Active;}); }
+function _students(ss){ var d=ss.getSheetByName('Roster').getDataRange().getValues(); return d.slice(1).map(function(r){return _rObj(d[0],r);}).filter(function(s){return s.Active===true||String(s.Active).toUpperCase()==='TRUE';}); }
 function _studentByName(ss,n){ return _students(ss).find(function(s){return s.StudentName===n;})||null; }
 function _studentById(ss,id)  { return _students(ss).find(function(s){return s.StudentID===id;})||null; }
 function _studentByEmail(ss,e){ return _students(ss).find(function(s){return s.StudentEmail===e;})||null; }
@@ -937,7 +943,7 @@ function seedProgress() {
   var unitsSh  = ss.getSheetByName('Units');
   var progSh   = ss.getSheetByName('Progress');
 
-  var students = rosterSh.getDataRange().getValues().slice(1).filter(function(r){ return r[6]; });
+  var students = rosterSh.getDataRange().getValues().slice(1).filter(function(r){ return r[6]===true||String(r[6]).toUpperCase()==='TRUE'; });
   var units    = unitsSh.getDataRange().getValues().slice(1);
 
   if (progSh.getLastRow() > 1) progSh.deleteRows(2, progSh.getLastRow()-1);
