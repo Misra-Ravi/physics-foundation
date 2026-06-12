@@ -281,8 +281,8 @@ function _buildDashboard() {
         'alert(r&&r.msg?r.msg:"Done.");' +
         'google.script.run.withSuccessHandler(function(html){' +
           'document.open();document.write(html);document.close();' +
-        '}).withFailureHandler(function(){' +
-          'window.location.href=window.location.href;' +
+        '}).withFailureHandler(function(e){' +
+          'alert("Dashboard refresh failed: "+e+". Please close and reopen the admin portal.");' +
         '}).getAdminHtml();' +
       '}' +
     '}' +
