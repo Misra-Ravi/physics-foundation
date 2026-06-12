@@ -1006,10 +1006,9 @@ function testEmailDelivery() {
     _logEmail(ss, 'test_email', 'admin', '', ADMIN_EMAIL, '✅ Email test — it works!', 'sent');
     Logger.log('✅ Test email sent successfully to ' + ADMIN_EMAIL);
     Logger.log('Script running as: ' + Session.getEffectiveUser().getEmail());
-    SpreadsheetApp.getUi().alert('✅ Test email sent to ' + ADMIN_EMAIL + '.\n\nCheck your inbox. Also check the EmailLog tab in the Portal Tracker sheet.');
+    Logger.log('✅ CHECK YOUR INBOX — email delivery is working correctly.');
   } catch(err) {
     Logger.log('❌ Email test FAILED: ' + err);
-    SpreadsheetApp.getUi().alert('❌ Email test FAILED:\n\n' + err + '\n\nThis explains why no emails are going out.');
   }
 }
 
