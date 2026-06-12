@@ -679,6 +679,19 @@ function doGetStudent(e) {
   var ss      = SpreadsheetApp.openById(cfg.SHEET_ID);
   var student = _studentByEmail(ss, email);
 
+  // TEST MODE: if not found in roster, create a temporary student object for testing
+  var TEST_EMAILS = ['misra.ravikant@gmail.com', 'misra.ravikant.new@gmail.com'];
+  if (!student && TEST_EMAILS.indexOf(email.toLowerCase()) >= 0) {
+    student = {
+      StudentID:   'S01',
+      StudentName: 'Test Student',
+      StudentEmail: email,
+      ParentEmail:  'misra.ravikant@gmail.com',
+      ParentName:   'Ravi M',
+      Active:       true
+    };
+  }
+
   if (!student) {
     return HtmlService.createHtmlOutput(
       '<html><head><meta charset="UTF-8"><style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f4f8;}.box{background:white;border-radius:16px;padding:48px;text-align:center;max-width:420px;box-shadow:0 4px 24px rgba(0,0,0,.08);}h2{color:#1d4ed8;}p{color:#64748b;margin-top:12px;}</style></head>' +
