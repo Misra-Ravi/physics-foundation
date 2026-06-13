@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recording the Angle of a Vector — Answer Key</title>
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+    :root{
+      --emerald:#059669;--emerald-dark:#064e3b;
+      --dark:#0f172a;--bg:#f0fdf4;--muted:#94a3b8;
+      --amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;--purple:#a855f7;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito','Segoe UI',sans-serif;background:var(--bg);color:var(--dark);font-size:16px;line-height:1.7;background-image:radial-gradient(circle,#a7f3d0 1px,transparent 1px);background-size:28px 28px;}
+
+    /* LOCK */
+    #lockScreen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#064e3b 0%,#065f46 50%,#059669 100%);}
+    .lock-box{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.25);border-radius:24px;padding:48px 40px;text-align:center;max-width:380px;width:90%;backdrop-filter:blur(10px);}
+    .lock-icon{font-size:3.2rem;margin-bottom:16px;}
+    .lock-box h2{color:white;font-size:1.6rem;font-weight:900;margin-bottom:8px;}
+    .lock-box p{color:rgba(255,255,255,0.7);font-size:0.95rem;margin-bottom:28px;}
+    .lock-input{width:100%;padding:14px 18px;border-radius:12px;border:2px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.12);color:white;font-size:1.1rem;font-family:inherit;outline:none;text-align:center;letter-spacing:4px;}
+    .lock-input::placeholder{letter-spacing:1px;color:rgba(255,255,255,0.4);}
+    .lock-btn{margin-top:16px;width:100%;padding:14px;border-radius:12px;border:none;background:white;color:#065f46;font-size:1rem;font-weight:800;cursor:pointer;transition:transform 0.15s;font-family:inherit;}
+    .lock-btn:hover{transform:translateY(-2px);}
+    .lock-error{color:#fca5a5;font-size:0.88rem;margin-top:10px;min-height:20px;}
+
+    /* HEADER */
+    header{background:linear-gradient(135deg,#064e3b 0%,#065f46 50%,#059669 100%);color:white;padding:44px 60px 40px;text-align:center;position:relative;overflow:hidden;}
+    header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 40%,rgba(110,231,183,0.22) 0%,transparent 60%);pointer-events:none;}
+    .chip{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 16px;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;position:relative;}
+    header h1{font-size:2.4rem;font-weight:900;position:relative;margin-bottom:8px;background:linear-gradient(90deg,#a7f3d0,#6ee7b7,#d1fae5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    header p{color:rgba(255,255,255,0.75);font-size:0.95rem;position:relative;}
+    .hw-meta{display:flex;justify-content:center;gap:20px;margin-top:18px;flex-wrap:wrap;}
+    .hw-meta-item{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:8px 16px;font-size:0.82rem;color:rgba(255,255,255,0.85);font-weight:700;position:relative;}
+
+    main{max-width:880px;margin:40px auto;padding:0 24px 80px;}
+
+    /* REMINDER BOX */
+    .reminder-box{background:white;border-radius:16px;padding:20px 24px;box-shadow:0 4px 18px rgba(5,150,105,0.1);border:2px solid #a7f3d0;margin-bottom:30px;}
+    .reminder-box h3{font-size:0.9rem;font-weight:900;color:#065f46;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;}
+    .reminder-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    @media(max-width:580px){.reminder-grid{grid-template-columns:1fr;}}
+    .rem-item{background:#f0fdf4;border-radius:10px;padding:10px 14px;font-size:0.85rem;color:#374151;border-left:3px solid #059669;}
+    .rem-item strong{color:#065f46;}
+
+    /* SECTION HEADS */
+    .sect-head{display:flex;align-items:center;gap:12px;margin:36px 0 18px;}
+    .sh-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+    .shi-green{background:linear-gradient(135deg,#059669,#065f46);}
+    .shi-amber{background:linear-gradient(135deg,#f59e0b,#d97706);}
+    .shi-blue{background:linear-gradient(135deg,#3b82f6,#6366f1);}
+    .shi-red{background:linear-gradient(135deg,#ef4444,#dc2626);}
+    .shi-purple{background:linear-gradient(135deg,#a855f7,#7c3aed);}
+    .sect-head h2{font-size:1.35rem;font-weight:900;color:var(--dark);}
+
+    /* QUESTION CARDS */
+    .q-card{background:white;border-radius:16px;padding:20px 24px;box-shadow:0 3px 14px rgba(0,0,0,0.07);margin-bottom:18px;border-left:4px solid transparent;}
+    .qc-g{border-left-color:#059669;}.qc-a{border-left-color:#f59e0b;}.qc-b{border-left-color:#3b82f6;}.qc-p{border-left-color:#a855f7;}.qc-r{border-left-color:#ef4444;}
+    .q-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+    .q-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.88rem;color:white;flex-shrink:0;}
+    .qb-g{background:linear-gradient(135deg,#059669,#065f46);}
+    .qb-a{background:linear-gradient(135deg,#f59e0b,#d97706);}
+    .qb-b{background:linear-gradient(135deg,#3b82f6,#6366f1);}
+    .qb-p{background:linear-gradient(135deg,#a855f7,#7c3aed);}
+    .qb-r{background:linear-gradient(135deg,#ef4444,#dc2626);}
+    .q-title{font-size:0.97rem;color:#1e293b;font-weight:700;padding-top:3px;}
+    .q-sub{font-size:0.84rem;color:#64748b;margin-top:3px;}
+    .ans-input{width:100%;border:2px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:0.95rem;font-family:inherit;color:var(--dark);outline:none;transition:border-color 0.2s;background:#fafafa;margin-top:6px;}
+    .ans-input:focus{border-color:#059669;background:white;}
+    .ans-input.correct{border-color:#059669;background:#d1fae5;color:#065f46;}
+    .ans-input.wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b;}
+    .chk-btn{margin-top:9px;padding:9px 20px;border-radius:9px;border:none;background:#059669;color:white;font-weight:800;font-size:0.85rem;cursor:pointer;font-family:inherit;transition:all 0.15s;}
+    .chk-btn:hover{background:#065f46;transform:translateY(-1px);}
+    .fb{display:none;margin-top:8px;padding:8px 14px;border-radius:8px;font-size:0.87rem;font-weight:700;}
+    .fb-ok{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;}
+    .fb-no{background:#fef2f2;color:#991b1b;border:1px solid #fca5a5;}
+
+    /* SVG SIDE-BY-SIDE */
+    .q-svg-row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;}
+    @media(max-width:580px){.q-svg-row{grid-template-columns:1fr;}}
+    .q-svg-row svg{width:140px;height:140px;flex-shrink:0;}
+
+    /* MULTI-CHOICE */
+    .opts{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
+    .opt{padding:10px 16px;border-radius:10px;border:2px solid #e2e8f0;background:white;text-align:left;cursor:pointer;font-size:0.9rem;font-weight:600;font-family:inherit;color:#334155;transition:all 0.15s;width:100%;}
+    .opt:hover:not(:disabled){border-color:#059669;background:#f0fdf4;}
+    .opt.correct{border-color:#059669;background:#d1fae5;color:#065f46;font-weight:800;}
+    .opt.wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b;}
+    .opt:disabled{cursor:default;}
+
+    /* TWO-PART ANSWERS */
+    .two-input{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+    @media(max-width:480px){.two-input{grid-template-columns:1fr;}}
+    .two-input label{font-size:0.82rem;font-weight:700;color:#64748b;display:block;margin-bottom:4px;}
+
+    /* SHOW ANSWER TOGGLE */
+    .reveal-btn{padding:9px 20px;border-radius:9px;border:none;background:#e0f2fe;color:#0369a1;font-weight:800;font-size:0.85rem;cursor:pointer;font-family:inherit;margin-top:10px;transition:all 0.15s;}
+    .reveal-btn:hover{background:#bae6fd;}
+    .reveal-ans{display:none;margin-top:10px;padding:12px 16px;background:#f0fdf4;border-radius:10px;border:1px solid #a7f3d0;font-size:0.9rem;color:#065f46;font-weight:700;}
+    .reveal-ans svg{display:block;margin:10px auto;width:140px;height:140px;}
+
+    /* SCENARIO CARD */
+    .scenario-bg{background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:16px;padding:24px 26px;color:white;margin-bottom:18px;}
+    .scenario-bg .sc-label{font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#6ee7b7;margin-bottom:10px;}
+    .scenario-bg p{color:rgba(255,255,255,0.82);font-size:0.93rem;line-height:1.65;}
+    .scenario-bg .sc-key{font-family:'Space Mono',monospace;color:#a7f3d0;font-weight:700;}
+
+    /* ANSWER KEY SECTION */
+    .ak-section{background:linear-gradient(135deg,#064e3b,#065f46);border-radius:20px;padding:28px 32px;margin-top:40px;color:white;}
+    .ak-section h2{font-size:1.15rem;font-weight:900;margin-bottom:6px;color:#a7f3d0;}
+    .ak-toggle{padding:10px 24px;border-radius:10px;border:none;background:rgba(255,255,255,0.15);color:white;font-weight:800;font-size:0.9rem;cursor:pointer;font-family:inherit;border:1px solid rgba(255,255,255,0.25);transition:all 0.15s;margin-top:10px;}
+    .ak-toggle:hover{background:rgba(255,255,255,0.25);}
+    .ak-body{display:none;margin-top:20px;}
+    .ak-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:580px){.ak-grid{grid-template-columns:1fr;}}
+    .ak-item{background:rgba(255,255,255,0.08);border-radius:12px;padding:12px 16px;}
+    .ak-item .ak-q{font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6ee7b7;margin-bottom:4px;}
+    .ak-item .ak-a{font-family:'Space Mono',monospace;font-size:0.92rem;color:white;font-weight:700;}
+    .ak-item .ak-note{font-size:0.8rem;color:rgba(255,255,255,0.6);margin-top:4px;}
+
+    /* SCORE */
+    .score-banner{background:linear-gradient(135deg,#064e3b,#059669);border-radius:20px;padding:28px 32px;text-align:center;margin-top:24px;display:none;color:white;}
+    .score-banner .big{font-size:3.5rem;font-weight:900;}
+    .score-banner .lbl{opacity:0.8;margin-top:4px;}
+    .score-banner .msg{margin-top:12px;opacity:0.85;}
+
+    footer{text-align:center;padding:28px 24px;color:#94a3b8;font-size:0.82rem;}
+  
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Recording the Angle of a Vector — Homework</p>
+  </div>
+  <p>Answer key content not found.</p>
+</body>
+</html>
