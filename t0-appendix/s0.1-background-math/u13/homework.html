@@ -47,14 +47,9 @@
     .essay-lines{display:flex;flex-direction:column;gap:16px;}
     .essay-line{border-bottom:1.5px solid #d1d5db;min-height:26px;width:100%;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:48px 0 20px;}
-    #toggle-key-btn{background:linear-gradient(135deg,#134e4a,#0d9488);color:white;border:none;padding:13px 36px;font-size:1rem;font-weight:800;border-radius:10px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{opacity:0.9;}
-    #answer-key{display:none;background:#f0fdfa;border:2px solid #5eead4;border-radius:16px;padding:30px 36px;margin-top:4px;}
     #answer-key h2{color:#0f766e;border-left-color:#0d9488;margin-bottom:24px;}
-    .key-section{margin-bottom:32px;}
     .key-section h3{font-size:1rem;font-weight:800;color:#0f766e;margin-bottom:14px;}
-    .key-item{background:white;border-radius:8px;padding:14px 18px;font-size:0.9rem;margin-bottom:10px;border-left:3px solid #0d9488;}
     .key-item .ki-num{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#64748b;margin-bottom:4px;}
     .key-item .ki-ans{font-family:'Space Mono',monospace;font-weight:700;color:#0f766e;font-size:1rem;margin-bottom:4px;}
     .key-item .ki-expl{color:#4b5563;font-size:0.85rem;line-height:1.5;}
@@ -287,117 +282,9 @@
   </section>
 
   <!-- ANSWER KEY TOGGLE -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Calculations</h3>
-      <div class="key-item">
-        <div class="ki-num">Problem 1 — Graduated Cylinder (2 mL increments, 1 reading)</div>
-        <div class="ki-ans">Uncertainty = ½ × 2 mL × 1 = 1 mL &nbsp;→&nbsp; Volume = 46 ± 1 mL</div>
-        <div class="ki-expl">Instrument limit per reading = ½ × 2 = 1 mL. Only one reading (one meniscus position), so multiply by 1.</div>
-      </div>
-      <div class="key-item">
-        <div class="ki-num">Problem 2 — Analogue Ammeter (0.1 A increments, 2 measurements)</div>
-        <div class="ki-ans">Uncertainty = ½ × 0.1 A × 2 = 0.1 A &nbsp;→&nbsp; Current = 1.4 ± 0.1 A</div>
-        <div class="ki-expl">Instrument limit = ½ × 0.1 = 0.05 A per reading. Two readings → 0.05 × 2 = 0.1 A.</div>
-      </div>
-      <div class="key-item">
-        <div class="ki-num">Problem 3 — Digital Multimeter (5.026 V)</div>
-        <div class="ki-ans">Uncertainty = ±0.001 V &nbsp;→&nbsp; Voltage = 5.026 ± 0.001 V</div>
-        <div class="ki-expl">Last digit is in the thousandths place (0.001 V), so uncertainty = ±0.001 V.</div>
-      </div>
-      <div class="key-item">
-        <div class="ki-num">Problem 4 — Metre Rule (0.1 cm increments, 2 measurements)</div>
-        <div class="ki-ans">Uncertainty = ½ × 0.1 cm × 2 = 0.1 cm &nbsp;→&nbsp; Wavelength = 32.4 ± 0.1 cm</div>
-        <div class="ki-expl">Instrument limit = 0.05 cm per reading. Two node positions → 0.05 × 2 = 0.1 cm.</div>
-      </div>
-      <div class="key-item">
-        <div class="ki-num">Problem 5 — Micrometer (3.45 mm)</div>
-        <div class="ki-ans">Uncertainty = ±0.01 mm &nbsp;→&nbsp; Diameter = 3.45 ± 0.01 mm</div>
-        <div class="ki-expl">Digital-style readout: last digit in hundredths place (0.01 mm) → uncertainty = ±0.01 mm.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Real-World Scenarios</h3>
-      <div class="key-item">
-        <div class="ki-num">Problem 6 — Stopwatch (reaction time)</div>
-        <div class="ki-ans">a) ±0.01 s &nbsp;&nbsp; b) 2 × ±0.2 s = ±0.4 s &nbsp;&nbsp; c) Report ±0.4 s</div>
-        <div class="ki-expl">The instrument uncertainty (0.01 s) is much smaller than the human reaction-time uncertainty (0.4 s from two button presses). The larger value (±0.4 s) must be reported. This is a key real-world application: a high-precision digital instrument does not eliminate human error in the procedure.</div>
-      </div>
-      <div class="key-item">
-        <div class="ki-num">Problem 7 — Blood Pressure (2 mmHg increments, 2 readings)</div>
-        <div class="ki-ans">Instrument uncertainty = ½ × 2 × 2 = 2 mmHg. Patient fidgeting = ±5 mmHg → Report ±5 mmHg.</div>
-        <div class="ki-ans">Blood pressure = (120 ± 5) / (80 ± 5) mmHg</div>
-        <div class="ki-expl">The experimental estimate (±5 mmHg) dominates. Both the systolic and diastolic readings carry the same uncertainty of ±5 mmHg.</div>
-      </div>
-      <div class="key-item">
-        <div class="ki-num">Problem 8 — Rebound Ball Photography</div>
-        <div class="ki-ans">a) Drop height: ½ × 0.1 × 2 = 0.1 cm &nbsp;&nbsp; b) Ruler instrument only: 0.1 cm &nbsp;&nbsp; c) Photo reading adds ±1.0 cm → Report ±1.0 cm for rebound height</div>
-        <div class="ki-expl">The photograph introduces parallax and scaling errors that dominate over the ruler's instrument uncertainty. The drop height (measured directly) remains ±0.1 cm, but the rebound height (read from a photo) must use the larger experimental estimate of ±1.0 cm.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — True or False</h3>
-      <div class="key-item tf-key">
-        <div class="ki-num">Statement 1</div>
-        <div class="ki-ans">TRUE</div>
-        <div class="ki-expl">8.00 s shows hundredths precision; ±0.01 s is correct for a digital instrument.</div>
-      </div>
-      <div class="key-item tf-key">
-        <div class="ki-num">Statement 2</div>
-        <div class="ki-ans">FALSE</div>
-        <div class="ki-expl">The instrument uncertainty per measurement is HALF the smallest increment: ½ × 0.5 cm = 0.25 cm. (The total after multiplying by number of measurements may equal 0.5 cm if two readings are taken, but per measurement it is 0.25 cm.)</div>
-      </div>
-      <div class="key-item tf-key">
-        <div class="ki-num">Statement 3</div>
-        <div class="ki-ans">TRUE</div>
-        <div class="ki-expl">Always report the larger value. ±0.3 cm > ±0.1 cm, so ±0.3 cm is correct.</div>
-      </div>
-      <div class="key-item tf-key">
-        <div class="ki-num">Statement 4</div>
-        <div class="ki-ans">FALSE</div>
-        <div class="ki-expl">All measuring devices — old or new, cheap or expensive — have some imprecision. Measurement uncertainty is a fundamental feature of measurement, not a fault of the equipment.</div>
-      </div>
-      <div class="key-item tf-key">
-        <div class="ki-num">Statement 5</div>
-        <div class="ki-ans">FALSE</div>
-        <div class="ki-expl">Measuring a table with a ruler involves 2 readings: where the ruler starts (0 end) and where the table ends. Both positions must be read on the scale → n = 2 measurements.</div>
-      </div>
-      <div class="key-item tf-key">
-        <div class="ki-num">Statement 6</div>
-        <div class="ki-ans">TRUE</div>
-        <div class="ki-expl">Even a zero reading carries uncertainty. The display resolves to 0.01 g, so ±0.01 g applies regardless of the value shown.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Extended Writing (Model Answers)</h3>
-      <div class="key-item essay-key">
-        <div class="ki-num">Problem 9 — Accuracy vs. Measurement Uncertainty</div>
-        <div class="ki-expl">The student is confusing <em>accuracy</em> (how close a measurement is to the true value) with <em>measurement uncertainty</em> (the range of values within which the true measurement likely lies). Even a highly accurate digital balance has a finite resolution — its last digit represents a limit of ±1 digit that cannot be escaped regardless of the instrument's quality. Furthermore, measurement uncertainty also includes the experimental procedure: table vibrations, balance drift, or placing items off-centre all contribute additional uncertainty beyond the instrument. Every measurement must report an uncertainty; there is no such thing as a perfectly certain measurement in physics.</div>
-      </div>
-      <div class="key-item essay-key">
-        <div class="ki-num">Problem 10 — Spring Extension Lab</div>
-        <div class="ki-expl">(a) The instrument uncertainty = ½ × 0.1 cm × 2 = 0.1 cm (two readings: natural length and extended length). (b) Experimental factors that increase uncertainty: the spring oscillates slightly after adding mass, making it hard to read a stable position; parallax error when reading the ruler at an angle; the spring not hanging perfectly vertically. (c) If any of these factors justify an estimate larger than 0.1 cm (e.g., ±0.3 cm due to oscillation), then ±0.3 cm must be reported and justified because we always use the larger, more honest value.</div>
-      </div>
-      <div class="key-item essay-key">
-        <div class="ki-num">Problem 11 — Two Students, Same Scale</div>
-        <div class="ki-expl">No — the two students will report different uncertainties despite using the same instrument. Student A's procedure is stable: the instrument uncertainty of ±0.1 g dominates, and they report 0.1 g. Student B's moving object causes the display to fluctuate by ±0.5 g, which is a justified experimental estimate larger than the instrument limit. By the two-option rule, Student B must report ±0.5 g. This demonstrates that measurement uncertainty describes the experiment, not just the device — the same tool can yield different uncertainties depending on how well the measurement procedure is executed.</div>
-      </div>
-    </div>
-
-  </div>
-
-</main>
-
-<footer style="text-align:center;padding:28px 20px;font-size:0.82rem;color:#94a3b8;">Physics · Measurement Uncertainty · Homework &nbsp;|&nbsp; Unit 13</footer>
+  
 
 <script>
 function toggleKey() {
