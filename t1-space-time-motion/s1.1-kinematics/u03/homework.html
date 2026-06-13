@@ -164,22 +164,13 @@
     font-family:'Nunito',sans-serif;font-size:.88rem;color:var(--dark);display:block;margin-bottom:.35rem;
   }
   /* ANSWER KEY */
-  #toggle-key-btn{
-    display:block;margin:1.5rem auto 0;padding:.7rem 2rem;
-    background:linear-gradient(90deg,var(--red),#dc2626);
-    color:#fff;border:none;border-radius:10px;
-    font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;
-    transition:opacity .2s;
-  }
   #toggle-key-btn:hover{opacity:.88;}
-  #answer-key{display:none;margin-top:1.5rem;}
   .key-card{
     background:#fff;border:2px solid var(--green);border-radius:16px;
     padding:1.5rem;margin-bottom:1.2rem;
     box-shadow:0 4px 16px rgba(34,197,94,.1);
   }
   .key-card h3{font-size:1rem;font-weight:800;color:var(--green);margin-bottom:1rem;}
-  .key-item{border-bottom:1px solid #e8edf5;padding:.65rem 0;font-size:.88rem;line-height:1.7;}
   .key-item:last-child{border-bottom:none;}
   .key-item strong{color:var(--dark);font-weight:800;}
   .key-ans{font-family:'Space Mono',monospace;font-weight:700;color:var(--green);}
@@ -422,98 +413,7 @@
     <!-- ANSWER KEY TOGGLE -->
     <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
 
-    <div id="answer-key">
-
-      <div class="key-card">
-        <h3>Part A — Answer Key</h3>
-        <div class="key-item">
-          <strong>A1:</strong> <span class="key-ans">a = 3 ms⁻²</span>
-          <span class="key-work">G: U=0 ms⁻¹, V=24 ms⁻¹, t=8 s<br/>E: a = (V−U)/t<br/>S: a = (24−0)/8 = 24/8 = 3 ms⁻²</span>
-        </div>
-        <div class="key-item">
-          <strong>A2:</strong> <span class="key-ans">V = 22 ms⁻¹</span>
-          <span class="key-work">G: U=12 ms⁻¹, a=2 ms⁻², t=5 s<br/>E: V = U + at<br/>S: V = 12 + (2)(5) = 12 + 10 = 22 ms⁻¹</span>
-        </div>
-        <div class="key-item">
-          <strong>A3:</strong> <span class="key-ans">a = −20 ms⁻²</span>
-          <span class="key-work">G: U=500 ms⁻¹, V=100 ms⁻¹, t=20 s<br/>E: a = (V−U)/t<br/>S: a = (100−500)/20 = −400/20 = −20 ms⁻²</span>
-        </div>
-        <div class="key-item">
-          <strong>A4:</strong> <span class="key-ans">t = 7 s</span>
-          <span class="key-work">G: U=0 ms⁻¹, V=35 ms⁻¹, a=5 ms⁻²<br/>E: t = (V−U)/a<br/>S: t = (35−0)/5 = 35/5 = 7 s</span>
-        </div>
-        <div class="key-item">
-          <strong>A5:</strong> <span class="key-ans">V = −14 ms⁻¹</span>
-          <span class="key-work">G: U=−8 ms⁻¹, a=−2 ms⁻², t=3 s<br/>E: V = U + at<br/>S: V = −8 + (−2)(3) = −8 + (−6) = −14 ms⁻¹<br/>Note: a and v are both negative (same sign) → object is speeding up in the negative direction.</span>
-        </div>
-        <div class="key-item">
-          <strong>A6:</strong> <span class="key-ans">t = 4 s</span>
-          <span class="key-work">G: U=3 ms⁻¹, V=9 ms⁻¹, a=1.5 ms⁻²<br/>E: t = (V−U)/a<br/>S: t = (9−3)/1.5 = 6/1.5 = 4 s</span>
-        </div>
-      </div>
-
-      <div class="key-card">
-        <h3>Part B — True / False Answer Key</h3>
-        <div class="key-item">
-          <strong>B1: <span class="key-ans">FALSE</span></strong><br/>
-          Correction: An object with negative acceleration is getting slower only if its velocity is positive (opposite signs). If velocity is also negative, the object is actually getting faster. The sign of acceleration alone does not determine whether the object speeds up or slows down.
-        </div>
-        <div class="key-item">
-          <strong>B2: <span class="key-ans">TRUE</span></strong><br/>
-          Acceleration is a vector quantity (it has both magnitude and direction), and its unit is ms⁻².
-        </div>
-        <div class="key-item">
-          <strong>B3: <span class="key-ans">FALSE</span></strong><br/>
-          Correction: A car moving at constant speed in a straight line has zero acceleration — its velocity (speed + direction) is not changing. Acceleration is only zero if none of the three conditions apply (no speeding up, slowing down, or change in direction).
-        </div>
-        <div class="key-item">
-          <strong>B4: <span class="key-ans">TRUE</span></strong><br/>
-          This is the core sign rule from the lesson. When acceleration and velocity have the same sign, the object's speed (magnitude of velocity) is increasing.
-        </div>
-      </div>
-
-      <div class="key-card">
-        <h3>Part C — Challenge Answer Key</h3>
-        <div class="key-item">
-          <strong>C1(a):</strong> <span class="key-ans">V = 20 ms⁻¹</span>
-          <span class="key-work">V = U + at = 0 + (4)(5) = 20 ms⁻¹ after the first phase.</span>
-        </div>
-        <div class="key-item">
-          <strong>C1(b):</strong> <span class="key-ans">t = 10 s</span>
-          <span class="key-work">Deceleration phase: U=20 ms⁻¹, V=0 ms⁻¹, a=−2 ms⁻²<br/>t = (V−U)/a = (0−20)/(−2) = −20/−2 = 10 s</span>
-        </div>
-        <div class="key-item">
-          <strong>C1(c):</strong> <span class="key-ans">Total = 15 s</span>
-          <span class="key-work">Total time = 5 s (acceleration) + 10 s (deceleration) = 15 s</span>
-        </div>
-        <div class="key-item">
-          <strong>C2(a) — Velocities:</strong>
-          <span class="key-work">
-            t=1 s: V = −9 + (−3)(1) = −9 − 3 = <span class="key-ans">−12 ms⁻¹</span><br/>
-            t=2 s: V = −9 + (−3)(2) = −9 − 6 = <span class="key-ans">−15 ms⁻¹</span><br/>
-            t=3 s: V = −9 + (−3)(3) = −9 − 9 = <span class="key-ans">−18 ms⁻¹</span><br/>
-            t=4 s: V = −9 + (−3)(4) = −9 − 12 = <span class="key-ans">−21 ms⁻¹</span>
-          </span>
-        </div>
-        <div class="key-item">
-          <strong>C2(b) — Sign analysis:</strong>
-          <span class="key-work">
-            At every time step: a = −3 (negative) and V is negative and growing in magnitude.<br/>
-            Same sign (both negative) → <span class="key-ans">Object is getting FASTER</span> at all time steps.<br/>
-            The speed is increasing: |−12| &gt; |−9|, |−15| &gt; |−12|, etc.
-          </span>
-        </div>
-        <div class="key-item">
-          <strong>C2(c) — 4-Quadrant connection:</strong>
-          <span class="key-work">
-            This matches the <span class="key-ans">bottom-right quadrant</span> of the 4-quadrant table: negative acceleration with negative starting velocity. Both signs match, so the object gets faster. The velocity sequence (−9, −12, −15, −18, −21) mirrors the pattern shown in the lesson (V₀=−4, V₁=−5, V₂=−6, etc.) — the magnitude increases even though both values are negative.
-          </span>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
-</div><!-- /main -->
+    
 
 <script>
 // PASSWORD
