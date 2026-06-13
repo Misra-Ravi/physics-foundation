@@ -78,12 +78,8 @@
     .show-work input:focus{border-bottom-color:#7c3aed;}
 
     /* ANSWER KEY */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#0e7490;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;transition:background 0.2s;}
     #toggle-key-btn:hover{background:#0891b2;}
-    #answer-key{display:none;background:#ecfeff;border:2px solid #a5f3fc;border-radius:12px;padding:28px 32px;margin-top:10px;}
     #answer-key h3{color:#0e7490;font-size:1.1rem;margin-bottom:18px;}
-    .key-section{margin-bottom:22px;}
     .key-section h4{font-size:0.95rem;font-weight:800;color:#0e7490;border-bottom:1px solid #a5f3fc;padding-bottom:6px;margin-bottom:12px;}
     .key-row{display:grid;grid-template-columns:auto 1fr;gap:12px;margin-bottom:8px;align-items:baseline;}
     .key-num{font-weight:800;color:#0e7490;font-size:0.9rem;white-space:nowrap;}
@@ -421,100 +417,6 @@
     </div>
   </section>
 
-  <!-- ANSWER KEY -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
-  <div id="answer-key">
-    <h3>Answer Key</h3>
-
-    <div class="key-section">
-      <h4>Part A — Real-World Scenarios</h4>
-      <div class="key-row"><span class="key-num">Q1 (Plane NE):</span><span class="key-ans">vx: <span class="correct">right (+)</span>, vy: <span class="correct">up (+)</span>. Both non-zero (diagonal vector, Quadrant I)</span></div>
-      <div class="key-row"><span class="key-num">Q2 (Sub down):</span><span class="key-ans">vx = <span class="correct">0</span> (no horizontal travel). vy: <span class="correct">down (−)</span>, vy = 5 m/s downward</span></div>
-      <div class="key-row"><span class="key-num">Q3 (Ball SW):</span><span class="key-ans">dx: <span class="correct">left (−)</span>, dy: <span class="correct">down (−)</span>. dx ≠ 0. <span class="correct">Quadrant III</span></span></div>
-      <div class="key-row"><span class="key-num">Q4 (Train left):</span><span class="key-ans">vx = <span class="correct">−80 km/h</span>. vy = <span class="correct">0</span>. Flat track = no vertical motion</span></div>
-    </div>
-
-    <div class="key-section">
-      <h4>Part B — Pythagorean Calculations</h4>
-      <div class="key-row"><span class="key-num">Q5:</span><span class="key-ans">9&#178; + 12&#178; = A&#178; &rarr; 81 + 144 = 225 &rarr; <span class="correct">A = 15 m</span> (9-12-15 = 3&#215;3-4-5)</span></div>
-      <div class="key-row"><span class="key-num">Q6:</span><span class="key-ans">vx&#178; = 26&#178; − 10&#178; = 676 − 100 = 576 &rarr; <span class="correct">vx = 24 m/s</span> (10-24-26 = 2&#215;5-12-13)</span></div>
-      <div class="key-row"><span class="key-num">Q7:</span><span class="key-ans">20&#178; + 21&#178; = F&#178; &rarr; 400 + 441 = 841 &rarr; <span class="correct">F = 29 N</span> (20-21-29 Pythagorean triple)</span></div>
-      <div class="key-row"><span class="key-num">Q8:</span><span class="key-ans">dy&#178; = 50&#178; − 30&#178; = 2500 − 900 = 1600 &rarr; <span class="correct">dy = 40 m</span> (30-40-50 = 10&#215;3-4-5)</span></div>
-    </div>
-
-    <div class="key-section">
-      <h4>Part C — Concept Questions</h4>
-      <div class="key-row"><span class="key-num">Q9:</span><span class="key-ans">Ax and Ay are perpendicular, so they form a right triangle with A as hypotenuse. The correct relationship is <span class="correct">Ax&#178; + Ay&#178; = A&#178;</span>, not A = Ax + Ay.</span></div>
-      <div class="key-row"><span class="key-num">Q10:</span><span class="key-ans">Ay measures vertical travel. A horizontal vector moves purely sideways — it has <span class="correct">zero vertical displacement</span>, so Ay = 0.</span></div>
-      <div class="key-row"><span class="key-num">Q11:</span><span class="key-ans">The arrow means direction matters. &#8594;Ax and &#8594;Ay are added <span class="correct">tip-to-tail</span> (vectorially), not as plain numbers. Their directions are perpendicular, which is why we need the Pythagorean theorem for magnitudes.</span></div>
-    </div>
-
-    <div class="key-section">
-      <h4>Part D — True / False</h4>
-      <div class="key-row"><span class="key-num">Q12:</span><span class="key-ans"><span class="correct">TRUE</span> — Ax = 0 means no horizontal component, so the vector must be purely vertical.</span></div>
-      <div class="key-row"><span class="key-num">Q13:</span><span class="key-ans"><span class="correct">TRUE</span> — x and y are always perpendicular by definition, so the Pythagorean theorem always applies.</span></div>
-      <div class="key-row"><span class="key-num">Q14:</span><span class="key-ans"><span class="correct">FALSE</span> — 3&#178; + 4&#178; = 5&#178; &rarr; A = 5 m, not 7 m. Never add scalar components directly.</span></div>
-      <div class="key-row"><span class="key-num">Q15:</span><span class="key-ans"><span class="correct">TRUE</span> — Diagonal means traveling in both horizontal and vertical directions simultaneously.</span></div>
-      <div class="key-row"><span class="key-num">Q16:</span><span class="key-ans"><span class="correct">FALSE</span> — Bottom-left (Quadrant III) has Ax pointing LEFT (negative) and Ay pointing DOWN (also negative).</span></div>
-      <div class="key-row"><span class="key-num">Q17:</span><span class="key-ans"><span class="correct">TRUE</span> — A is the hypotenuse and is always the longest side of a right triangle (A ≥ Ax and A ≥ Ay).</span></div>
-    </div>
-
-    <div class="key-section">
-      <h4>Part E — Challenge Problems</h4>
-      <div class="key-row"><span class="key-num">Q18:</span><span class="key-ans">8&#178; + 15&#178; = 64 + 225 = 289 &rarr; <span class="correct">A = 17 m</span> (8-15-17 triple)</span></div>
-      <div class="key-row"><span class="key-num">Q19:</span><span class="key-ans">Ay&#178; = 25&#178; − 7&#178; = 625 − 49 = 576 &rarr; <span class="correct">Ay = 24 m</span> (7-24-25 triple)</span></div>
-      <div class="key-row"><span class="key-num">Q20:</span><span class="key-ans">Ax&#178; = 29&#178; − 20&#178; = 841 − 400 = 441 &rarr; <span class="correct">Ax = 21 m</span> (20-21-29 triple)</span></div>
-      <div class="key-row"><span class="key-num">Q21:</span><span class="key-ans">12&#178; + 35&#178; = 144 + 1225 = 1369 &rarr; <span class="correct">A = 37 m</span> (12-35-37 triple)</span></div>
-    </div>
-  </div>
-
-</main>
-</div>
-
-<script>
-  function checkPw(){
-    const v=document.getElementById('pwInput').value;
-    if(v==='physics2024'){
-      document.getElementById('lockOverlay').style.display='none';
-      document.getElementById('mainContent').classList.remove('content-hidden');
-    } else {
-      document.getElementById('pwErr').style.display='block';
-      document.getElementById('pwInput').value='';
-    }
-  }
-  function toggleKey(){
-    const k=document.getElementById('answer-key');
-    const b=document.getElementById('toggle-key-btn');
-    if(k.style.display==='block'){k.style.display='none';b.textContent='Show Answer Key';}
-    else{k.style.display='block';b.textContent='Hide Answer Key';}
-  }
-  function selectTF(btn,val,qid){
-    const parent=btn.closest('.tf-buttons');
-    parent.querySelectorAll('.tf-btn').forEach(b=>{
-      b.classList.remove('selected-t','selected-f');
-    });
-    btn.classList.add(val==='t'?'selected-t':'selected-f');
-  }
-</script>
-
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+  
 </body>
 </html>
