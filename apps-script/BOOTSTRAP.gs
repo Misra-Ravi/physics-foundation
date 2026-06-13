@@ -765,14 +765,12 @@ function _parentEmail(student,unit,fileUrl,approvalUrl,notes,fileAttached){
 }
 
 function _approvalEmail(student,unit,nextUnit){
-  var nxt=nextUnit&&nextUnit.LessonURL
-    ?'<p>Your next chapter is now unlocked:</p><div class="badge">🔓 '+nextUnit.SectionNum+' '+nextUnit.SectionName+' — '+nextUnit.UnitName+'</div><p><a href="'+nextUnit.LessonURL+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">Start '+nextUnit.UnitName+' →</a></p>'
-    :'<p>You\'ve completed all available units — well done! 🎉</p>';
   return '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
     '<div class="h"><div class="lbl">IB Physics Portal</div><h1>Chapter Approved ✅</h1></div>'+
     '<div class="b"><p>Hi '+student.StudentName+',</p>'+
     '<p>Your parent approved your homework for:</p>'+
-    '<div class="badge">✅ '+unit.UnitName+'</div>'+nxt+
+    '<div class="badge">✅ '+unit.UnitName+'</div>'+
+    '<p>Great work! Your teacher will assign your next unit shortly.</p>'+
     '<p class="note">Keep it up!</p></div></div></body></html>';
 }
 
