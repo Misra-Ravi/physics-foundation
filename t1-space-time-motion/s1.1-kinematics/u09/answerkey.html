@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 9 – A-T Graphs | Answer Key</title>
+  <style>
+
+  :root{
+    --blue:#3b82f6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+    --dark:#0f172a;--bg:#f8faff;--card:#ffffff;--border:#e2e8f0;
+    --text:#1e293b;--muted:#64748b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);
+    background-image:radial-gradient(circle,#c7d2fe 1px,transparent 1px);
+    background-size:28px 28px;min-height:100vh;
+  }
+
+  /* GATE */
+  #gate{
+    position:fixed;inset:0;z-index:9999;
+    background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .gate-box{
+    background:rgba(255,255,255,.09);backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.2);border-radius:20px;
+    padding:48px 40px;text-align:center;width:min(380px,90vw);
+  }
+  .gate-box .lock{font-size:3rem;margin-bottom:12px;}
+  .gate-box h2{color:#fff;font-size:1.6rem;font-weight:800;margin-bottom:6px;}
+  .gate-box p{color:#bfdbfe;margin-bottom:24px;font-size:.95rem;}
+  .gate-box input{
+    width:100%;padding:12px 16px;border-radius:10px;
+    border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);
+    color:#fff;font-family:'Space Mono',monospace;font-size:1rem;
+    outline:none;text-align:center;letter-spacing:3px;margin-bottom:14px;
+  }
+  .gate-box input::placeholder{color:rgba(255,255,255,.45);letter-spacing:1px;}
+  .gate-box input:focus{border-color:#93c5fd;}
+  .gate-btn{
+    width:100%;padding:13px;border-radius:10px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,#60a5fa,#2563eb);
+    color:#fff;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:700;
+    transition:opacity .2s;
+  }
+  .gate-btn:hover{opacity:.9;}
+  .gate-err{color:#fca5a5;font-size:.9rem;margin-top:10px;display:none;}
+
+  /* HEADER */
+  header{
+    background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);
+    padding:40px 24px 36px;color:#fff;
+  }
+  .header-inner{max-width:900px;margin:0 auto;}
+  .chip{
+    display:inline-block;background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.3);color:#e0f2fe;
+    padding:5px 14px;border-radius:999px;font-size:.78rem;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;
+  }
+  .hw-badge{
+    display:inline-block;background:#f59e0b;color:#78350f;
+    font-size:.78rem;font-weight:800;padding:4px 12px;border-radius:6px;
+    margin-left:10px;vertical-align:middle;letter-spacing:.04em;
+  }
+  header h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;margin-bottom:10px;}
+  header p.sub{color:#bfdbfe;font-size:.95rem;margin-bottom:18px;}
+  .info-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;}
+  .info-field{
+    display:flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+    border-radius:8px;padding:8px 14px;flex:1;min-width:160px;
+  }
+  .info-field label{font-size:.78rem;color:#93c5fd;font-weight:700;white-space:nowrap;}
+  .info-field input{
+    border:none;background:transparent;outline:none;color:#fff;
+    font-family:'Nunito',sans-serif;font-size:.93rem;flex:1;min-width:80px;
+  }
+  .info-field input::placeholder{color:rgba(255,255,255,.4);}
+
+  /* LAYOUT */
+  main{max-width:900px;margin:0 auto;padding:36px 20px 60px;}
+
+  /* REF BOX */
+  .ref-box{
+    background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;
+    padding:16px 20px;margin-bottom:24px;
+  }
+  .ref-box .rh{font-weight:800;color:#1d4ed8;font-size:.95rem;margin-bottom:8px;}
+  .ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;}
+  .ref-item{
+    background:#fff;border:1px solid #bfdbfe;border-radius:8px;
+    padding:8px 12px;text-align:center;
+  }
+  .ref-item .rf{font-family:'Space Mono',monospace;font-size:1rem;color:#1e3a5f;font-weight:700;}
+  .ref-item .rl{font-size:.78rem;color:var(--muted);margin-top:3px;}
+
+  /* TIP BOX */
+  .tip-box{
+    background:#fffbeb;border:1px solid #fde68a;border-radius:10px;
+    padding:12px 16px;margin-bottom:24px;display:flex;gap:10px;align-items:flex-start;
+  }
+  .tip-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px;}
+  .tip-text{font-size:.88rem;line-height:1.6;color:#78350f;}
+  .tip-text strong{color:#92400e;}
+
+  /* CARDS */
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:16px;
+    padding:24px 24px 20px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,.05);
+  }
+  .section-title{
+    font-size:1.1rem;font-weight:800;margin-bottom:18px;
+    padding-bottom:10px;border-bottom:2px solid var(--border);
+    display:flex;align-items:center;gap:10px;
+  }
+  .part-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--blue);color:#fff;border-radius:8px;
+    font-size:.82rem;font-weight:800;padding:3px 10px;
+  }
+  .part-badge.green{background:var(--green);}
+  .part-badge.amber{background:var(--amber);}
+  .part-badge.red{background:var(--red);}
+
+  /* PROBLEM */
+  .problem{
+    background:#f8faff;border:1px solid var(--border);border-radius:10px;
+    padding:16px 18px;margin-bottom:16px;
+  }
+  .problem .pnum{
+    font-weight:800;color:var(--blue);font-size:.88rem;
+    text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;
+  }
+  .problem p{font-size:.93rem;line-height:1.6;margin-bottom:10px;}
+  .work-box{
+    background:#fff;border:2px dashed #cbd5e1;border-radius:8px;
+    padding:10px 14px;min-height:90px;font-size:.85rem;
+    color:#94a3b8;font-style:italic;position:relative;
+  }
+  .work-box::after{
+    content:'Working space';position:absolute;top:10px;left:14px;
+    font-size:.8rem;color:#cbd5e1;pointer-events:none;
+  }
+  .ans-line{
+    display:flex;align-items:center;gap:8px;margin-top:10px;
+  }
+  .ans-line label{font-size:.88rem;font-weight:700;color:#334155;white-space:nowrap;}
+  .ans-blank{
+    flex:1;border-bottom:2px solid #94a3b8;padding:2px 6px;
+    font-family:'Space Mono',monospace;font-size:.93rem;min-height:24px;
+    background:transparent;outline:none;border-top:none;border-left:none;border-right:none;
+  }
+  .marks{
+    display:inline-block;background:#f1f5f9;border-radius:5px;
+    font-size:.75rem;font-weight:700;color:var(--muted);
+    padding:2px 8px;margin-left:8px;
+  }
+
+  /* GRAPH */
+  .graph-wrap{
+    background:#fff;border:1px solid var(--border);border-radius:10px;
+    padding:12px;margin:10px 0;overflow-x:auto;
+  }
+  svg text{font-family:'Nunito',sans-serif;}
+
+  /* T/F */
+  .tf-item{
+    background:#f8faff;border:1px solid var(--border);border-radius:10px;
+    padding:14px 16px;margin-bottom:12px;
+  }
+  .tf-item p{font-size:.93rem;line-height:1.55;margin-bottom:8px;}
+  .tf-choice{display:flex;gap:12px;}
+  .tf-choice label{
+    display:flex;align-items:center;gap:6px;font-size:.9rem;
+    font-weight:700;cursor:pointer;padding:5px 14px;
+    border-radius:6px;border:2px solid var(--border);background:#fff;
+    transition:all .15s;
+  }
+  .tf-choice input{accent-color:var(--blue);}
+  .tf-choice label:has(input:checked){border-color:var(--blue);background:#eff6ff;color:#1d4ed8;}
+
+  /* CHALLENGE */
+  .challenge{
+    background:linear-gradient(135deg,#fff7ed,#fef3c7);
+    border:1px solid #fcd34d;border-radius:10px;padding:16px 18px;margin-bottom:16px;
+  }
+  .challenge .pnum{color:#b45309;}
+
+  /* DV TABLE */
+  table.dv{width:100%;border-collapse:collapse;margin:10px 0;}
+  table.dv th{background:#1e3a5f;color:#e0f2fe;padding:7px 10px;font-size:.82rem;text-align:left;}
+  table.dv td{padding:7px 10px;border-bottom:1px solid #e2e8f0;font-size:.85rem;}
+  table.dv tr:nth-child(even) td{background:#f1f5f9;}
+  table.dv tr.total td{background:#dbeafe;font-weight:700;font-family:'Space Mono',monospace;}
+
+  /* SHOW KEY */
+  .show-key-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#1e40af;color:#fff;border:none;border-radius:10px;
+    padding:12px 22px;font-family:'Nunito',sans-serif;font-size:.95rem;
+    font-weight:700;cursor:pointer;margin-top:20px;transition:opacity .2s;
+  }
+  .show-key-btn:hover{opacity:.88;}
+
+  #answer-key{display:none;margin-top:32px;}
+  .ak-card{
+    background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+    border:2px solid #86efac;border-radius:14px;padding:24px;
+  }
+  .ak-card h3{
+    color:#15803d;font-size:1.1rem;font-weight:800;
+    margin-bottom:16px;display:flex;align-items:center;gap:8px;
+  }
+  .ak-section{margin-bottom:18px;}
+  .ak-section h4{
+    color:#166534;font-size:.9rem;font-weight:700;
+    margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em;
+  }
+  .ak-item{
+    display:flex;align-items:flex-start;gap:10px;
+    background:#fff;border:1px solid #bbf7d0;border-radius:8px;
+    padding:10px 14px;margin-bottom:8px;
+  }
+  .ak-num{
+    background:#22c55e;color:#fff;border-radius:5px;
+    font-size:.78rem;font-weight:700;padding:2px 7px;flex-shrink:0;
+  }
+  .ak-text{font-size:.88rem;line-height:1.6;}
+  .ak-text .ans{font-family:'Space Mono',monospace;color:#166534;font-weight:700;}
+
+  .divider{border:none;border-top:2px dashed #e2e8f0;margin:28px 0;}
+
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Unit 9 – A-T Graphs | Homework</p>
+  </div>
+  <!-- ANSWER KEY -->
+  <div id="answer-key">
+    <div class="ak-card">
+      <h3>&#9989; Answer Key — Homework</h3>
+
+      <div class="ak-section">
+        <h4>Part A — Calculation Problems</h4>
+        <div class="ak-item"><span class="ak-num">A1</span><span class="ak-text">
+          ΔV₁ = +5 × 4 = <span class="ans">+20 ms⁻¹</span>.<br>
+          ΔV₂ = −3 × 4 = <span class="ans">−12 ms⁻¹</span>.<br>
+          <span class="ans">Total ΔV = +20 − 12 = +8 ms⁻¹</span>
+        </span></div>
+
+        <div class="ak-item"><span class="ak-num">A2</span><span class="ak-text">
+          Start v = 0. ΔV₁ = +8×2 = +16 → <span class="ans">v at 2s = 16 ms⁻¹</span>.<br>
+          ΔV₂ = 0 → <span class="ans">v at 6s = 16 ms⁻¹</span>.<br>
+          ΔV₃ = −4×4 = −16 → <span class="ans">v at 10s = 0 ms⁻¹</span>.
+        </span></div>
+
+        <div class="ak-item"><span class="ak-num">A3</span><span class="ak-text">
+          u = 12. ΔV₁ = −2×3 = −6 → <span class="ans">v at 3s = 6 ms⁻¹</span>.<br>
+          ΔV₂ = +4×2 = +8 → <span class="ans">v at 5s = 14 ms⁻¹</span>.<br>
+          ΔV₃ = 0 → <span class="ans">v at 8s = 14 ms⁻¹</span>.<br>
+          ΔV₄ = −6×2 = −12 → <span class="ans">v at 10s = 2 ms⁻¹</span>.
+        </span></div>
+
+        <div class="ak-item"><span class="ak-num">A4</span><span class="ak-text">
+          a₁ = (20−0)/5 = <span class="ans">+4 ms⁻²</span>.<br>
+          a₂ = 0/4 = <span class="ans">0 ms⁻²</span>.<br>
+          a₃ = (−4−20)/6 = −24/6 = <span class="ans">−4 ms⁻²</span>.
+        </span></div>
+
+        <div class="ak-item"><span class="ak-num">A5</span><span class="ak-text">
+          Start v = 4 ms⁻¹.<br>
+          ΔV₁ = +7×3 = +21 → <span class="ans">v at 3s = 25 ms⁻¹</span>.<br>
+          ΔV₂ = −7×3 = −21 → <span class="ans">v at 6s = 4 ms⁻¹</span>.<br>
+          Net ΔV = +21 − 21 = 0. <span class="ans">The object returns to its original velocity.</span>
+        </span></div>
+
+        <div class="ak-item"><span class="ak-num">A6</span><span class="ak-text">
+          Start v = 2 ms⁻¹.<br>
+          0→4s: ΔV = +12 → v = 14. &nbsp; 4→7s: ΔV = −12 → v = 2. &nbsp; 7→10s: ΔV = 0 → v = 2. &nbsp; 10→12s: ΔV = +10 → v = 12.<br>
+          <span class="ans">v at t = 12 s = 12 ms⁻¹</span>.<br>
+          V-T shape: rises steeply to 14 at t=4, falls back to 2 at t=7, flat 2→10s, rises again to 12 at t=12.
+        </span></div>
+      </div>
+
+      <div class="ak-section">
+        <h4>Part B — True or False</h4>
+        <div class="ak-item"><span class="ak-num">B1</span><span class="ak-text">
+          <span class="ans">FALSE</span>. a = 0 means <em>constant velocity</em> (which could be any value, including non-zero). The object is stationary only if v = 0.
+        </span></div>
+        <div class="ak-item"><span class="ak-num">B2</span><span class="ak-text">
+          <span class="ans">TRUE</span>. ΔV = a × t = −4 × 3 = −12 ms⁻¹. ✓
+        </span></div>
+        <div class="ak-item"><span class="ak-num">B3</span><span class="ak-text">
+          <span class="ans">FALSE</span>. Zero slope on a V-T graph means a = 0, so the A-T graph shows a horizontal line ON the x-axis (a = 0), not at a non-zero value.
+        </span></div>
+        <div class="ak-item"><span class="ak-num">B4</span><span class="ak-text">
+          <span class="ans">TRUE</span>. Total area = total ΔV. If ΔV = 0, then v_final = v_initial.
+        </span></div>
+      </div>
+
+      <div class="ak-section">
+        <h4>Part C — Challenge</h4>
+        <div class="ak-item"><span class="ak-num">C1</span><span class="ak-text">
+          (a) ΔV₁ = +2×5 = +10. Starting at 0, <span class="ans">max speed = 10 ms⁻¹</span> at t = 5s.<br>
+          (b) Braking ΔV = −2.5×4 = −10. v_final = 10 − 10 = <span class="ans">0 ms⁻¹</span> (comes to rest).<br>
+          (c) During braking: u = 10 ms⁻¹, a = −2.5 ms⁻², t = 4s.<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;s = 10×4 + ½×(−2.5)×16 = 40 − 20 = <span class="ans">20 m</span>.<br>
+          (d) V-T: rises from 0 to 10 ms⁻¹ at t=5s (slope +2), flat at 10 ms⁻¹ from t=5–15s, falls to 0 at t=19s (slope −2.5).
+        </span></div>
+        <div class="ak-item"><span class="ak-num">C2</span><span class="ak-text">
+          (a) ΔV_total = (+k×T) + (−k×T) = kT − kT = <span class="ans">0</span> for any k, T. ✓<br>
+          (b) k = 3, T = 5. ΔV at t = 5s = +3×5 = +15. v = 8 + 15 = <span class="ans">23 ms⁻¹</span>.<br>
+          (c) V-T: starts at 8 ms⁻¹, rises linearly to peak of 23 ms⁻¹ at t=5s (slope +3), then falls linearly back to 8 ms⁻¹ at t=10s (slope −3). Symmetric inverted V shape.
+        </span></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* GATE */
+(function(){
+  const KEY='pg_ok',PWD=btoa('physics2024');
+  if(localStorage.getItem(KEY)===PWD){document.getElementById('gate').style.display='none';}
+})();
+function checkPw(){
+  const v=document.getElementById('pw-input').value.trim();
+  const KEY='pg_ok',PWD=btoa('physics2024');
+  if(btoa(v)===PWD){
+    localStorage.setItem(KEY,PWD);
+    document.getElementById('gate').style.display='none';
+  } else {
+    document.getElementById('pw-err').style.display='block';
+  }
+}
+/* KEY TOGGLE */
+let keyVisible=false;
+function toggleKey(){
+  keyVisible=!keyVisible;
+  document.getElementById('answer-key').style.display=keyVisible?'block':'none';
+  document.getElementById('key-btn-icon').textContent=keyVisible?'🔓':'🔒';
+  document.getElementById('key-btn-text').textContent=keyVisible?'Hide Answer Key':'Show Answer Key';
+}
+</script>
+
+<script>
+(function(){
+  if(new URLSearchParams(window.location.search).get('key')==='show'){
+    var k=document.getElementById('answer-key');
+    var b=document.getElementById('toggle-key-btn');
+    if(k) k.style.display='block';
+    if(b) b.style.display='none';
+  } else {
+    var k=document.getElementById('answer-key');
+    var b=document.getElementById('toggle-key-btn');
+    var w=document.querySelector('.key-btn-wrap');
+    if(k) k.style.display='none';
+    if(b) b.style.display='none';
+    if(w) w.style.display='none';
+  }
+})();
+</script>
+</body>
+</html>
