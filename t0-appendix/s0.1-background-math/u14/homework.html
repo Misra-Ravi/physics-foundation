@@ -36,18 +36,13 @@
     .tf-stmt{flex:1;font-size:0.93rem;}
     .tf-circles{display:flex;gap:10px;flex-shrink:0;}
     .tf-circle{width:28px;height:28px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#9ca3af;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#0f766e;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#f0fdfa;border:2px solid #5eead4;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#0f766e;border-left-color:#0d9488;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#0f766e;margin-bottom:12px;}
     .key-table{width:100%;border-collapse:collapse;font-size:0.88rem;margin-bottom:8px;}
     .key-table th{background:#0f766e;color:white;padding:8px 12px;font-size:0.8rem;}
     .key-table td{border:1px solid #d1d5db;padding:8px 12px;text-align:center;font-family:'Space Mono',monospace;}
     .key-table tr:nth-child(even) td{background:#f0fdfa;}
     .key-ans{color:#0d9488;font-weight:700;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#0d9488;}
   </style>
 </head>
@@ -141,45 +136,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-    <div class="key-section">
-      <h3>Part A — Resistance Table</h3>
-      <table class="key-table">
-        <thead><tr><th>Length (cm)</th><th>Average (Ω)</th><th>Δ_stat</th><th>Error Bar</th></tr></thead>
-        <tbody>
-          <tr><td>10</td><td class="key-ans">2.2</td><td class="key-ans">0.1</td><td class="key-ans">0.5</td></tr>
-          <tr><td>20</td><td class="key-ans">4.5</td><td class="key-ans">0.2</td><td class="key-ans">0.5</td></tr>
-          <tr><td>30</td><td class="key-ans">6.77</td><td class="key-ans">0.15</td><td class="key-ans">0.5</td></tr>
-          <tr><td>40</td><td class="key-ans">9.07</td><td class="key-ans">0.15</td><td class="key-ans">0.5</td></tr>
-          <tr><td>50</td><td class="key-ans">11.17</td><td class="key-ans">0.3</td><td class="key-ans">0.5</td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:0.82rem;color:#4b5563;margin-top:8px;">Note: measurement uncertainty ±0.5 Ω is always larger than statistical uncertainty, so error bar = 0.5 Ω throughout.</div>
-    </div>
-    <div class="key-section">
-      <h3>Part B — Errors Found</h3>
-      <div class="short-ans-key"><strong>Error 1:</strong> Column headers missing units and measurement uncertainty (should be "Mass (kg) ±___ " and "Height (m) ±0.01").</div>
-      <div class="short-ans-key"><strong>Error 2:</strong> Stat. uncertainty row 1 — student wrote 0.04, but (1.22−1.18)/2 = 0.02. <strong>Correct: 0.02</strong></div>
-      <div class="short-ans-key"><strong>Error 3:</strong> Stat. uncertainty row 2 — (2.44−2.36)/2 = 0.04. Student wrote 0.08. <strong>Correct: 0.04</strong></div>
-      <div class="short-ans-key"><strong>Error 4:</strong> Error bar — should be larger(0.01 meas, 0.02 stat) = 0.02 for row 1; larger(0.01, 0.04) = 0.04 for row 2. Student put 0.04 and 0.08 (doubled the stat uncertainty — wrong formula).</div>
-    </div>
-    <div class="key-section">
-      <h3>Part C — T/F</h3>
-      <div class="short-ans-key"><strong>1. FALSE</strong> — Error bar = larger of (measurement uncertainty, statistical uncertainty), not always just statistical.</div>
-      <div class="short-ans-key"><strong>2. FALSE</strong> — The IV goes on the x (horizontal) axis. The DV goes on the y axis.</div>
-      <div class="short-ans-key"><strong>3. TRUE</strong> — If all trials are equal, Δ_stat = 0, so error bar = measurement uncertainty.</div>
-      <div class="short-ans-key"><strong>4. FALSE</strong> — Control values are listed ABOVE the table (e.g. "Control Values: ..."), not inside it.</div>
-      <div class="short-ans-key"><strong>5. TRUE</strong> — IV uncertainty → x-axis error bars; Error Bar column → y-axis error bars. ✓</div>
-    </div>
-    <div class="key-section">
-      <h3>Part D</h3>
-      <div class="short-ans-key"><strong>Q6 Headers:</strong> Data Table: Control Values: room temperature, ball diameter, ball material, ramp surface. | IV: Angle (°) ±1 | DV: Distance (cm) ±0.5 [Trial 1, Trial 2, Trial 3] | Average DV (cm) | Statistical Uncertainty | Error Bars</div>
-      <div class="short-ans-key"><strong>Q7:</strong> (a) Average = (42.5+43.1+42.8)/3 = 128.4/3 = <strong>42.8 cm</strong>. (b) Δ_stat = (43.1−42.5)/2 = 0.6/2 = <strong>±0.3 cm</strong>. (c) Error bar = larger(0.5, 0.3) = <strong>±0.5 cm</strong> (measurement uncertainty dominates).</div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
 <script>
