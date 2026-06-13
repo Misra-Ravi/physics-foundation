@@ -1167,6 +1167,84 @@ function testEmailDelivery() {
 //   "Upload your completed homework (photo or PDF)"
 // Allow file types: Images + PDF. Required: on. Position: 3rd question.
 
+
+// ── Populate AnswerKeyURL column in Units sheet (run once) ────────────────────
+function populateAnswerKeyURLs() {
+  var ss     = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var unitSh = ss.getSheetByName('Units');
+  var data   = unitSh.getDataRange().getValues();
+  var header = data[0];
+  var unitIdCol    = header.indexOf('UnitID');
+  var answerKeyCol = header.indexOf('AnswerKeyURL');
+
+  if (answerKeyCol < 0) {
+    // Column doesn't exist yet — add it after AnswerKeyDriveID
+    var akDriveCol = header.indexOf('AnswerKeyDriveID');
+    answerKeyCol   = akDriveCol + 1;
+    unitSh.insertColumnAfter(akDriveCol + 1);
+    unitSh.getRange(1, answerKeyCol + 1).setValue('AnswerKeyURL');
+    Logger.log('Created AnswerKeyURL column at position ' + (answerKeyCol + 1));
+  }
+
+  var urlMap = {
+    '0.1.01': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u01/answerkey.html',
+    '0.1.02': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u02/answerkey.html',
+    '0.1.03': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u03/answerkey.html',
+    '0.1.04': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u04/answerkey.html',
+    '0.1.05': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u05/answerkey.html',
+    '0.1.06': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u06/answerkey.html',
+    '0.1.07': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u07/answerkey.html',
+    '0.1.08': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u08/answerkey.html',
+    '0.1.09': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u09/answerkey.html',
+    '0.1.10': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u10/answerkey.html',
+    '0.1.11': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u11/answerkey.html',
+    '0.1.12': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u12/answerkey.html',
+    '0.1.13': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u13/answerkey.html',
+    '0.1.14': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u14/answerkey.html',
+    '0.1.15': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u15/answerkey.html',
+    '0.1.16': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u16/answerkey.html',
+    '0.1.17': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u17/answerkey.html',
+    '0.1.18': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u18/answerkey.html',
+    '0.1.19': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u19/answerkey.html',
+    '0.1.20': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u20/answerkey.html',
+    '0.1.21': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u21/answerkey.html',
+    '0.1.22': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u22/answerkey.html',
+    '0.1.23': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u23/answerkey.html',
+    '0.1.24': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u24/answerkey.html',
+    '0.1.25': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u25/answerkey.html',
+    '0.1.26': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u26/answerkey.html',
+    '0.1.27': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u27/answerkey.html',
+    '1.1.01': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u01/answerkey.html',
+    '1.1.02': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u02/answerkey.html',
+    '1.1.03': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u03/answerkey.html',
+    '1.1.04': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u04/answerkey.html',
+    '1.1.05': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u05/answerkey.html',
+    '1.1.06': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u06/answerkey.html',
+    '1.1.07': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u07/answerkey.html',
+    '1.1.08': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u08/answerkey.html',
+    '1.1.09': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u09/answerkey.html',
+    '1.1.10': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u10/answerkey.html',
+    '1.1.11': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u11/answerkey.html',
+    '1.1.12': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u12/answerkey.html',
+    '1.1.13': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u13/answerkey.html',
+    '1.1.14': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u14/answerkey.html',
+    '1.1.15': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u15/answerkey.html',
+    '1.1.16': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u16/answerkey.html'
+  };
+
+  var updated = 0;
+  for (var i = 1; i < data.length; i++) {
+    var uid = String(data[i][unitIdCol]).trim();
+    if (urlMap[uid]) {
+      unitSh.getRange(i + 1, answerKeyCol + 1).setValue(urlMap[uid]);
+      updated++;
+    }
+  }
+  SpreadsheetApp.flush();
+  SpreadsheetApp.getUi().alert('✅ Populated ' + updated + ' AnswerKeyURL entries.');
+  Logger.log('populateAnswerKeyURLs: updated ' + updated + ' rows.');
+}
+
 function seedProgress() {
   var ss       = SpreadsheetApp.openById(_cfg().SHEET_ID);
   var rosterSh = ss.getSheetByName('Roster');
