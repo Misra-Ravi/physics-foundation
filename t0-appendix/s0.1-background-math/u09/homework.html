@@ -62,27 +62,12 @@
     .bonus-card .bonus-badge{display:inline-block;background:#f59e0b;color:white;font-size:0.75rem;font-weight:800;text-transform:uppercase;padding:2px 8px;border-radius:4px;margin-bottom:8px;}
     .bonus-card .q{font-weight:600;margin-bottom:10px;font-size:0.95rem;color:#78350f;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#92400e;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#78350f;}
-    #answer-key{display:none;background:#fffbeb;border:2px solid #fbbf24;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#78350f;border-left-color:#d97706;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#78350f;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    @media(max-width:500px){.key-grid{grid-template-columns:1fr;}}
-    .key-item{background:white;border-radius:6px;padding:12px 16px;font-size:0.9rem;border-left:3px solid #fbbf24;}
-    .key-item .knum{font-size:0.75rem;font-weight:700;text-transform:uppercase;color:#6b7280;margin-bottom:4px;}
-    .key-item .kproblem{font-family:'Space Mono',monospace;font-size:0.85rem;color:#374151;margin-bottom:6px;}
-    .key-item .kans{font-family:'Space Mono',monospace;font-weight:700;color:#92400e;font-size:1rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:4px;}
+    @media(max-width:500px){}
     .tf-key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-    .tf-key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.88rem;border-left:3px solid #fbbf24;}
-    .tf-key-item .knum{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#6b7280;margin-bottom:3px;}
-    .tf-key-item .kans{font-weight:800;font-size:1rem;}
     .tf-key-item .kans-T{color:#15803d;}.tf-key-item .kans-F{color:#dc2626;}
-    .tf-key-item .kexpl{font-size:0.8rem;color:#4b5563;margin-top:3px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;margin-bottom:10px;font-size:0.92rem;border-left:3px solid #f59e0b;}
     .short-ans-key strong{color:#78350f;}
   </style>
 </head>
@@ -290,124 +275,9 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key (Teacher Use)</button></div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Harder Calculations</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="knum">Problem 1</div>
-          <div class="kproblem">(35±5% kg) + (15±20% kg)</div>
-          <div class="kans">50 ± 5 kg</div>
-          <div class="kexpl">5% of 35=1.75; 20% of 15=3. Values: 35+15=50. Δy=1.75+3=4.75→5 kg (1 s.f.).</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 2</div>
-          <div class="kproblem">(120±5% V) − (80±15% V)</div>
-          <div class="kans">40 ± 18 V</div>
-          <div class="kexpl">5% of 120=6 V; 15% of 80=12 V. Values: 120−80=40 V. Δy=6+12=18 V.</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 3</div>
-          <div class="kproblem">(4.75±0.12 s) + (2.38±0.09 s)</div>
-          <div class="kans">7.13 ± 0.21 s → 7.1 ± 0.2 s</div>
-          <div class="kexpl">Values: 4.75+2.38=7.13 s. Δy=0.12+0.09=0.21→0.2 s (1 s.f.). Match to tenths: 7.1 ± 0.2 s.</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 4</div>
-          <div class="kproblem">(550±25 N) − (320±40 N)</div>
-          <div class="kans">230 ± 65 N → 230 ± 60 N</div>
-          <div class="kexpl">Values: 550−320=230 N. Δy=25+40=65→60 N (1 s.f.). Match: 230 ± 60 N.</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 5</div>
-          <div class="kproblem">(8±1) + (5±2) + (3±1) m</div>
-          <div class="kans">16 ± 4 m</div>
-          <div class="kexpl">Values: 8+5+3=16 m. Δy=1+2+1=4 m. The rule extends to any number of measurements.</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 6</div>
-          <div class="kproblem">(2.4±0.25 frac T) − (1.0±0.5 T)</div>
-          <div class="kans">1.4 ± 1.1 T</div>
-          <div class="kexpl">Frac: 0.25×2.4=0.6 T. Values: 2.4−1.0=1.4 T. Δy=0.6+0.5=1.1 T.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — True or False</h3>
-      <div class="tf-key-grid">
-        <div class="tf-key-item">
-          <div class="knum">Statement 7</div>
-          <div class="kans tf-key-item kans-F">FALSE</div>
-          <div class="kexpl">You must ALWAYS add uncertainties. Subtracting them would underestimate the error range.</div>
-        </div>
-        <div class="tf-key-item">
-          <div class="knum">Statement 8</div>
-          <div class="kans tf-key-item kans-T">TRUE</div>
-          <div class="kexpl">Δy = Δa + Δb applies to both operations — the sign of the operation on the values does not affect how uncertainties combine.</div>
-        </div>
-        <div class="tf-key-item">
-          <div class="knum">Statement 9</div>
-          <div class="kans tf-key-item kans-F">FALSE</div>
-          <div class="kexpl">An uncertainty larger than the central value is perfectly valid — it simply means the measurement is very imprecise, and the true value could include zero or even be negative.</div>
-        </div>
-        <div class="tf-key-item">
-          <div class="knum">Statement 10</div>
-          <div class="kans tf-key-item kans-T">TRUE</div>
-          <div class="kexpl">The rule Δy = Δa + Δb only works with absolute uncertainties. Convert percent or fractional forms first.</div>
-        </div>
-        <div class="tf-key-item">
-          <div class="knum">Statement 11</div>
-          <div class="kans tf-key-item kans-F">FALSE</div>
-          <div class="kexpl">Subtracting nearly equal values is dangerous — the absolute uncertainty stays large while the result becomes tiny, causing the relative uncertainty to become enormous. This is called "loss of significance."</div>
-        </div>
-        <div class="tf-key-item">
-          <div class="knum">Statement 12</div>
-          <div class="kans tf-key-item kans-T">TRUE</div>
-          <div class="kexpl">Adding three measurements: Δy = 2 + 2 + 2 = 6 cm. The rule extends — add all individual uncertainties.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Extended Analysis</h3>
-      <div class="short-ans-key">
-        <strong>Question 13:</strong><br>
-        (a) ΔT = 85.0 − 82.0 = <strong>3.0°C</strong>. Uncertainty: 1.5 + 1.5 = <strong>3.0°C</strong>. So ΔT = <strong>3.0 ± 3.0°C</strong>.<br>
-        (b) The claim is <em>not valid</em>. The uncertainty equals the result — the temperature change could be anywhere from 0°C to 6.0°C. We cannot conclude the liquid cooled at all since zero is within the uncertainty range. The physicist would need a more precise thermometer.
-      </div>
-      <div class="short-ans-key">
-        <strong>Question 14:</strong><br>
-        (a) Student A: 12.3 ± 0.1 cm; Student B: 12.6 ± 0.1 cm.<br>
-        (b) Difference: 12.6 − 12.3 = 0.3 cm. Uncertainty: 0.1 + 0.1 = 0.2 cm. So difference = <strong>0.3 ± 0.2 cm</strong>.<br>
-        (c) The measurements <em>are consistent</em>. "Consistent" means the uncertainty ranges overlap: A's range is 12.2–12.4 cm; B's range is 12.5–12.7 cm. The ranges just barely touch (they share the boundary at 12.4–12.5). The difference of 0.3 cm could plausibly be due to measurement uncertainty alone — the students could be measuring the same length. Note: the difference (0.3 cm) is only marginally larger than the uncertainty (0.2 cm), so we cannot firmly say they measured different values.
-      </div>
-      <div class="short-ans-key">
-        <strong>Question 15:</strong><br>
-        (a) Total time: 62 + 58 = 120 s. Uncertainty: 3 + 3 = 6 s. Total = <strong>120 ± 6 s</strong>.<br>
-        (b) Difference: 62 − 58 = 4 s. Uncertainty: 3 + 3 = 6 s. Difference = <strong>4 ± 6 s</strong>.<br>
-        (c) The coach's claim is <em>not supported</em>. The uncertainty on the difference (±6 s) is larger than the difference itself (4 s). The true difference could be anywhere from −2 s to +10 s, which includes zero (no difference) and even negative values (Lap 1 faster!). We cannot conclude Lap 2 was definitively faster.
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Bonus Challenge</h3>
-      <div class="short-ans-key">
-        <strong>Question 16:</strong><br>
-        (a) 5% of 38 = 1.9 cm, so Section 2 = <strong>38 ± 1.9 cm</strong> (≈ 38 ± 2 cm).<br>
-        (b) Total = 42 + 38 + 20 = <strong>100 cm</strong>. Uncertainty: 2 + 1.9 + 1 = 4.9 ≈ <strong>5 cm</strong>. Total = <strong>100 ± 5 cm</strong>.<br>
-        (c) After cutting Section 3 (20 ± 1 cm) from the total (100 ± 5 cm): Remaining = 100 − 20 = <strong>80 cm</strong>. Uncertainty: 5 + 1 = <strong>6 cm</strong>. Result = <strong>80 ± 6 cm</strong>.<br>
-        (d) Percent uncertainty = (6/80) × 100% = <strong>7.5%</strong>. So 80 ± 7.5% cm.
-      </div>
-    </div>
-
-  </div>
-
-</main>
+  
 
 <script>
 function toggleKey() {
