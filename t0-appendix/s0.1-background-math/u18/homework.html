@@ -39,18 +39,9 @@
     .mc-opt{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 14px;font-size:0.9rem;color:#374151;display:flex;align-items:center;gap:10px;}
     .mc-opt .circle{width:18px;height:18px;border-radius:50%;border:2px solid #d97706;flex-shrink:0;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#92400e;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#78350f;}
-    #answer-key{display:none;background:#fffbeb;border:2px solid #fbbf24;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#92400e;border-left-color:#f59e0b;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#b45309;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;border-left:3px solid #fbbf24;}
-    .key-item .knum{font-family:'Space Mono',monospace;font-weight:700;font-size:0.95rem;color:#92400e;}
-    .key-item .kans{color:#059669;font-weight:700;}
-    .key-item .kexpl{color:#4b5563;font-size:0.82rem;margin-top:2px;}
     .key-full{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;border-left:3px solid #fbbf24;}
     .key-full strong{color:#92400e;}
     .tag{display:inline-block;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:0.5px;margin-left:6px;}
@@ -298,84 +289,6 @@
     </div>
   </section>
 
-  <!-- ANSWER KEY -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A &mdash; Concepts &amp; Notation</h3>
-      <div class="key-full"><strong>Problem 1:</strong> &#8407;A is a vector — it has both magnitude and direction (e.g., &#8407;A = 10 m East). A is the scalar magnitude only (e.g., A = 10 m, no direction stated).</div>
-      <div class="key-full"><strong>Problem 2:</strong> Magnitude = <strong>36 m</strong> (|&minus;3| &times; 12 = 36). Direction = <strong>left (West / opposite direction)</strong>. Negative scalar multiplies magnitude and flips direction.</div>
-      <div class="key-full"><strong>Problem 3:</strong> Answer = <strong>B</strong> — &#8407;A + &#8407;B = &#8407;B + &#8407;A. The commutative property holds for all vector addition.</div>
-      <div class="key-full"><strong>Problem 4:</strong>
-        a) <strong>TRUE</strong> — &minus;1 &times; &#8407;A = same magnitude, opposite direction.<br>
-        b) <strong>FALSE</strong> — plain letter A gives only magnitude, not direction.<br>
-        c) <strong>FALSE</strong> — two perpendicular vectors of magnitude M give resultant = M&radic;2 (not M).
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B &mdash; Drawing &amp; Labeling</h3>
-      <div class="key-full"><strong>Problem 5:</strong> &#8407;F = 9 N pointing left (west); 2&#8407;F = 18 N also pointing left, drawn twice as long.</div>
-      <div class="key-full"><strong>Problem 6:</strong> &#8407;V = 7 m/s up; &minus;&#8407;V = 7 m/s pointing down (opposite direction). Same magnitude, reversed.</div>
-      <div class="key-full"><strong>Problem 7 — &#8407;C = 10 m East:</strong><br>
-        3&#8407;C: 30 m, East, tripled magnitude &nbsp;|&nbsp;
-        0.25&#8407;C: 2.5 m, East, quarter magnitude &nbsp;|&nbsp;
-        &minus;3&#8407;C: 30 m, <strong>West</strong>, tripled + flipped &nbsp;|&nbsp;
-        &minus;0.5&#8407;C: 5 m, <strong>West</strong>, halved + flipped
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C &mdash; Vector Addition</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="knum">Problem 8</div><div class="kans">20 + 35 = 55 km East</div><div class="kexpl">Same direction — add magnitudes</div></div>
-        <div class="key-item"><div class="knum">Problem 9</div><div class="kans">18 &minus; 7 = 11 m North</div><div class="kexpl">Opposite — subtract; larger direction wins</div></div>
-        <div class="key-item"><div class="knum">Problem 10</div><div class="kans">8&sup2; + 6&sup2; = 64+36 = 100 &rarr; C = <strong>10 km</strong></div><div class="kexpl">Classic 6-8-10 (or 3-4-5 scaled &times;2)</div></div>
-        <div class="key-item"><div class="knum">Problem 11</div><div class="kans">9&sup2; + 12&sup2; = 81+144 = 225 &rarr; C = <strong>15 N</strong></div><div class="kexpl">9-12-15 (3-4-5 &times; 3) Pythagorean triple</div></div>
-      </div>
-      <div class="key-full" style="margin-top:10px;"><strong>Problem 12 (Extension):</strong> Step 1: 5 + 5 = 10 m East. Step 2: 10&sup2; + 10&sup2; = 200 &rarr; C = &radic;200 = 10&radic;2 &asymp; <strong>14.14 m</strong>.</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D &mdash; Analysis</h3>
-      <div class="key-full"><strong>Problem 13:</strong> Resultant = <strong>0 m</strong>. Equal and opposite vectors cancel. This shows that a vector and its negative completely cancel each other out.</div>
-      <div class="key-full"><strong>Problem 14:</strong> The student is <strong>incorrect</strong>. Scalar addition gives 3+4=7 only when vectors are in the same direction. Perpendicular 3 m and 4 m vectors give 5 m (Pythagorean theorem). Opposite vectors give 1 m. The resultant depends on <em>direction</em>, not just magnitude.</div>
-      <div class="key-full"><strong>Problem 15:</strong> 4&sup2; + 3&sup2; = 16+9 = 25 &rarr; C = <strong>5 m/s</strong>. The swimmer's actual speed relative to the ground is 5 m/s (at an angle northeast).</div>
-    </div>
-  </div>
-</main>
-
-<script>
-(function(){var PWD='physics2024';var s=localStorage.getItem('pg_ok');if(s&&s===btoa(PWD)){document.getElementById('pg-gate').style.display='none';}else{document.body.style.overflow='hidden';}window.pgCheck=function(){var v=document.getElementById('pg-input').value.trim();if(btoa(v)===btoa(PWD)){localStorage.setItem('pg_ok',btoa(PWD));document.getElementById('pg-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('pg-error').style.display='block';document.getElementById('pg-input').value='';document.getElementById('pg-input').focus();}};})();
-function toggleKey(){
-  var el=document.getElementById('answer-key');
-  var btn=document.getElementById('toggle-key-btn');
-  if(el.style.display==='none'||el.style.display===''){
-    el.style.display='block';btn.textContent='Hide Answer Key';
-  } else {el.style.display='none';btn.textContent='Show Answer Key';}
-}
-</script>
-
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+  
 </body>
 </html>
