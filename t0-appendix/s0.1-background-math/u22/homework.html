@@ -58,19 +58,10 @@
     .error-header{font-size:0.75rem;font-weight:800;text-transform:uppercase;color:#dc2626;margin-bottom:8px;letter-spacing:0.5px;}
     .error-work{font-family:'Space Mono',monospace;font-size:0.9rem;background:#fef2f2;padding:10px 14px;border-radius:8px;margin-bottom:10px;color:#374151;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#881337;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#9f1239;}
-    #answer-key{display:none;background:#fff1f2;border:2px solid #fda4af;border-radius:14px;padding:28px 32px;}
     #answer-key h2{color:#881337;border-left-color:#be123c;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:0.95rem;font-weight:800;color:#881337;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    @media(max-width:560px){.key-grid{grid-template-columns:1fr;}}
-    .key-item{background:white;border-radius:8px;padding:12px 16px;font-size:0.9rem;border-left:3px solid #be123c;}
-    .key-item .knum{font-size:0.72rem;font-weight:800;color:#9f1239;text-transform:uppercase;margin-bottom:4px;}
-    .key-item .kans{font-family:'Space Mono',monospace;font-weight:700;color:#881337;font-size:1rem;}
-    .key-item .kexpl{color:#64748b;font-size:0.8rem;margin-top:3px;}
+    @media(max-width:560px){}
     .key-note{background:white;border-radius:8px;padding:14px 18px;font-size:0.92rem;color:#374151;margin-bottom:10px;border-left:3px solid #be123c;}
     .points{float:right;font-size:0.72rem;font-weight:800;color:#9f1239;background:#fecdd3;padding:2px 8px;border-radius:10px;}
   </style>
@@ -311,74 +302,8 @@
   </section>
 
   <!-- Answer Key -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Direct Calculation</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="knum">Problem 1 &nbsp; H=45, &#952;=32° from horiz.</div>
-          <div class="kans">x = 45·Cos(32°) = 38.1</div>
-          <div class="kans">y = 45·Sin(32°) = 23.8</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 2 &nbsp; H=8.5, &#952;=68° from horiz.</div>
-          <div class="kans">x = 8.5·Cos(68°) = 3.2</div>
-          <div class="kans">y = 8.5·Sin(68°) = 7.9</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 3 &nbsp; H=60, &#952;=15° from vert.</div>
-          <div class="kans">x = 60·Sin(15°) = 15.5</div>
-          <div class="kans">y = 60·Cos(15°) = 58.0</div>
-          <div class="kexpl">Equiv. to 75° from horizontal</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 4 &nbsp; H=22, &#952;=47° from vert.</div>
-          <div class="kans">x = 22·Sin(47°) = 16.1</div>
-          <div class="kans">y = 22·Cos(47°) = 15.0</div>
-          <div class="kexpl">Equiv. to 43° from horizontal</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 5 &nbsp; H=100, &#952;=10° from horiz.</div>
-          <div class="kans">x = 100·Cos(10°) = 98.5</div>
-          <div class="kans">y = 100·Sin(10°) = 17.4</div>
-          <div class="kexpl">Nearly horizontal vector</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 6 &nbsp; H=5.5, &#952;=80° from vert.</div>
-          <div class="kans">x = 5.5·Sin(80°) = 5.4</div>
-          <div class="kans">y = 5.5·Cos(80°) = 1.0</div>
-          <div class="kexpl">Equiv. to 10° from horizontal</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Applied Problems</h3>
-      <div class="key-note"><strong>Problem 7:</strong> v<sub>x</sub> = 18·Cos(42°) = <strong>13.4 m/s</strong> &nbsp;|&nbsp; v<sub>y</sub> = 18·Sin(42°) = <strong>12.0 m/s</strong></div>
-      <div class="key-note"><strong>Problem 8:</strong> Angle from vertical &rarr; F<sub>x</sub> = 75·Sin(28°) = <strong>35.2 N</strong> &nbsp;|&nbsp; F<sub>y</sub> = 75·Cos(28°) = <strong>66.2 N</strong></div>
-      <div class="key-note"><strong>Problem 9:</strong> Method 1 (15° from vert.): v<sub>x</sub> = 250·Sin(15°) = 64.7 m/s, v<sub>y</sub> = 250·Cos(15°) = 241.5 m/s &nbsp;|&nbsp; Method 2 (75° from horiz.): v<sub>x</sub> = 250·Cos(75°) = 64.7 m/s, v<sub>y</sub> = 250·Sin(75°) = 241.5 m/s &nbsp;&rarr; Results match &#10003;</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Error Analysis</h3>
-      <div class="key-note"><strong>Problem 10:</strong> Mistake: The angle (55°) is from the <em>vertical</em>, so x needs Sin and y needs Cos — the student used the horizontal-angle formulas instead. &nbsp;|&nbsp; Correct: x = 40·Sin(55°) = <strong>32.8</strong>, y = 40·Cos(55°) = <strong>22.9</strong></div>
-      <div class="key-note"><strong>Problem 11:</strong> Mistake: The angle (30°) is from the <em>horizontal</em>, so x needs Cos and y needs Sin — the student swapped them, applying the vertical-angle formulas. &nbsp;|&nbsp; Correct: x = 10·Cos(30°) = <strong>8.7</strong>, y = 10·Sin(30°) = <strong>5.0</strong></div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Extension</h3>
-      <div class="key-note"><strong>Problem 12:</strong> (a) H = &radic;(8² + 6²) = &radic;100 = <strong>10</strong> &nbsp;|&nbsp; (b) From horizontal: &#952; = arctan(6/8) = arctan(0.75) = <strong>36.9°</strong> &nbsp;|&nbsp; (c) From vertical: 90° &minus; 36.9° = <strong>53.1°</strong></div>
-      <div class="key-note"><strong>Problem 13:</strong> At 30°: x = 20·Cos(30°) = 17.3 &nbsp;|&nbsp; At 60°: x = 20·Cos(60°) = 10.0 &nbsp;|&nbsp; 17.3 &divide; 2 = 8.65 &ne; 10.0. The student is <em>incorrect</em>. Doubling the angle does not halve the x-component because cosine is not a linear function (Cos(2&#952;) &ne; Cos(&#952;)/2).</div>
-    </div>
-  </div>
-</main>
-
-<footer style="text-align:center;padding:24px 20px;font-size:0.82rem;color:#94a3b8;">IB Physics &middot; Vectors Unit &middot; Finding X &amp; Y Components — Homework</footer>
+  
+  
 
 <script>
 function toggleKey(){
