@@ -488,52 +488,8 @@
 
   
 
-<script>
-(function(){
-  const KEY='pg_ok',HASH=btoa('physics2024');
-  if(localStorage.getItem(KEY)===HASH){document.getElementById('gate').style.display='none';}
-  document.getElementById('gate-pwd').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();});
-})();
-function checkPwd(){
-  const val=document.getElementById('gate-pwd').value;
-  const HASH=btoa('physics2024');
-  if(btoa(val)===HASH){
-    localStorage.setItem('pg_ok',HASH);
-    document.getElementById('gate').style.display='none';
-  } else {
-    document.getElementById('gate-err').textContent='Incorrect password. Try again.';
-    document.getElementById('gate-pwd').value='';
-  }
-}
-function toggleKey(){
-  const key=document.getElementById('answer-key');
-  const btn=document.getElementById('toggle-key-btn');
-  if(key.style.display==='none'||key.style.display===''){
-    key.style.display='block';
-    btn.textContent='Hide Answer Key';
-  } else {
-    key.style.display='none';
-    btn.textContent='Show Answer Key (Teacher Use)';
-  }
-}
-</script>
 
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+
+
 </body>
 </html>
