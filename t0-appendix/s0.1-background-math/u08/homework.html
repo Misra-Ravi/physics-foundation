@@ -57,12 +57,8 @@
     .bonus-card{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:2px solid #6ee7b7;border-radius:10px;padding:18px 22px;box-shadow:0 1px 5px rgba(0,0,0,0.07);margin-bottom:14px;}
     .bonus-card .q{font-weight:600;margin-bottom:10px;}
     /* key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#0f766e;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#0d6f67;}
-    #answer-key{display:none;background:#f0fdfa;border:2px solid #99f6e4;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#0f766e;border-left-color:#0d9488;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#0f766e;margin-bottom:12px;}
     .key-table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;}
     .key-table th{background:#0d9488;color:white;font-size:0.8rem;padding:10px 14px;text-align:center;}
@@ -70,16 +66,8 @@
     .key-table tr:last-child td{border-bottom:none;}
     .key-table tr:nth-child(even) td{background:#f9fafb;}
     .key-table .kans{font-family:'Space Mono',monospace;font-weight:700;color:#0f766e;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.9rem;}
-    .key-item .knum{font-family:'Space Mono',monospace;font-weight:700;font-size:0.95rem;}
-    .key-item .kans{color:#0f766e;font-weight:700;}
-    .key-item .kexpl{color:#4b5563;font-size:0.82rem;margin-top:2px;}
     .tf-key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-    .tf-key-item{background:white;border-radius:6px;padding:8px 12px;font-size:0.88rem;}
-    .tf-key-item .kans{font-weight:700;}
     .tf-T-ans{color:#065f46;}.tf-F-ans{color:#dc2626;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;margin-bottom:10px;font-size:0.92rem;}
     .short-ans-key strong{color:#0f766e;}
   </style>
 </head>
@@ -288,85 +276,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key (Teacher Use)</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Conversion Table</h3>
-      <table class="key-table">
-        <thead>
-          <tr><th>#</th><th>Measurement</th><th>Absolute</th><th>Fractional</th><th>Percent</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td class="kans">25 m</td><td class="kans">5</td><td class="kans">0.2</td><td class="kans">20%</td></tr>
-          <tr><td>2</td><td class="kans">80 N</td><td class="kans">2</td><td class="kans">0.025</td><td class="kans">2.5%</td></tr>
-          <tr><td>3</td><td class="kans">400 W</td><td class="kans">8</td><td class="kans">0.02</td><td class="kans">2%</td></tr>
-          <tr><td>4</td><td class="kans">0.60 kg</td><td class="kans">0.03</td><td class="kans">0.05</td><td class="kans">5%</td></tr>
-          <tr><td>5</td><td class="kans">120 V</td><td class="kans">3.6</td><td class="kans">0.03</td><td class="kans">3%</td></tr>
-          <tr><td>6</td><td class="kans">1.5 A</td><td class="kans">0.15</td><td class="kans">0.1</td><td class="kans">10%</td></tr>
-          <tr><td>7</td><td class="kans">600 s</td><td class="kans">3</td><td class="kans">0.005</td><td class="kans">0.5%</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:10px;font-size:0.85rem;color:#374151;background:white;border-radius:6px;padding:10px 14px;">
-        <strong>Workings:</strong><br>
-        Row 1: Frac = 5/25 = 0.2; % = 20%<br>
-        Row 2: Abs = 0.025 × 80 = 2; % = 2.5%<br>
-        Row 3: % = 2%; Frac = 0.02; Abs = 0.02 × 400 = 8<br>
-        Row 4: Frac = 0.03/0.60 = 0.05; % = 5%<br>
-        Row 5: % = 3%; Frac = 0.03; Abs = 0.03 × 120 = 3.6<br>
-        Row 6: Frac = 0.15/1.5 = 0.1; % = 10%<br>
-        Row 7: Abs = 0.005 × 600 = 3; % = 0.5%
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Rounding</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="knum">8. 14.638 ± 0.1</div><div class="kans">14.6 ± 0.1</div><div class="kexpl">Uncertainty to 1 d.p.; round number: 14.638 → 14.6</div></div>
-        <div class="key-item"><div class="knum">9. 0.0253 ± 0.002</div><div class="kans">0.025 ± 0.002</div><div class="kexpl">Uncertainty to 3 d.p.; round number to 3 d.p.: 0.0253 → 0.025</div></div>
-        <div class="key-item"><div class="knum">10. 870 ± 50</div><div class="kans">900 ± 50</div><div class="kexpl">Uncertainty to tens; round number to nearest 10: 870 → 870 (already ok). Wait — 870 is already at tens place. Accept 870 ± 50.</div></div>
-        <div class="key-item"><div class="knum">11. 5.2 ± 0.0718</div><div class="kans">5.2 ± 0.07</div><div class="kexpl">Number to 1 d.p.; round uncertainty to match: 0.0718 → 0.07 (2 d.p. to match significant level)</div></div>
-        <div class="key-item"><div class="knum">12. 0.031 ± 0.4</div><div class="kans">0.0 ± 0.4</div><div class="kexpl">Uncertainty to 1 d.p.; round number: 0.031 → 0.0 (uncertainty much larger)</div></div>
-      </div>
-      <div style="margin-top:8px;font-size:0.83rem;color:#374151;background:white;border-radius:6px;padding:8px 12px;"><strong>Note on #10:</strong> 870 ± 50 — both number and uncertainty are already at the tens place. 870 is correctly expressed. Accept as-is.</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — True or False</h3>
-      <div class="tf-key-grid">
-        <div class="tf-key-item"><strong>#13:</strong> <span class="kans tf-T-ans">TRUE</span> — Unit (m) follows both value and uncertainty. That is absolute form.</div>
-        <div class="tf-key-item"><strong>#14:</strong> <span class="kans tf-F-ans">FALSE</span> — Fractional and percent uncertainties are dimensionless (no units). Only absolute uncertainty shares the unit.</div>
-        <div class="tf-key-item"><strong>#15:</strong> <span class="kans tf-F-ans">FALSE</span> — You must first convert to fractional (÷ measurement), then multiply by 100. Multiplying the absolute uncertainty by 100 directly gives a meaningless number.</div>
-        <div class="tf-key-item"><strong>#16:</strong> <span class="kans tf-F-ans">FALSE</span> — "30 kg ± 0.06" has the unit only after 30. The 0.06 has no unit — it is a fractional uncertainty (meaning 6% of 30 kg = 1.8 kg absolute uncertainty).</div>
-        <div class="tf-key-item"><strong>#17:</strong> <span class="kans tf-T-ans">TRUE</span> — Percent = fractional × 100 = 0.08 × 100 = 8%.</div>
-        <div class="tf-key-item"><strong>#18:</strong> <span class="kans tf-T-ans">TRUE</span> — When uncertainty has fewer d.p. than the number, round the number to match. The uncertainty sets the precision limit.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Extended Response</h3>
-      <div class="short-ans-key">
-        <strong>Q19a.</strong> Fractional = 3/47 ≈ 0.0638. Percent = 0.0638 × 100 ≈ 6.4%.<br>
-        <strong>Q19b.</strong> New fractional = 0.5/47 ≈ 0.01064. New percent ≈ 1.1%. Decrease = 6.4% − 1.1% = <strong>5.3 percentage points</strong>. The better instrument reduced the percent uncertainty from about 6.4% to about 1.1%.
-      </div>
-      <br>
-      <div class="short-ans-key">
-        <strong>Q20.</strong> When two measurements have the same percent uncertainty, they share the same relative precision — the uncertainty is the same fraction of each measurement — but because the measurements are different sizes, the raw (absolute) uncertainty values are different. For example: 10 m ± 1 m (10% uncertainty) and 500 m ± 50 m (also 10% uncertainty). Both are "equally uncertain" in relative terms, but 50 m is a much larger gap than 1 m in absolute terms. The percent form lets you compare precision across quantities of different magnitudes.
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Bonus</h3>
-      <div class="short-ans-key">
-        <strong>Bonus.</strong><br>
-        (a) Fractional = % / 100 = 0.0022 / 100 = <strong>2.2 × 10⁻⁵</strong><br>
-        (b) Absolute = fractional × value = 2.2 × 10⁻⁵ × 6.674 × 10⁻¹¹ ≈ <strong>1.5 × 10⁻¹⁵ N m² kg⁻²</strong><br>
-        (c) Value ± absolute: The absolute uncertainty is at the 15th decimal place in standard notation. Written correctly: <strong>6.674 × 10⁻¹¹ ± 1.5 × 10⁻¹⁵ N m² kg⁻²</strong> (or equivalently 6.67400 × 10⁻¹¹ ± 0.00015 × 10⁻¹¹). The extremely small fractional uncertainty (22 ppm) reflects the extraordinary precision of modern measurements of G.
-      </div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key (Teacher Use)';}}</script>
 
 <script>
