@@ -47,7 +47,7 @@ function adminUnlock(sid, uid) {
     _logEmail(ss, 'admin_unlock', sid, uid, stu.StudentEmail, ss2, 'sent');
     _logEmail(ss, 'admin_unlock', sid, uid, stu.ParentEmail,  ps2, 'sent');
   } catch(e2){ _logEmail(ss, 'admin_unlock', sid, uid, stu.StudentEmail, ss2, 'error:'+e2); }
-  return {ok: true, msg: ul.UnitName + ' unlocked for ' + stu.StudentName + '. Emails sent to student and parent.'};
+  return {ok: true, msg: u.UnitName + ' unlocked for ' + stu.StudentName + '. Emails sent to student and parent.'};
 }
 
 function adminRemove(sid) {
