@@ -44,18 +44,8 @@
     .tf-stmt{flex:1;font-size:0.93rem;}
     .tf-circles{display:flex;gap:10px;flex-shrink:0;}
     .tf-circle{width:28px;height:28px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#9ca3af;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#065f46;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#f0fdf4;border:2px solid #6ee7b7;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#065f46;border-left-color:#10b981;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#065f46;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#065f46;font-weight:700;font-family:'Space Mono',monospace;font-size:0.88rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#065f46;}
   </style>
 </head>
@@ -160,35 +150,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-    <div class="key-section">
-      <h3>Part A</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q1: 7.2×10⁴ cm → km</div><div class="kans">7.2×10⁴ × (1m/100cm) × (1km/1000m) = 0.72 km</div></div>
-        <div class="key-item"><div class="kq">Q2: 540 km/h → m/s</div><div class="kans">540 × (1000/1) × (1/3600) = 150 m/s</div></div>
-        <div class="key-item"><div class="kq">Q3: 5 weeks → s</div><div class="kans">5 × 7 × 24 × 3600 = 3,024,000 s ≈ 3.02×10⁶ s</div></div>
-        <div class="key-item"><div class="kq">Q4: 1.5×10⁻⁶ m → nm</div><div class="kans">1.5×10⁻⁶ × (1nm/10⁻⁹ m) = 1500 nm</div></div>
-        <div class="key-item" style="grid-column:span 2;"><div class="kq">Q5: 72 m/s² → km/h²</div><div class="kans">72 × (1km/1000m) × (3600s/1h)² = 72 × 10⁻³ × 1.296×10⁷ = 933,120 km/h² ≈ 9.33×10⁵ km/h²</div><div class="kexpl">The s² means (s→h conversion) must be applied twice: ×(3600)²</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part B — True/False</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q6</div><div class="kans">FALSE</div><div class="kexpl">To convert m→cm, put cm on top: (100 cm / 1 m). The given fraction would go the wrong direction.</div></div>
-        <div class="key-item"><div class="kq">Q7</div><div class="kans">FALSE</div><div class="kexpl">Need at least 3 fractions: km→m, h→min, min→s (or combine h→s in two steps)</div></div>
-        <div class="key-item"><div class="kq">Q8</div><div class="kans">FALSE</div><div class="kexpl">Conversion factors equal 1; multiplying by 1 never changes the actual physical value</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part C — Extended</h3>
-      <div class="short-ans-key"><strong>Q9:</strong> 3×10⁸ m/s × (1 km/1000 m) × (3600 s/1 h) = 3×10⁸ × 3.6 = <strong>1.08 × 10⁹ km/h</strong></div>
-      <div class="short-ans-key"><strong>Q10:</strong> 1 Mm × (10⁶ m / 1 Mm) × (1 mm / 10⁻³ m) = 10⁶ ÷ 10⁻³ = 10⁹ mm. So 1 Mm = 10⁹ mm, NOT 10³ mm. The student is wrong.</div>
-      <div class="short-ans-key"><strong>Q11:</strong> 3 schools × (4 grades/1 school) × (5 classes/1 grade) × (30 students/1 class) = 3 × 4 × 5 × 30 = <strong>1800 students</strong></div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
 <script>
