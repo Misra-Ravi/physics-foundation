@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 14 – 2D Projectile Motion | Answer Key</title>
+  <style>
+
+:root{
+  --blue:#3b82f6;--indigo:#6366f1;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+  --dark:#0f172a;--bg:#f8faff;--muted:#94a3b8;
+  --card:#ffffff;--border:#e2e8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:radial-gradient(circle,#94a3b8 1px,transparent 1px);
+  background-size:28px 28px;opacity:.18;pointer-events:none;z-index:0;
+}
+
+/* PASSWORD GATE */
+#gate{position:fixed;inset:0;background:linear-gradient(135deg,#1e40af,#2563eb);
+  display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1.5rem;}
+#gate h2{color:#fff;font-size:1.8rem;font-weight:800;}
+#gate p{color:#bfdbfe;font-size:1rem;}
+#gate input{padding:.75rem 1.25rem;border-radius:12px;border:none;font-size:1rem;
+  font-family:'Nunito',sans-serif;width:260px;text-align:center;outline:none;}
+#gate button{padding:.75rem 2rem;border-radius:12px;background:#f59e0b;color:#fff;
+  border:none;font-size:1rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;}
+#gate-error{color:#fca5a5;font-size:.9rem;display:none;}
+
+#main{display:none;position:relative;z-index:1;}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);
+  padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite alternate;}
+@keyframes twinkle{0%{opacity:.2;transform:scale(1);}100%{opacity:1;transform:scale(1.4);}}
+.chip{display:inline-block;background:rgba(255,255,255,.15);color:#bfdbfe;
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;
+  padding:.3rem 1rem;font-size:.8rem;font-weight:700;font-family:'Space Mono',monospace;
+  letter-spacing:.05em;margin-bottom:1rem;}
+header h1{
+  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;
+  background:linear-gradient(90deg,#fff 0%,#bfdbfe 50%,#a5f3fc 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:.5rem;
+}
+header p{color:#bfdbfe;font-size:1rem;font-weight:600;}
+
+/* LAYOUT */
+.container{max-width:1000px;margin:0 auto;padding:2.5rem 1.5rem;}
+section{margin-bottom:2.5rem;}
+section>h2{font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:1rem;
+  display:flex;align-items:center;gap:.5rem;}
+section>h2::before{content:'';width:4px;height:1.2em;background:var(--blue);border-radius:2px;flex-shrink:0;}
+
+/* REFERENCE BOX */
+.ref-box{background:linear-gradient(135deg,#1e40af,#2563eb);border-radius:16px;
+  padding:1.5rem;margin-bottom:2rem;color:#fff;}
+.ref-box h3{color:#bfdbfe;font-size:1rem;font-weight:800;margin-bottom:.9rem;
+  font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;}
+.ref-item{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:10px;padding:.7rem 1rem;text-align:center;}
+.ref-item .rf{font-family:'Space Mono',monospace;font-size:.95rem;font-weight:700;color:#a5f3fc;}
+.ref-item .rl{font-size:.78rem;color:#bfdbfe;margin-top:.2rem;}
+.ref-codes{margin-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.ref-code{background:rgba(255,255,255,.08);border-radius:8px;padding:.5rem .8rem;font-size:.82rem;color:#dbeafe;}
+.ref-code span{font-family:'Space Mono',monospace;color:#fde68a;font-weight:700;}
+.tip-banner{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  border-radius:10px;padding:.8rem 1.1rem;margin-top:1rem;font-size:.88rem;color:#fef3c7;}
+.tip-banner strong{color:#fde68a;}
+
+/* PROBLEM CARDS */
+.prob-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.prob-num{display:inline-block;background:var(--blue);color:#fff;border-radius:8px;
+  padding:.2rem .6rem;font-size:.8rem;font-weight:800;font-family:'Space Mono',monospace;margin-bottom:.6rem;}
+.prob-card>p,.prob-card p.q{font-size:.95rem;line-height:1.65;color:#334155;}
+.work-space{margin-top:.8rem;border-top:1px dashed var(--border);padding-top:.7rem;}
+.work-label{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.4rem;}
+.lines{display:flex;flex-direction:column;gap:.5rem;}
+.line{height:1px;background:#e2e8f0;width:100%;}
+
+/* TABLE TEMPLATE */
+.table-template{margin:.6rem 0;overflow-x:auto;}
+table.blank{border-collapse:collapse;font-family:'Space Mono',monospace;font-size:.82rem;}
+table.blank th,table.blank td{border:1.5px solid #cbd5e1;padding:.4rem .8rem;text-align:center;}
+table.blank thead th{background:#1e3a5f;color:#fff;}
+table.blank td{min-width:70px;height:28px;background:#f8faff;}
+
+/* TRUE/FALSE */
+.tf-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:1.2rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.tf-card p{font-size:.95rem;color:#334155;margin-bottom:.7rem;}
+.tf-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:.5rem;}
+.tf-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;
+  cursor:pointer;transition:background .15s;}
+.tf-circle.T{background:#dcfce7;border-color:var(--green);color:#166534;}
+.tf-circle.F{background:#fee2e2;border-color:var(--red);color:#991b1b;}
+.tf-blank-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;font-weight:700;}
+.correction-line{height:1px;background:#e2e8f0;margin-top:.3rem;}
+
+/* CHALLENGE -->
+.challenge-card{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fca5a5;
+  border-radius:14px;padding:1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.challenge-card h3{color:#991b1b;font-size:1rem;font-weight:800;margin-bottom:.5rem;}
+.challenge-card p{font-size:.95rem;color:#374151;margin-bottom:.6rem;}
+
+/* ANSWER KEY */
+#answer-key{display:none;background:linear-gradient(135deg,#fefce8,#fef9c3);
+  border:2px solid var(--amber);border-radius:16px;padding:1.5rem;margin-top:2rem;}
+#answer-key h3{color:#92400e;font-weight:800;margin-bottom:1.2rem;font-size:1.1rem;}
+.ak-section{margin-bottom:1.2rem;}
+.ak-section h4{font-weight:800;color:#78350f;font-size:.95rem;margin-bottom:.6rem;
+  border-bottom:1px solid #fde68a;padding-bottom:.3rem;}
+.ak-item{background:#fff;border-radius:8px;padding:.7rem 1rem;margin-bottom:.5rem;
+  border-left:3px solid var(--amber);font-size:.88rem;color:#374151;line-height:1.65;}
+.ak-item .anum{font-family:'Space Mono',monospace;font-weight:700;color:#92400e;margin-right:.4rem;}
+.ak-item .afinal{font-family:'Space Mono',monospace;font-weight:700;color:var(--green);font-size:.92rem;}
+.ak-item .tf-verdict{font-weight:800;font-size:.92rem;}
+.ak-item .tf-verdict.true{color:var(--green);}
+.ak-item .tf-verdict.false{color:var(--red);}
+#toggle-key-btn{background:var(--amber);color:#fff;border:none;border-radius:12px;
+  padding:.75rem 2rem;font-size:1rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
+  display:block;margin:1.5rem auto 0;}
+
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Unit 14 – 2D Projectile Motion | Homework</p>
+  </div>
+  <p>Answer key content not found.</p>
+</body>
+</html>
