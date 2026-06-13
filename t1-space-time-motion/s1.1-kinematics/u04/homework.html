@@ -84,10 +84,7 @@ header p.subtitle{color:#bfdbfe;font-size:.98rem;}
 .challenge .given{font-size:.83rem;color:#7c3aed;margin-top:.4rem;font-family:'Space Mono',monospace;}
 
 /* ANSWER KEY */
-.key-btn-wrap{text-align:center;margin:2.5rem 0 1rem;}
-#toggle-key-btn{background:linear-gradient(135deg,#1e3a5f,var(--indigo));color:#fff;border:none;border-radius:10px;padding:.7rem 2rem;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 15px rgba(99,102,241,.25);}
 #toggle-key-btn:hover{opacity:.9;}
-#answer-key{display:none;background:#fff;border:2px solid var(--indigo);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:2rem;}
 #answer-key h2{color:var(--indigo);font-size:1.15rem;font-weight:800;margin-bottom:1.25rem;}
 .ak-item{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0;}
 .ak-item:last-child{border-bottom:none;margin-bottom:0;}
@@ -312,95 +309,9 @@ header p.subtitle{color:#bfdbfe;font-size:.98rem;}
   </div>
 
   <!-- ANSWER KEY TOGGLE -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key — Homework</h2>
-
-    <div class="ak-item">
-      <strong>A1 — Train average speed</strong>
-      <span class="step">v&#818; = d / t = 360 km / 4.5 h = 80 km/h</span>
-    </div>
-
-    <div class="ak-item">
-      <strong>A2 — Average velocity from (1 s, 5 m) to (9 s, 29 m)</strong>
-      <span class="step">v&#818; = &Delta;x / &Delta;t = (29 &minus; 5) / (9 &minus; 1) = 24 / 8 = 3 m/s</span>
-    </div>
-
-    <div class="ak-item">
-      <strong>A3 — Instantaneous velocity at t = 5 s</strong>
-      <p>Slope of tangent through (3 s, 4 m) and (7 s, 12 m):</p>
-      <span class="step">v&#7522;&#8345;&#8347;&#8348; = (12 &minus; 4) / (7 &minus; 3) = 8 / 4 = +2 m/s</span>
-    </div>
-
-    <div class="ak-item">
-      <strong>A4 — Instantaneous velocity and speed at t = 7 s</strong>
-      <p>Slope of tangent through (5 s, 10 m) and (9 s, 2 m):</p>
-      <span class="step">v&#7522;&#8345;&#8347;&#8348; = (2 &minus; 10) / (9 &minus; 5) = &minus;8 / 4 = &minus;2 m/s</span>
-      <p>Instantaneous speed = |&minus;2| = <strong>2 m/s</strong></p>
-    </div>
-
-    <div class="ak-item">
-      <strong>A5 — Hiker multi-segment journey</strong>
-      <p><strong>(a)</strong> Total distance = 12 km + 0 km + 6 km = <strong>18 km</strong></p>
-      <p><strong>(b)</strong> Final displacement = +12 km &minus; 6 km = <strong>+6 km</strong> from start</p>
-      <p><strong>(c)</strong> Total time = 2 + 1 + 1.5 = 4.5 h</p>
-      <span class="step">Avg. speed = 18 km / 4.5 h = 4 km/h</span>
-      <span class="step">Avg. velocity = +6 km / 4.5 h ≈ +1.33 km/h</span>
-    </div>
-
-    <div class="ak-item">
-      <strong>A6 — Average velocity and instantaneous velocity</strong>
-      <p><strong>(a)</strong> Slope of secant from (0 s, 2 m) to (6 s, 8 m):</p>
-      <span class="step">v&#818; = (8 &minus; 2) / (6 &minus; 0) = 6 / 6 = 1 m/s</span>
-      <p><strong>(b)</strong> Slope of tangent through (1 s, 2 m) and (5 s, 8 m) at t = 3 s:</p>
-      <span class="step">v&#7522;&#8345;&#8347;&#8348; = (8 &minus; 2) / (5 &minus; 1) = 6 / 4 = 1.5 m/s</span>
-    </div>
-
-    <div class="ak-item">
-      <strong>B1 — TRUE or FALSE?</strong>
-      <p><strong>FALSE.</strong> Instantaneous speed is <em>always non-negative</em>. It is the magnitude (absolute value) of instantaneous velocity. Speed cannot be negative regardless of direction of motion.</p>
-    </div>
-
-    <div class="ak-item">
-      <strong>B2 — TRUE or FALSE?</strong>
-      <p><strong>TRUE.</strong> The average velocity between two points on a P–T graph is found by drawing a secant line between those two points and calculating its slope.</p>
-    </div>
-
-    <div class="ak-item">
-      <strong>B3 — TRUE or FALSE?</strong>
-      <p><strong>FALSE.</strong> At the peak (maximum) of a P–T curve, the tangent line is horizontal (slope = 0), so the instantaneous velocity is <em>zero</em>, not at its greatest positive value.</p>
-    </div>
-
-    <div class="ak-item">
-      <strong>B4 — TRUE or FALSE?</strong>
-      <p><strong>TRUE.</strong> A speedometer shows the car's speed at that exact moment in time — this is instantaneous speed.</p>
-    </div>
-
-    <div class="ak-item">
-      <strong>C1 — Challenge: full journey analysis</strong>
-      <p><strong>(a)</strong> Average velocity (t = 0 to t = 9 s):</p>
-      <span class="step">v&#818; = (1 &minus; 0) / (9 &minus; 0) = 1 / 9 ≈ 0.11 m/s</span>
-      <p><strong>(b)</strong> t = 4 s is in the flat section (t = 3 to 5 s) where position is constant at 9 m. The tangent is horizontal → slope = 0. Instantaneous velocity = <strong>0 m/s</strong>.</p>
-      <p><strong>(c)</strong> At t = 7 s: tangent slope is given as &minus;2 m/s → instantaneous velocity = <strong>&minus;2 m/s</strong>.</p>
-      <p><strong>(d)</strong> Total distance = 9 m (rise) + 8 m (fall) = 17 m; total time = 9 s.</p>
-      <span class="step">Avg. speed = 17 / 9 ≈ 1.89 m/s</span>
-    </div>
-
-    <div class="ak-item">
-      <strong>C2 — Challenge: tangent slope analysis</strong>
-      <p><strong>(a)</strong> Compare speeds: |+4| = 4 m/s, |0| = 0 m/s, |&minus;3| = 3 m/s → fastest at <strong>t = 2 s</strong> with speed <strong>4 m/s</strong>.</p>
-      <p><strong>(b)</strong> At <strong>t = 5 s</strong> the slope is 0, so the object is momentarily at rest.</p>
-      <p><strong>(c)</strong> Average velocity from (3 s, 6 m) to (7 s, 10 m):</p>
-      <span class="step">v&#818; = (10 &minus; 6) / (7 &minus; 3) = 4 / 4 = 1 m/s</span>
-      <p><strong>(d)</strong> Velocity = &minus;3 m/s → object moving in the <strong>negative direction</strong>. Instantaneous speed = |&minus;3| = <strong>3 m/s</strong>.</p>
-    </div>
-  </div>
-
-</div><!-- .content -->
-</div><!-- #main -->
+  
 
 <script>
 (function(){
