@@ -55,19 +55,9 @@
     .write-lines{display:flex;flex-direction:column;gap:14px;}
     .write-line{border-bottom:2px solid #d1d5db;min-height:28px;width:100%;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#4c1d95;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#5b21b6;}
-    #answer-key{display:none;background:#faf5ff;border:2px solid #c4b5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#4c1d95;border-left-color:#7c3aed;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#4c1d95;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.82rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#5b21b6;font-weight:700;font-family:'Space Mono',monospace;}
-    .key-item .kexpl{color:#4b5563;font-size:0.82rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#5b21b6;}
   </style>
 </head>
@@ -336,159 +326,8 @@
   </section>
 
   <!-- Answer Key Toggle -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Physical Quantities</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="kq">Q1: 9.81</div>
-          <div class="kans">NO — incomplete</div>
-          <div class="kexpl">No unit — could mean anything</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q2: 9.81 m·s⁻²</div>
-          <div class="kans">YES — Acceleration</div>
-          <div class="kexpl">Complete: number + unit (gravitational acceleration)</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q3: m·s⁻¹</div>
-          <div class="kans">NO — unit only, no number</div>
-          <div class="kexpl">Measures speed/velocity</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q4: 3.00 × 10⁸ m·s⁻¹</div>
-          <div class="kans">YES — Speed (of light)</div>
-          <div class="kexpl">Complete quantity: speed of light in vacuum</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Unit Arithmetic</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="kq">Q5: 8 m ÷ 2 s ÷ 1 s</div>
-          <div class="kans">4 m·s⁻²</div>
-          <div class="kexpl">8÷2=4; m/s/s = m·s⁻²</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q6: 4 kg × 2 m × 3 s⁻²</div>
-          <div class="kans">24 kg·m·s⁻² = 24 N</div>
-          <div class="kexpl">4×2×3=24; unit = Newton (force)</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q7: (2 m)³</div>
-          <div class="kans">8 m³</div>
-          <div class="kexpl">2³=8; m³ = volume unit</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q8: 15 m·s⁻¹ − 10 m·s⁻¹</div>
-          <div class="kans">5 m·s⁻¹</div>
-          <div class="kexpl">Same units — subtract numbers only</div>
-        </div>
-        <div class="key-item" style="grid-column:span 2;">
-          <div class="kq">Q9: 12 kg·5 N·m² ÷ (6 m·2 A²)</div>
-          <div class="kans">5 kg·N·m·A⁻²</div>
-          <div class="kexpl">Numbers: 12×5/(6×2)=5. Move denom units: m⁻¹·A⁻². Combine: kg·N·m²·m⁻¹·A⁻² = 5 kg·N·m·A⁻²</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — True or False</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="kq">Q10</div>
-          <div class="kans">TRUE</div>
-          <div class="kexpl">kg is the only fundamental unit with a prefix</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q11</div>
-          <div class="kans">FALSE</div>
-          <div class="kexpl">Correction: Cannot add — kg and m are different unit types</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q12</div>
-          <div class="kans">TRUE</div>
-          <div class="kexpl">nano = 10⁻⁹, so 1 nm = 10⁻⁹ m ✓</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q13</div>
-          <div class="kans">FALSE</div>
-          <div class="kexpl">Correction: Newton is a DERIVED unit = kg·m·s⁻²</div>
-        </div>
-        <div class="key-item" style="grid-column:span 2;">
-          <div class="kq">Q14</div>
-          <div class="kans">FALSE</div>
-          <div class="kexpl">Correction: Capital M = Mega (10⁶). Lowercase m = milli (10⁻³). Case matters!</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Prefix Conversions</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="kq">Q15: 8.5 GHz</div>
-          <div class="kans">8.5 × 10⁹ Hz</div>
-          <div class="kexpl">Giga = 10⁹</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q16: 0.35 mm</div>
-          <div class="kans">3.5 × 10⁻⁴ m</div>
-          <div class="kexpl">0.35 × 10⁻³ = 3.5 × 10⁻⁴ m</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q17: 6.2 μm</div>
-          <div class="kans">6.2 × 10⁻⁶ m</div>
-          <div class="kexpl">micro = 10⁻⁶</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Q18: 500 mA</div>
-          <div class="kans">5.0 × 10⁻¹ A = 0.5 A</div>
-          <div class="kexpl">milli = 10⁻³; 500 × 10⁻³ = 0.5 A</div>
-        </div>
-        <div class="key-item" style="grid-column:span 2;">
-          <div class="kq">Q19: 0.0000045 m</div>
-          <div class="kans">4.5 × 10⁻⁶ m = 4.5 μm (micrometers)</div>
-          <div class="kexpl">10⁻⁶ = micro (μ). 4.5 × 10⁻⁶ m → best prefix is μ → 4.5 μm</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part E — Derived Units Matching</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">kg·m·s⁻²</div><div class="kans">Force (Newton)</div></div>
-        <div class="key-item"><div class="kq">kg·m²·s⁻²</div><div class="kans">Energy (Joule)</div></div>
-        <div class="key-item"><div class="kq">m·s⁻¹</div><div class="kans">Speed / Velocity</div></div>
-        <div class="key-item"><div class="kq">m·s⁻²</div><div class="kans">Acceleration</div></div>
-        <div class="key-item"><div class="kq">kg·m⁻³</div><div class="kans">Density</div></div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part F — Extended Response</h3>
-      <div class="short-ans-key">
-        <strong>Q24:</strong><br>
-        (a) Speed of light: 3.00 × 10⁸ m·s⁻¹. Wavelength: 7.0 × 10⁻⁷ m.<br>
-        (b) 7.0 × 10⁻⁷ m = 700 × 10⁻⁹ m = <strong>700 nm</strong> (nanometers — the most natural prefix for visible light).<br>
-        (c) Yes, both are complete. Each has a number AND a unit, so we know exactly what quantity is described and its magnitude.
-      </div>
-      <div class="short-ans-key">
-        <strong>Q25:</strong> SI is more convenient because all conversions between units are powers of 10 (multiply/divide by 10, 100, 1000 etc.), unlike Imperial where conversions are irregular (1 mile = 5,280 ft; 1 gallon = 128 fl oz). Example 1: 1 kilometer = 1,000 meters (just move the decimal) vs. 1 mile = 5,280 feet. Example 2: We can scale units with prefixes — 1 nanometer = 10⁻⁹ m — all using the same unit and simple powers of 10.
-      </div>
-      <div class="short-ans-key">
-        <strong>Q26:</strong> The student is wrong. m·s means meters multiplied by seconds (not divided). Speed is distance divided by time, which is m/s = m·s⁻¹. The negative exponent (⁻¹) on s is what creates the division — it is the IB/scientific way of writing "per second." m·s would have units of meter-seconds, which is not a standard physical quantity.
-      </div>
-    </div>
-  </div>
-</main>
+  
+  
 
 <script>
 function toggleKey(){
