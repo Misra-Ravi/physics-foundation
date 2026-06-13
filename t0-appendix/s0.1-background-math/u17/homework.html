@@ -59,12 +59,8 @@
     .diagram-q .q{font-weight:700;margin-bottom:14px;}
 
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e3a8a;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#1d4ed8;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;margin-top:10px;}
     #answer-key h2{color:#1e3a8a;border-left-color:#1d4ed8;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:800;color:#1e3a8a;margin-bottom:12px;}
     .key-table{width:100%;border-collapse:collapse;font-size:0.9rem;}
     .key-table th{background:#1e3a8a;color:white;padding:9px 14px;text-align:left;font-size:0.85rem;}
@@ -73,7 +69,6 @@
     .kv{color:#1d4ed8;font-weight:800;}.ks{color:#15803d;font-weight:800;}
     .tf-ans{display:inline-block;padding:2px 10px;border-radius:10px;font-weight:700;font-size:0.85rem;}
     .tf-t{background:#dcfce7;color:#15803d;}.tf-f{background:#fee2e2;color:#dc2626;}
-    .short-ans-key{background:white;border-radius:8px;padding:14px 18px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#1e3a8a;}
   </style>
 </head>
@@ -303,69 +298,9 @@
   </section>
 
   <!-- Answer Key -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Classification</h3>
-      <table class="key-table">
-        <thead><tr><th>Quantity</th><th>Type</th><th>Why</th></tr></thead>
-        <tbody>
-          <tr><td>Weight</td><td><span class="kv">Vector</span></td><td>Gravitational force — acts downward; direction matters</td></tr>
-          <tr><td>Electric current</td><td><span class="ks">Scalar</span></td><td>Magnitude of charge flow — no spatial direction (IB treats as scalar)</td></tr>
-          <tr><td>Gravitational field strength</td><td><span class="kv">Vector</span></td><td>Force per unit mass — has direction (toward center of mass)</td></tr>
-          <tr><td>Pressure</td><td><span class="ks">Scalar</span></td><td>Force per unit area distributed equally — no direction</td></tr>
-          <tr><td>Torque</td><td><span class="kv">Vector</span></td><td>Rotational force — axis and sense of rotation define direction</td></tr>
-          <tr><td>Power</td><td><span class="ks">Scalar</span></td><td>Rate of energy transfer — no direction</td></tr>
-          <tr><td>Magnetic field</td><td><span class="kv">Vector</span></td><td>Has both magnitude and direction (field lines)</td></tr>
-          <tr><td>Volume</td><td><span class="ks">Scalar</span></td><td>Amount of space — no direction</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — True or False</h3>
-      <div style="font-size:0.92rem;color:#374151;">
-        <div class="short-ans-key"><strong>1. FALSE</strong> — Distance is a scalar (magnitude only). Displacement is a vector because it also includes direction (e.g. 5 m north).</div>
-        <div class="short-ans-key"><strong>2. FALSE</strong> — The arrowhead shows the <em>direction</em> of the vector. The arrow's <em>length</em> represents the magnitude.</div>
-        <div class="short-ans-key"><strong>3. FALSE</strong> — They have the same magnitude but opposite directions, so they are different (and opposite) vectors. Equal magnitudes alone are not enough — direction must match for vectors to be identical.</div>
-        <div class="short-ans-key"><strong>4. TRUE</strong> — Arrow length is proportional to magnitude. Halving the magnitude halves the arrow length.</div>
-        <div class="short-ans-key"><strong>5. FALSE</strong> — Energy is a scalar. It has no direction. The ability to exert forces does not make energy itself directional.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Scenarios</h3>
-      <div class="short-ans-key"><strong>Scenario 1a.</strong> "200 km" is a scalar (distance) — only magnitude, no direction. "200 km north-east" is a vector (displacement) — it has both magnitude (200 km) and direction (north-east).</div>
-      <div class="short-ans-key"><strong>Scenario 1b.</strong> The second statement (vector) is more useful. Knowing only the distance covered tells you nothing about the ship's final position. Including direction allows precise navigation and tracking of the ship's location.</div>
-      <div class="short-ans-key"><strong>Scenario 2a.</strong> No — they are not the same vector. Vectors require both magnitude and direction. Both forces have magnitude 80 N, but they point in opposite directions (one east, one west), making them different vectors with opposite senses.</div>
-      <div class="short-ans-key"><strong>Scenario 3.</strong> Wind velocity is a vector; wind speed is a scalar. A meteorologist tracking a storm needs to know not just how fast the wind is moving (speed/scalar) but also where it is heading (direction). Using velocity — a vector — provides both pieces of information, allowing accurate prediction of the storm's path.</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Extended Responses</h3>
-      <div class="short-ans-key"><strong>1.</strong> The student's claim is incorrect. Acceleration due to gravity is <strong>9.8 m/s² downward</strong> — a vector, not just the number 9.8. The direction "downward" is essential: it explains why objects fall toward Earth and not sideways. If gravity were a scalar, you could not explain why a ball thrown horizontally still curves downward. The direction component is what distinguishes gravitational acceleration (a vector) from, say, the scalar quantity of gravitational potential energy. Removing direction removes critical physical meaning.</div>
-      <div class="short-ans-key"><strong>2.</strong> All three forces are vectors because each has both a magnitude and a direction — gravity acts 10 N downward, normal force acts 10 N upward, and the push acts 5 N to the right. The vertical forces (10 N down and 10 N up) are equal in magnitude but opposite in direction, so they cancel — resulting in zero net vertical force. The only unbalanced force is the 5 N push to the right. Therefore, according to Newton's second law, the box accelerates to the right. Without knowing directions, we could not determine this outcome.</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part E — Diagram Analysis</h3>
-      <div style="font-size:0.92rem;color:#374151;line-height:2;">
-        <p><strong>a)</strong> Arrows <strong>A and C</strong> have the same length (same magnitude) but point in opposite directions (A = right, C = left).</p>
-        <p><strong>b)</strong> Arrow <strong>B</strong> — its length is twice that of A, representing double the magnitude.</p>
-        <p><strong>c)</strong> No — A and C are <em>not</em> the same vector. Although they have the same magnitude, they point in opposite directions. For two vectors to be identical, both magnitude AND direction must match. A points right; C points left — they are opposite vectors.</p>
-        <p><strong>d)</strong> To fully describe arrow D (a force), you must state: (1) the <strong>magnitude</strong> (e.g. 30 N, read from the scale) and (2) the <strong>direction</strong> (upward / vertically upward). Both pieces of information are required because force is a vector quantity.</p>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer>Physics · IB High School &nbsp;·&nbsp; Unit 17: Vectors vs. Scalars — Homework &nbsp;·&nbsp; Vector = magnitude + direction | Scalar = magnitude only</footer>
+  
 
 <script>
 function toggleKey(){
