@@ -34,17 +34,8 @@
     .tf-stmt{flex:1;font-size:0.93rem;}
     .tf-circles{display:flex;gap:10px;flex-shrink:0;}
     .tf-circle{width:28px;height:28px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#9ca3af;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e40af;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#1e40af;border-left-color:#2563eb;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#1e40af;margin-bottom:12px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;margin-bottom:8px;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;}
-    .key-item .kexpl{color:#4b5563;font-size:0.82rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#1d4ed8;}
   </style>
 </head>
@@ -148,38 +139,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-    <div class="key-section">
-      <h3>Part A</h3>
-      <div class="short-ans-key"><strong>Q1:</strong> X: Name=Temperature, Short=T (or θ), Units=°C, Error bar = ±0.5. Y: Name=Resistance, Short=R, Units=Ω, Error bar = ±0.3 (the error bar from data table, not just measurement uncertainty).</div>
-      <div class="short-ans-key"><strong>Q2:</strong> X error bar: Fixed Value = ±0.05 L. For Y varying error bars: create a separate column in the data table containing the error bar values for each row, then in Column Options select that column as the error bar source.</div>
-    </div>
-    <div class="key-section">
-      <h3>Part B</h3>
-      <div class="short-ans-key"><strong>Q3:</strong> Δm = (2.70−2.20)/2 = 0.25 kg. Final: m = 2.45 ± 0.25 kg. % uncertainty = 0.25/2.45 × 100 ≈ 10.2%</div>
-      <div class="short-ans-key"><strong>Q4:</strong> Δ(gradient) = (4.30−3.74)/2 = 0.28 s²/m. Gradient = 4.02 ± 0.28 s²/m. g = 4π²/4.02 = 39.48/4.02 ≈ <strong>9.82 m/s²</strong></div>
-    </div>
-    <div class="key-section">
-      <h3>Part C</h3>
-      <div class="short-ans-key"><strong>Q5:</strong> Name: 1/r² | Expression: 1/"r"^2</div>
-      <div class="short-ans-key"><strong>Q6:</strong> Name: Power (W) | Expression: "Current"^2 * "Resistance"</div>
-    </div>
-    <div class="key-section">
-      <h3>Part D</h3>
-      <div class="short-ans-key"><strong>7. TRUE</strong> — Min slope goes from top of first error bar to bottom of last error bar. ✓</div>
-      <div class="short-ans-key"><strong>8. FALSE</strong> — Correction: Δm = (max slope − min slope) / 2 (subtraction, not addition)</div>
-      <div class="short-ans-key"><strong>9. TRUE</strong> — T² ∝ L means T² = cL, so T = √(cL) = √c × √L → T ∝ √L ✓</div>
-      <div class="short-ans-key"><strong>10. FALSE</strong> — You can draw multiple lines. Logger Pro adds best-fit lines via Analyze → Linear Fit, and you can manually draw min/max lines using drawing tools.</div>
-    </div>
-    <div class="key-section">
-      <h3>Part E</h3>
-      <div class="short-ans-key"><strong>Q11:</strong> (a) The gradient = V/I = resistance R (Ohm's law). (b) Δm = (49.6−44.8)/2 = 2.4 Ω. (c) R = 47.2 ± 2.4 Ω. (d) The y-intercept represents voltage when current = 0. Ideally it should be 0 V (a perfect resistor with no EMF source).</div>
-      <div class="short-ans-key"><strong>Q12:</strong> Open Logger Pro → double-click X column header, enter Name/Short/Units → double-click Y column header, enter Name/Short/Units → type data into cells (points appear automatically) → double-click column header → Options tab → set Error Bar Fixed Value for X and Y → Analyze → Linear Fit for best-fit line → manually draw min and max lines through the extremes of the error bars → calculate gradient uncertainty = (max−min)/2.</div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
 <script>
