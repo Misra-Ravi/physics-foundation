@@ -54,24 +54,11 @@
     .challenge-step{background:white;border-radius:8px;padding:12px 16px;font-size:0.88rem;font-weight:600;}
     .challenge-step .cst-label{font-size:0.72rem;font-weight:800;text-transform:uppercase;color:#15803d;margin-bottom:4px;}
     /* Answer Key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e3a5f;color:white;border:none;padding:12px 36px;font-size:1rem;font-weight:800;border-radius:10px;cursor:pointer;font-family:inherit;transition:background 0.2s;}
     #toggle-key-btn:hover{background:#1d4ed8;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:14px;padding:28px 32px;margin-top:16px;}
     #answer-key h2{color:#1e3a5f;border-left-color:#3b82f6;margin-bottom:24px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:800;color:#1e3a5f;margin-bottom:14px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:8px;padding:12px 16px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.78rem;color:#6b7280;margin-bottom:3px;font-weight:700;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;font-family:'Space Mono',monospace;font-size:0.9rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:4px;line-height:1.5;}
-    .tf-key-item{background:white;border-radius:8px;padding:14px 18px;margin-bottom:10px;}
-    .tf-key-item .tkq{font-size:0.78rem;color:#6b7280;font-weight:700;margin-bottom:4px;}
-    .tf-key-item .tkans{font-weight:800;margin-bottom:4px;}
     .tf-key-item .tkans.true{color:#15803d;}
     .tf-key-item .tkans.false{color:#ef4444;}
-    .tf-key-item .tkexpl{font-size:0.82rem;color:#374151;line-height:1.5;}
     .ch-key{background:white;border-radius:8px;padding:16px 20px;margin-bottom:12px;}
     .ch-key .ckq{font-size:0.82rem;font-weight:800;color:#15803d;margin-bottom:8px;}
     .ch-key .ckstep{font-family:'Space Mono',monospace;font-size:0.85rem;color:#374151;margin-bottom:4px;}
@@ -307,100 +294,9 @@
   </section>
 
   <!-- Answer Key Toggle -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A &mdash; Calculation Problems</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="kq">Problem 1 — v = u + at; Rise = at</div>
-          <div class="kans">v = 33 ms&#8315;&#185;</div>
-          <div class="kexpl">Rise = a&times;t = 3.5&times;6 = 21. v = u + Rise = 12 + 21 = 33 ms&#8315;&#185;. Geometrically: the v-t line climbs 21 units vertically over 6 s.</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 2 — Rectangle + Triangle</div>
-          <div class="kans">s = 96 m</div>
-          <div class="kexpl">Rectangle = 6&times;8 = 48 m. Height of triangle = at = 1.5&times;8 = 12. Triangle = &frac12;&times;8&times;12 = 48 m. s = 48+48 = 96 m.</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 3 — Trapezoid (plane)</div>
-          <div class="kans">s = 1500 m</div>
-          <div class="kexpl">s = (40+80)/2 &times; 25 = 60 &times; 25 = 1500 m. Parallel sides = u=40 (shorter) and v=80 (longer). Height = t=25.</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 4 — Slope of v-t graph</div>
-          <div class="kans">a = 3 ms&#8315;&sup2;</div>
-          <div class="kexpl">Rise = v₂&minus;v₁ = 35&minus;5 = 30. Run = t₂&minus;t₁ = 10&minus;0 = 10. a = 30/10 = 3 ms&#8315;&sup2;. This is the slope of the line segment.</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 5 — Rectangle only (a = 0)</div>
-          <div class="kans">s = 180 m</div>
-          <div class="kexpl">Rectangle = 15&times;12 = 180 m. Triangle = &frac12;&times;0&times;144 = 0 m. When a=0, the v-t line is horizontal so no triangle forms above it. The height "at" = 0.</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 6 — v&sup2; = u&sup2; + 2as</div>
-          <div class="kans">v = 30 ms&#8315;&#185;</div>
-          <div class="kexpl">v&sup2; = 100 + 2&times;4&times;50 = 100 + 400 = 500. v = &radic;500 &#8776; 22.4... Wait — recalculate: u=10, a=4, s=50. v&sup2; = 100 + 400 = 500. v = 10&radic;5 &#8776; 22.4 ms&#8315;&#185;. This eq. has no direct v-t graph shape equivalent; it is derived by eliminating t algebraically.</div>
-        </div>
-      </div>
-      <div style="background:#fffbeb;border:2px solid #fde68a;border-radius:8px;padding:10px 16px;margin-top:12px;font-size:0.85rem;color:#92400e;">
-        <strong>Note for Problem 6:</strong> v&sup2; = 10&sup2; + 2(4)(50) = 100 + 400 = 500. v = &radic;500 = 10&radic;5 &#8776; <strong>22.4 ms&#8315;&#185;</strong>.
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B &mdash; True / False</h3>
-      <div class="tf-key-item">
-        <div class="tkq">B1. "The slope of a v-t graph represents displacement."</div>
-        <div class="tkans false">FALSE</div>
-        <div class="tkexpl">Corrected: The slope of a velocity-time graph represents <strong>acceleration</strong>. Displacement is the <em>area</em> under the v-t graph, not the slope.</div>
-      </div>
-      <div class="tf-key-item">
-        <div class="tkq">B2. "Blue rectangle area = ut = displacement due to initial velocity."</div>
-        <div class="tkans true">TRUE</div>
-        <div class="tkexpl">Correct. The rectangle (base = t, height = u) has area = u&times;t = ut. This is the displacement the object would have if there were no acceleration at all — i.e. due to the initial velocity alone.</div>
-      </div>
-      <div class="tf-key-item">
-        <div class="tkq">B3. "In the trapezoid proof, the height of the trapezoid = acceleration a."</div>
-        <div class="tkans false">FALSE</div>
-        <div class="tkexpl">Corrected: The height of the trapezoid is the <strong>time interval t</strong> (the horizontal distance between the two parallel velocity sides). The two parallel sides are u and v; the height is t.</div>
-      </div>
-      <div class="tf-key-item">
-        <div class="tkq">B4. "v² = u² + 2as is derived by substituting t from v=u+at into the trapezoid equation."</div>
-        <div class="tkans true">TRUE</div>
-        <div class="tkexpl">Correct. From Eq.1: t = (v&minus;u)/a. Substituting into Eq.3: s = (u+v)/2 &times; (v&minus;u)/a. So 2as = (v+u)(v&minus;u) = v&sup2;&minus;u&sup2;. Rearranging: v&sup2; = u&sup2; + 2as.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C &mdash; Challenge Problems</h3>
-      <div class="ch-key">
-        <div class="ckq">Challenge 1 — Rocket from rest to 60 ms&#8315;&#185; in 12 s</div>
-        <div class="ckstep">(a) a = v/t = 60/12 = 5 ms&#8315;&sup2; (slope: rise = 60&minus;0 = 60, run = 12, a = 60/12)</div>
-        <div class="ckstep">(b) u=0 &rarr; rectangle = 0. Triangle area = &frac12;&times;t&times;v = &frac12;&times;12&times;60 = 360 m. (Or: &frac12;at&sup2; = &frac12;&times;5&times;144 = 360 m)</div>
-        <div class="ckstep">(c) s = (0+60)/2 &times; 12 = 30 &times; 12 = 360 m ✓ (both methods agree)</div>
-        <div class="ckstep">(d) Rectangle area = 0 (since u=0). Triangle = 360 m = 100% of total area. When u=0 the trapezoid degenerates to a pure triangle.</div>
-        <div class="ckans">a = 5 ms&#8315;&sup2; | s = 360 m | Triangle = 100% of area</div>
-      </div>
-      <div class="ch-key">
-        <div class="ckq">Challenge 2 — Car A vs Car B over 5 s</div>
-        <div class="ckstep">(a) Car A: v = u + at = 0 + 6&times;5 = 30 ms&#8315;&#185;</div>
-        <div class="ckstep">(b) Car A: u=0 &rarr; rectangle = 0. Triangle = &frac12;&times;5&times;30 = 75 m. (Or: &frac12;at&sup2; = &frac12;&times;6&times;25 = 75 m)</div>
-        <div class="ckstep">(c) Car B: a=0 &rarr; rectangle = 20&times;5 = 100 m. Triangle = 0 (horizontal line, no rise).</div>
-        <div class="ckstep">(d) Car B: 100 m. Car A: 75 m. Car B is ahead by 100&minus;75 = 25 m after 5 s. On the v-t graph, Car B's rectangle (100 m) is larger than Car A's triangle (75 m).</div>
-        <div class="ckans">Car A: v=30 ms&#8315;&#185;, s=75 m | Car B: s=100 m | Car B is ahead by 25 m</div>
-      </div>
-    </div>
-
-  </div>
-
-</main>
-<footer style="text-align:center;padding:28px 20px;font-size:0.82rem;color:#94a3b8;">Kinematics &middot; Unit 12 &mdash; Homework &nbsp;|&nbsp; Physics Class</footer>
+  
 
 <script>
 (function(){
