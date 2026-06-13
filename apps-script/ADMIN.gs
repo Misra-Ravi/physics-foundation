@@ -22,16 +22,9 @@ function adminAddStudent(p) {
   if (ids.indexOf(p.sid.toLowerCase().trim()) >= 0)
     return {ok: false, msg: 'Student ID ' + p.sid + ' already exists. Choose a different ID.'};
   sh.appendRow([p.sid, p.name, p.email, p.parentEmail, p.parentName, new Date(), true]);
-  var units  = ss.getSheetByName('Units').getDataRange().getValues().slice(1);
-  var progSh = ss.getSheetByName('Progress');
-  var rows   = units.map(function(u, i) {
-    return [p.sid+'_'+u[0], p.sid, u[0], i < 3 ? 'available' : 'locked', '','','','','','','',''];
-  });
-  if (rows.length > 0) progSh.getRange(progSh.getLastRow()+1, 1, rows.length, 12).setValues(rows);
   SpreadsheetApp.flush();
   try { _sendWelcomeEmail(ss, [p.sid, p.name, p.email, p.parentEmail, p.parentName, new Date(), true]); } catch(e){}
-  var first3 = units.slice(0,3).map(function(u){ return u[7]; }).join(', ');
-  return {ok: true, msg: p.name + ' enrolled! First 3 units unlocked: ' + first3 + '. Welcome emails sent.'};
+  return {ok: true, msg: p.name + ' enrolled! Welcome email sent. Assign units via the portal.'};
 }
 
 function adminUnlock(sid, uid) {
@@ -44,12 +37,9 @@ function adminUnlock(sid, uid) {
     _setProg(ss, sid, uid, {Status:'complete', ParentReviewedAt:new Date(), ParentDecision:'approved'});
   else
     _setProg(ss, sid, uid, {Status:'available', UnlockedAt:new Date()});
-  var nxt = _nextUnit(ss, uid);
-  if (nxt) _setProg(ss, sid, nxt.UnitID, {Status:'available', UnlockedAt:new Date()});
-  var ul = nxt || u;
-  var sb = _unlockEmailHtml(stu, ul, 'student');
-  var pb = _unlockEmailHtml(stu, ul, 'parent');
-  var ss2 = '🔓 New unit unlocked — ' + ul.UnitName;
+  var sb = _unlockEmailHtml(stu, u, 'student');
+  var pb = _unlockEmailHtml(stu, u, 'parent');
+  var ss2 = '🔓 New unit unlocked — ' + u.UnitName;
   var ps2 = '🔓 ' + stu.StudentName + "'s next unit is unlocked — Physics Foundations";
   try {
     GmailApp.sendEmail(stu.StudentEmail, ss2, _stripHtml(sb), {htmlBody:sb, name:PORTAL_NAME});
