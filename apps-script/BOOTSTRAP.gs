@@ -28,8 +28,7 @@ function bootstrapPortal() {
   Logger.log('═══════════════════════════════════════');
 
   // 1. Drive folders
-  Logger.log('
-📁 Creating Drive folders...');
+  Logger.log('\n📁 Creating Drive folders...');
   var rootFolder    = _getOrCreateFolder(null,         PORTAL_NAME);
   var submissionsF  = _getOrCreateFolder(rootFolder,   'Student Submissions');
   var answerKeysF   = _getOrCreateFolder(rootFolder,   'Answer Keys');
