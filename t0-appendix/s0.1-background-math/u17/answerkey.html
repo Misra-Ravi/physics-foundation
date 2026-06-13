@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vectors vs. Scalars — Answer Key</title>
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:#f0f4f8;background-image:radial-gradient(circle,#bfdbfe 1px,transparent 1px);background-size:28px 28px;color:#1a1a2e;font-size:16px;line-height:1.7;}
+    header{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 50%,#3b82f6 100%);color:white;padding:32px 60px 28px;}
+    header .label{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:0.85;margin-bottom:6px;}
+    header h1{font-size:2rem;font-weight:800;margin-bottom:4px;}
+    header .meta{opacity:0.85;font-size:0.9rem;}
+    main{max-width:820px;margin:36px auto;padding:0 24px 60px;}
+
+    .notice{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #93c5fd;border-radius:10px;padding:14px 20px;margin-bottom:32px;font-size:0.9rem;color:#1e3a8a;}
+    .notice strong{font-weight:800;}
+
+    section{margin-bottom:44px;}
+    h2{font-size:1.2rem;font-weight:800;color:#1e3a8a;border-left:5px solid #3b82f6;padding-left:12px;margin-bottom:16px;}
+    .instructions{color:#4b5563;font-size:0.92rem;margin-bottom:18px;font-style:italic;}
+
+    /* Part A — harder classification */
+    .classify-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.07);}
+    .classify-table thead{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);}
+    .classify-table thead th{color:white;font-weight:800;font-size:0.88rem;padding:12px 16px;text-align:left;}
+    .classify-table tbody tr:nth-child(odd){background:#f8faff;}
+    .classify-table tbody tr:nth-child(even){background:white;}
+    .classify-table td{padding:11px 16px;font-size:0.92rem;border-bottom:1px solid #e2e8f0;}
+    .classify-table td:nth-child(2){font-family:'Space Mono',monospace;font-weight:700;font-size:0.95rem;color:#1e3a8a;}
+    .classify-table td:nth-child(3) span{display:inline-flex;align-items:center;gap:6px;margin-right:12px;font-size:0.88rem;}
+    .cbox-sq{width:16px;height:16px;border:2px solid #94a3b8;border-radius:3px;display:inline-block;}
+
+    /* Part B — true or false */
+    .tf-card{background:white;border-radius:10px;padding:16px 20px;box-shadow:0 1px 6px rgba(0,0,0,0.07);margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;}
+    .tf-num{font-family:'Space Mono',monospace;font-weight:700;font-size:1rem;color:#1d4ed8;flex-shrink:0;min-width:24px;}
+    .tf-text{flex:1;font-size:0.93rem;color:#1e293b;}
+    .tf-boxes{display:flex;gap:14px;flex-shrink:0;font-size:0.88rem;font-weight:700;align-items:center;}
+    .tf-box{display:flex;align-items:center;gap:5px;}
+
+    /* Part C — real-world scenarios */
+    .scenario-card{background:white;border-radius:12px;padding:20px 24px;box-shadow:0 2px 10px rgba(0,0,0,0.07);margin-bottom:16px;border-left:5px solid #3b82f6;}
+    .scenario-card .sc-num{font-size:0.78rem;font-weight:800;text-transform:uppercase;color:#6b7280;margin-bottom:6px;}
+    .scenario-card .sc-context{background:#eff6ff;border-radius:8px;padding:12px 16px;font-size:0.92rem;color:#1e3a8a;margin-bottom:12px;font-style:italic;}
+    .scenario-card .sc-q{font-weight:700;font-size:0.93rem;margin-bottom:8px;}
+    .write-lines{display:flex;flex-direction:column;gap:14px;}
+    .write-line{border-bottom:2px solid #d1d5db;min-height:26px;width:100%;}
+
+    /* Part D — extended response */
+    .extended-card{background:white;border-radius:12px;padding:22px 26px;box-shadow:0 2px 10px rgba(0,0,0,0.07);margin-bottom:14px;}
+    .extended-card .q{font-weight:700;font-size:0.95rem;margin-bottom:10px;}
+    .extended-card .hint{font-size:0.82rem;color:#64748b;margin-bottom:12px;font-style:italic;}
+    .extended-lines{display:flex;flex-direction:column;gap:14px;}
+    .ext-line{border-bottom:2px solid #d1d5db;min-height:26px;width:100%;}
+
+    /* Part E — diagram analysis */
+    .diagram-q{background:white;border-radius:12px;padding:22px 26px;box-shadow:0 2px 10px rgba(0,0,0,0.07);margin-bottom:14px;}
+    .diagram-q .q{font-weight:700;margin-bottom:14px;}
+
+    /* answer key */
+    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
+    #toggle-key-btn{background:#1e3a8a;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
+    #toggle-key-btn:hover{background:#1d4ed8;}
+    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;margin-top:10px;}
+    #answer-key h2{color:#1e3a8a;border-left-color:#1d4ed8;margin-bottom:22px;}
+    .key-section{margin-bottom:28px;}
+    .key-section h3{font-size:1rem;font-weight:800;color:#1e3a8a;margin-bottom:12px;}
+    .key-table{width:100%;border-collapse:collapse;font-size:0.9rem;}
+    .key-table th{background:#1e3a8a;color:white;padding:9px 14px;text-align:left;font-size:0.85rem;}
+    .key-table td{padding:9px 14px;border-bottom:1px solid #e2e8f0;background:white;}
+    .key-table tr:nth-child(even) td{background:#f0f7ff;}
+    .kv{color:#1d4ed8;font-weight:800;}.ks{color:#15803d;font-weight:800;}
+    .tf-ans{display:inline-block;padding:2px 10px;border-radius:10px;font-weight:700;font-size:0.85rem;}
+    .tf-t{background:#dcfce7;color:#15803d;}.tf-f{background:#fee2e2;color:#dc2626;}
+    .short-ans-key{background:white;border-radius:8px;padding:14px 18px;font-size:0.92rem;margin-bottom:10px;}
+    .short-ans-key strong{color:#1e3a8a;}
+  
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Vectors vs. Scalars — Homework</p>
+  </div>
+  <p>Answer key content not found.</p>
+</body>
+</html>
