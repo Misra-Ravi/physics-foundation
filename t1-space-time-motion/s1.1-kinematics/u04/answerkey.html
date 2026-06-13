@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kinematics Unit 4 — Answer Key: Average vs. Instantaneous Velocity</title>
+  <style>
+
+:root{
+  --blue:#3b82f6;
+  --indigo:#6366f1;
+  --green:#22c55e;
+  --amber:#f59e0b;
+  --red:#ef4444;
+  --dark:#0f172a;
+  --bg:#f8faff;
+  --muted:#94a3b8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,#cbd5e1 1px,transparent 1px);background-size:28px 28px;opacity:0.45;z-index:0;pointer-events:none;}
+
+/* GATE */
+#gate{position:fixed;inset:0;background:linear-gradient(135deg,#0f172a,#1e3a5f);display:flex;align-items:center;justify-content:center;z-index:9999;}
+#gate-box{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:2.5rem 2rem;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+#gate-box h2{color:#fff;font-size:1.4rem;margin-bottom:.5rem;}
+#gate-box p{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem;}
+#gate-box input{width:100%;padding:.75rem 1rem;border-radius:8px;border:1px solid #475569;background:#0f172a;color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;outline:none;margin-bottom:1rem;}
+#gate-box input:focus{border-color:var(--blue);}
+#gate-box button{width:100%;padding:.75rem;background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;}
+#gate-error{color:var(--red);font-size:.85rem;margin-top:.75rem;display:none;}
+
+#main{display:none;position:relative;z-index:1;}
+
+/* HEADER */
+header{background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);padding:2.75rem 1.5rem 2.25rem;text-align:center;position:relative;overflow:hidden;}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 2s infinite alternate;}
+@keyframes twinkle{0%{opacity:.2;transform:scale(1);}100%{opacity:1;transform:scale(1.4);}}
+.chip{display:inline-block;background:rgba(255,255,255,.15);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.25);color:#e0e7ff;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:.3rem .9rem;margin-bottom:1rem;}
+header h1{font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:900;background:linear-gradient(135deg,#fff 30%,#bfdbfe 70%,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+header p.subtitle{color:#bfdbfe;font-size:.98rem;}
+
+.content{max-width:860px;margin:0 auto;padding:2.25rem 1.25rem 4rem;}
+
+/* REFERENCE BOX */
+.ref-box{background:linear-gradient(135deg,#eff6ff,#eef2ff);border:1.5px solid #bfdbfe;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem;}
+.ref-box h3{font-size:1rem;font-weight:800;color:#1e40af;margin-bottom:.75rem;}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;}
+.ref-item{background:#fff;border-radius:8px;padding:.55rem .9rem;font-family:'Space Mono',monospace;font-size:.85rem;color:#1e3a5f;border:1px solid #dbeafe;}
+
+/* TIP */
+.tip-box{background:linear-gradient(135deg,#fefce8,#fef9c3);border-left:4px solid var(--amber);border-radius:8px;padding:.85rem 1.1rem;font-size:.9rem;color:#78350f;margin-bottom:1.5rem;}
+.tip-box strong{color:#92400e;}
+
+/* SECTION TITLE */
+.section-title{font-size:1.2rem;font-weight:800;color:var(--dark);margin:2rem 0 1rem;display:flex;align-items:center;gap:.5rem;}
+.section-title::before{content:'';display:inline-block;width:4px;height:1.2em;background:linear-gradient(180deg,var(--blue),var(--indigo));border-radius:2px;}
+
+/* PROBLEM CARD */
+.prob{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1.25rem 1.4rem;box-shadow:0 2px 10px rgba(59,130,246,.05);margin-bottom:1rem;}
+.prob-num{display:inline-block;background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff;font-size:.78rem;font-weight:800;border-radius:999px;padding:.2rem .65rem;margin-bottom:.5rem;}
+.prob p{font-size:.94rem;line-height:1.6;color:#1e293b;}
+.prob .given{font-size:.83rem;color:var(--muted);margin-top:.4rem;font-family:'Space Mono',monospace;}
+.work-area{border:1.5px solid #e2e8f0;border-radius:8px;min-height:110px;margin-top:.75rem;padding:.5rem .75rem;}
+.work-area p{font-size:.82rem;color:#cbd5e1;font-style:italic;}
+.ans-box{margin-top:.6rem;display:flex;align-items:center;gap:.6rem;}
+.ans-box span{font-size:.88rem;font-weight:700;color:#475569;white-space:nowrap;}
+.ans-line{flex:1;border-bottom:2px solid var(--blue);height:26px;}
+
+/* TRUE/FALSE */
+.tf-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1.1rem 1.3rem;box-shadow:0 2px 10px rgba(59,130,246,.05);margin-bottom:1rem;}
+.tf-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.5rem;}
+.tf-header p{font-size:.94rem;line-height:1.6;color:#1e293b;flex:1;}
+.tf-circle{display:flex;gap:.6rem;flex-shrink:0;}
+.tf-circle span{width:40px;height:40px;border:2px solid #e2e8f0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#94a3b8;}
+.correction-label{font-size:.82rem;color:#64748b;margin-bottom:.3rem;}
+.correction-line{border-bottom:1.5px solid #e2e8f0;height:26px;margin-bottom:.3rem;}
+
+/* CHALLENGE */
+.challenge{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:1.5px solid #c4b5fd;border-radius:12px;padding:1.3rem 1.5rem;margin-bottom:1rem;}
+.challenge .prob-num{background:linear-gradient(135deg,#7c3aed,#6366f1);}
+.challenge p{font-size:.94rem;line-height:1.6;color:#3b0764;}
+.challenge .given{font-size:.83rem;color:#7c3aed;margin-top:.4rem;font-family:'Space Mono',monospace;}
+
+/* ANSWER KEY */
+.key-btn-wrap{text-align:center;margin:2.5rem 0 1rem;}
+#toggle-key-btn{background:linear-gradient(135deg,#1e3a5f,var(--indigo));color:#fff;border:none;border-radius:10px;padding:.7rem 2rem;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 15px rgba(99,102,241,.25);}
+#toggle-key-btn:hover{opacity:.9;}
+#answer-key{display:none;background:#fff;border:2px solid var(--indigo);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:2rem;}
+#answer-key h2{color:var(--indigo);font-size:1.15rem;font-weight:800;margin-bottom:1.25rem;}
+.ak-item{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #e2e8f0;}
+.ak-item:last-child{border-bottom:none;margin-bottom:0;}
+.ak-item strong{color:var(--dark);font-size:.94rem;}
+.ak-item p{font-size:.88rem;color:#334155;line-height:1.6;margin-top:.2rem;}
+.step{font-family:'Space Mono',monospace;background:#f8faff;border-radius:6px;padding:.35rem .7rem;margin:.3rem 0;display:block;font-size:.85rem;color:#1e3a5f;}
+
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Kinematics Unit 4 — Homework: Average vs. Instantaneous Velocity</p>
+  </div>
+  <p>Answer key content not found.</p>
+</body>
+</html>
