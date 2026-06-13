@@ -28,7 +28,8 @@ function bootstrapPortal() {
   Logger.log('═══════════════════════════════════════');
 
   // 1. Drive folders
-  Logger.log('\n📁 Creating Drive folders...');
+  Logger.log('
+📁 Creating Drive folders...');
   var rootFolder    = _getOrCreateFolder(null,         PORTAL_NAME);
   var submissionsF  = _getOrCreateFolder(rootFolder,   'Student Submissions');
   var answerKeysF   = _getOrCreateFolder(rootFolder,   'Answer Keys');
@@ -37,13 +38,15 @@ function bootstrapPortal() {
   Logger.log('   Answer Keys:    ' + answerKeysF.getUrl());
 
   // 2. Google Sheet
-  Logger.log('\n📊 Creating Portal Tracker sheet...');
+  Logger.log('
+📊 Creating Portal Tracker sheet...');
   var ss = _getOrCreateSheet(rootFolder, 'IB Physics — Portal Tracker');
   var sheetId = ss.getId();
   Logger.log('   Sheet URL: ' + ss.getUrl());
 
   // 3. Sheet tabs
-  Logger.log('\n📋 Setting up sheet tabs...');
+  Logger.log('
+📋 Setting up sheet tabs...');
   _setupRoster(ss);
   _setupUnits(ss);
   _setupProgress(ss);
@@ -52,23 +55,27 @@ function bootstrapPortal() {
   Logger.log('   Tabs created: Roster, Units, Progress, EmailLog');
 
   // 4. Seed units
-  Logger.log('\n🔢 Seeding 130 unit rows...');
+  Logger.log('
+🔢 Seeding 130 unit rows...');
   _seedUnits(ss);
   Logger.log('   Done.');
 
   // 5. Seed progress
-  Logger.log('\n📈 Seeding progress rows for sample students...');
+  Logger.log('
+📈 Seeding progress rows for sample students...');
   _seedProgress(ss);
   Logger.log('   Done.');
 
   // 6. Form A — Homework Submission
-  Logger.log('\n📝 Creating Form A: Homework Submission...');
+  Logger.log('
+📝 Creating Form A: Homework Submission...');
   var formA = _createHomeworkForm(rootFolder, ss);
   var formAId = formA.getId();
   Logger.log('   Form A URL: ' + formA.getPublishedUrl());
 
   // 7. Form B — Parent Approval
-  Logger.log('\n📝 Creating Form B: Parent Approval...');
+  Logger.log('
+📝 Creating Form B: Parent Approval...');
   var formB = _createApprovalForm(rootFolder);
   var formBId = formB.getId();
   Logger.log('   Form B URL: ' + formB.getPublishedUrl());
@@ -82,20 +89,25 @@ function bootstrapPortal() {
     SUBMISSIONS_FOLDER_ID: submissionsF.getId(),
     ANSWER_KEYS_FOLDER_ID: answerKeysF.getId(),
   });
-  Logger.log('\n✅ Config saved to Script Properties.');
+  Logger.log('
+✅ Config saved to Script Properties.');
 
   // 9. Install form triggers
-  Logger.log('\n⚡ Installing form submit triggers...');
+  Logger.log('
+⚡ Installing form submit triggers...');
   _installTriggers(ss, formA, formB);
   Logger.log('   Triggers installed.');
 
-  Logger.log('\n═══════════════════════════════════════');
+  Logger.log('
+═══════════════════════════════════════');
   Logger.log(' BOOTSTRAP COMPLETE');
   Logger.log('═══════════════════════════════════════');
-  Logger.log('\nSheet:  ' + ss.getUrl());
+  Logger.log('
+Sheet:  ' + ss.getUrl());
   Logger.log('Form A: ' + formA.getPublishedUrl());
   Logger.log('Form B: ' + formB.getPublishedUrl());
-  Logger.log('\nNEXT STEP:');
+  Logger.log('
+NEXT STEP:');
   Logger.log('Deploy this project as a Web App:');
   Logger.log('  Deploy → New Deployment → Web App');
   Logger.log('  Execute as: User accessing the web app');
@@ -797,7 +809,7 @@ function _sendWelcomeEmail(ss, rowData) {
   var parentEmail= rowData[3];
   var parentName = rowData[4];
 
-  var portalUrl  = 'https://script.google.com/macros/s/AKfycbzZWRT4hxO5yjertM_08knaKXY4c2wlGkCT4v-Sw-shLr8CrjxjaGciAb_KQ3eSA4f7PQ/exec';
+  var portalUrl  = 'https://script.google.com/macros/s/AKfycby_xSG6aKlluOcmWHht3eYWeXINS58mQbPF05neZVxZ0KTV2oxreE6HE_hI-Qqe9ZpHag/exec';
   var siteUrl    = 'https://physicsfoundation.netlify.app/';
 
   var studentBody = '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
@@ -842,7 +854,9 @@ function _sendWelcomeEmail(ss, rowData) {
     Logger.log('Welcome email failed: ' + err);
     try {
       GmailApp.sendEmail(ADMIN_EMAIL, '[Physics Foundations] ⚠️ Welcome email failed for '+name,
-        'Failed to send welcome email to '+email+' / '+parentEmail+'\n\nError: '+err, {name:PORTAL_NAME});
+        'Failed to send welcome email to '+email+' / '+parentEmail+'
+
+Error: '+err, {name:PORTAL_NAME});
     } catch(e2) { Logger.log('Could not alert admin either: '+e2); }
   }
 }
@@ -949,9 +963,13 @@ function cleanAndSync() {
   }
 
   var ui = SpreadsheetApp.getUi();
-  var msg = 'Roster: '+keep.length-1+' active students.\n';
-  msg += added.length > 0 ? 'Progress seeded for: '+added.join(', ')+'.\n' : 'All students already have progress rows.\n';
-  msg += 'Orphaned progress rows removed: '+(allProg.length - cleanProg.length)+'.\n';
+  var msg = 'Roster: '+keep.length-1+' active students.
+';
+  msg += added.length > 0 ? 'Progress seeded for: '+added.join(', ')+'.
+' : 'All students already have progress rows.
+';
+  msg += 'Orphaned progress rows removed: '+(allProg.length - cleanProg.length)+'.
+';
   ui.alert('✅ Sync Complete', msg, ui.ButtonSet.OK);
 }
 
@@ -1096,7 +1114,7 @@ function adminResendWelcome() {
 // ── Unlock email template ─────────────────────────────────────────────────────
 function _unlockEmailHtml(student, unit, audience) {
   var isParent = (audience === 'parent');
-  var portalUrl = 'https://script.google.com/macros/s/AKfycbzZWRT4hxO5yjertM_08knaKXY4c2wlGkCT4v-Sw-shLr8CrjxjaGciAb_KQ3eSA4f7PQ/exec';
+  var portalUrl = 'https://script.google.com/macros/s/AKfycby_xSG6aKlluOcmWHht3eYWeXINS58mQbPF05neZVxZ0KTV2oxreE6HE_hI-Qqe9ZpHag/exec';
 
   if (isParent) {
     return '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
@@ -1136,7 +1154,9 @@ function testEmailDelivery() {
     GmailApp.sendEmail(
       ADMIN_EMAIL,
       '✅ [Physics Foundations] Email test — it works!',
-      'This is a test email from your Physics Foundations Apps Script.\n\nIf you receive this, all email functionality is working correctly.',
+      'This is a test email from your Physics Foundations Apps Script.
+
+If you receive this, all email functionality is working correctly.',
       {
         htmlBody: '<div style="font-family:sans-serif;padding:32px;max-width:480px;margin:0 auto;background:#f0f4f8;border-radius:12px;">'+
           '<h2 style="color:#1d4ed8;">✅ Email Test Successful</h2>'+
