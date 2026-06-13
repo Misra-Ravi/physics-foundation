@@ -842,9 +842,7 @@ function _sendWelcomeEmail(ss, rowData) {
     Logger.log('Welcome email failed: ' + err);
     try {
       GmailApp.sendEmail(ADMIN_EMAIL, '[Physics Foundations] ⚠️ Welcome email failed for '+name,
-        'Failed to send welcome email to '+email+' / '+parentEmail+'
-
-Error: '+err, {name:PORTAL_NAME});
+        'Failed to send welcome email to '+email+' / '+parentEmail+'\n\nError: '+err, {name:PORTAL_NAME});
     } catch(e2) { Logger.log('Could not alert admin either: '+e2); }
   }
 }
@@ -951,13 +949,9 @@ function cleanAndSync() {
   }
 
   var ui = SpreadsheetApp.getUi();
-  var msg = 'Roster: '+keep.length-1+' active students.
-';
-  msg += added.length > 0 ? 'Progress seeded for: '+added.join(', ')+'.
-' : 'All students already have progress rows.
-';
-  msg += 'Orphaned progress rows removed: '+(allProg.length - cleanProg.length)+'.
-';
+  var msg = 'Roster: '+keep.length-1+' active students.\n';
+  msg += added.length > 0 ? 'Progress seeded for: '+added.join(', ')+'.\n' : 'All students already have progress rows.\n';
+  msg += 'Orphaned progress rows removed: '+(allProg.length - cleanProg.length)+'.\n';
   ui.alert('✅ Sync Complete', msg, ui.ButtonSet.OK);
 }
 
@@ -1142,9 +1136,7 @@ function testEmailDelivery() {
     GmailApp.sendEmail(
       ADMIN_EMAIL,
       '✅ [Physics Foundations] Email test — it works!',
-      'This is a test email from your Physics Foundations Apps Script.
-
-If you receive this, all email functionality is working correctly.',
+      'This is a test email from your Physics Foundations Apps Script.\n\nIf you receive this, all email functionality is working correctly.',
       {
         htmlBody: '<div style="font-family:sans-serif;padding:32px;max-width:480px;margin:0 auto;background:#f0f4f8;border-radius:12px;">'+
           '<h2 style="color:#1d4ed8;">✅ Email Test Successful</h2>'+
