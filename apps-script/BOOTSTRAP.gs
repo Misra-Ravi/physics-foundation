@@ -142,7 +142,7 @@ function _setupUnits(ss) {
   sh.clearContents();
   var h = ['UnitID','UnitOrder','TopicNum','TopicName','SectionNum','SectionName',
            'UnitNum','UnitName','Type','LessonURL','ClassworkURL','HomeworkURL',
-           'TopicSlug','SectionSlug','UnitSlug','AnswerKeyDriveID','PrevUnitID'];
+           'TopicSlug','SectionSlug','UnitSlug','AnswerKeyDriveID','AnswerKeyURL','PrevUnitID'];
   sh.getRange(1,1,1,h.length).setValues([h]).setFontWeight('bold');
   sh.setFrozenRows(1);
 }
@@ -422,28 +422,10 @@ function onRosterEdit(e) {
   var isActive = (active === true || String(active).toUpperCase() === 'TRUE');
   if (!sid || !name || !isActive) return;
 
-  // Check if progress rows already exist for this student
-  var progSh    = ss.getSheetByName('Progress');
-  var progData  = progSh.getDataRange().getValues();
-  var alreadySeeded = progData.some(function(r) {
-    return r[1] === sid;
-  });
-  if (alreadySeeded) return;
-
-  // Seed progress rows for this new student — first 3 units unlocked
-  var units = ss.getSheetByName('Units').getDataRange().getValues().slice(1);
-  var newRows = units.map(function(u, idx) {
-    var status = (idx < 3) ? 'available' : 'locked';
-    return [sid+'_'+u[0], sid, u[0], status, '','','','','','','',''];
-  });
-  if (newRows.length > 0) {
-    progSh.getRange(progSh.getLastRow()+1, 1, newRows.length, 12).setValues(newRows);
-  }
-
-  // Send welcome email to student
+  // Send welcome email to student — admin assigns units separately via portal
   _sendWelcomeEmail(ss, rowData);
 
-  Logger.log('Auto-enrolled: ' + name + ' (' + sid + ') — ' + units.length + ' progress rows created, first 3 unlocked.');
+  Logger.log('Enrolled: ' + name + ' (' + sid + ') — awaiting admin unit assignment.');
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -472,7 +454,13 @@ function _rObj(h,r){ var o={}; h.forEach(function(k,i){o[k]=r[i];}); return o; }
 function _students(ss){ var d=ss.getSheetByName('Roster').getDataRange().getValues(); return d.slice(1).map(function(r){return _rObj(d[0],r);}).filter(function(s){return s.Active===true||String(s.Active).toUpperCase()==='TRUE';}); }
 function _studentByName(ss,n){ return _students(ss).find(function(s){return s.StudentName===n;})||null; }
 function _studentById(ss,id)  { return _students(ss).find(function(s){return s.StudentID===id;})||null; }
-function _studentByEmail(ss,e){ return _students(ss).find(function(s){return String(s.StudentEmail).toLowerCase().trim()===String(e).toLowerCase().trim();})||null; }
+function _studentByEmail(ss,e){
+  var em = String(e).toLowerCase().trim();
+  return _students(ss).find(function(s){
+    return String(s.StudentEmail).toLowerCase().trim()===em ||
+           String(s.ParentEmail).toLowerCase().trim()===em;
+  })||null;
+}
 
 function _units(ss){ var d=ss.getSheetByName('Units').getDataRange().getValues(); return d.slice(1).map(function(r){return _rObj(d[0],r);}); }
 function _unit(ss,id){ return _units(ss).find(function(u){return u.UnitID===id;})||null; }
@@ -753,7 +741,7 @@ function _unitCard(unit, prog, hwFormUrl) {
 var _ES='<style>@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");body{font-family:Nunito,Arial,sans-serif;background:#f8faff;margin:0;padding:0;}.w{max-width:560px;margin:32px auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);}.h{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:white;padding:32px 36px;}.h .lbl{font-size:11px;text-transform:uppercase;letter-spacing:2px;opacity:.8;margin-bottom:6px;}.h h1{font-size:1.35rem;font-weight:800;margin:0;}.b{padding:32px 36px;color:#1a1a2e;font-size:.94rem;line-height:1.7;}.badge{background:#eff6ff;border:2px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin:18px 0;font-weight:700;color:#1d4ed8;}.btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none!important;margin:6px 6px 6px 0;}.bg{background:#22c55e!important;color:white!important;}.br{background:#ef4444!important;color:white!important;}.bb{background:#1d4ed8!important;color:white!important;border:none;}.note{font-size:.8rem;color:#64748b;margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0;}.fb{background:#fff7ed;border:2px solid #fed7aa;border-radius:10px;padding:14px 18px;margin:16px 0;color:#92400e;}</style>';
 
 function _parentEmail(student,unit,fileUrl,approvalUrl,notes,fileAttached){
-  var keyUrl = unit.HomeworkURL ? unit.HomeworkURL + '?key=show' : '';
+  var keyUrl = unit.AnswerKeyURL || '';
   var attachmentNote = fileAttached
     ? '<div class="badge" style="background:#dcfce7;border-color:#86efac;color:#15803d;">📎 '+student.StudentName+'\'s homework is attached to this email</div>'
     : (fileUrl ? '<p><a href="'+fileUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;margin:6px 6px 6px 0;background:#1d4ed8;color:#ffffff;">View '+student.StudentName+'\'s Homework →</a></p>' : '');
@@ -818,19 +806,11 @@ function _sendWelcomeEmail(ss, rowData) {
     '<div class="h"><div class="lbl">Physics Foundations by Ravi</div><h1>Welcome, '+name+'! 🎉</h1></div>'+
     '<div class="b">'+
     '<p>You have been enrolled in <strong>Physics Foundations by Ravi</strong>.</p>'+
-    '<p>Your first 3 units are already unlocked and waiting for you.</p>'+
-    '<div class="badge">🗺️ Your Learning Journey — How Each Unit Works</div>'+
-    '<p><strong>In class with your teacher:</strong></p>'+
-    '<p>1. Read the <strong>Lesson</strong> — understand the concept<br>'+
-    '2. Complete <strong>Classwork</strong> — practise with your teacher</p>'+
-    '<p><strong>At home after class:</strong></p>'+
-    '<p>3. Print and complete the <strong>Homework sheet</strong> — work independently<br>'+
-    '4. <strong>Upload a photo</strong> of your completed homework via the portal<br>'+
-    '5. Your parent reviews your work — your teacher unlocks the next unit when ready</p>'+
+    '<p>Welcome aboard! Your teacher will assign your first unit shortly.</p>'+
+    '<p>Once a unit is assigned, you will receive an email with a direct link to start.</p>'+
     '<div class="badge">🎒 What to Bring Every Session</div>'+
-    '<p>— A pen and notebook for working<br>— A binder to organise all printed sheets<br>— <strong>Instruction Sheet</strong> (provided by teacher)<br>— <strong>Classwork Sheet</strong> for the unit<br>— <strong>Homework Sheet for the last class</strong><br>— Your device to access the portal</p>'+
-    '<p><a href="'+portalUrl+'" style="display:inline-block;padding:13px 26px;border-radius:10px;font-weight:800;font-size:.92rem;text-decoration:none;background:#1d4ed8;color:#ffffff;margin:6px 0;">Enter Your Portal →</a></p>'+
-    '<p class="note">Sign in with this email address: <strong>'+email+'</strong></p>'+
+    '<p>— A pen and notebook for working<br>— A binder to organise all printed sheets<br>— Your device to access the portal</p>'+
+    '<p class="note">Your portal login email: <strong>'+email+'</strong></p>'+
     '</div></div></body></html>';
 
   var parentBody = '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
