@@ -307,36 +307,8 @@
 
   
 
-<script>
-function toggleKey(){
-  var key = document.getElementById('answer-key');
-  var btn = document.getElementById('toggle-key-btn');
-  if(key.style.display === 'none' || key.style.display === ''){
-    key.style.display = 'block';
-    btn.textContent = 'Hide Answer Key';
-  } else {
-    key.style.display = 'none';
-    btn.textContent = 'Show Answer Key';
-  }
-}
-</script>
 
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+
+
 </body>
 </html>
