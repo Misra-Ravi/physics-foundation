@@ -145,24 +145,8 @@
 
   
   
-<script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+
+
 </body>
 </html>
