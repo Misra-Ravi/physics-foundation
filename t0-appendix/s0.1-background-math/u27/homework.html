@@ -79,21 +79,12 @@
     .mcq-circle{width:18px;height:18px;border-radius:50%;border:2px solid #cbd5e1;flex-shrink:0;margin-top:2px;}
     .mcq-text{color:#374151;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:linear-gradient(135deg,#4338ca,#6366f1);color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{opacity:0.9;}
-    #answer-key{display:none;background:#f5f3ff;border:2px solid #c4b5fd;border-radius:14px;padding:28px 32px;}
     #answer-key h2{border-left-color:#7c3aed;margin-bottom:22px;}
-    .key-section{margin-bottom:26px;}
     .key-section h3{font-size:0.95rem;font-weight:800;color:#4338ca;margin-bottom:12px;}
     .key-text{background:white;border-radius:8px;padding:12px 16px;font-size:0.9rem;margin-bottom:10px;}
     .key-text strong{color:#4338ca;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    @media(max-width:500px){.key-grid{grid-template-columns:1fr;}}
-    .key-item{background:white;border-radius:8px;padding:10px 14px;font-size:0.9rem;}
-    .key-item .knum{font-weight:700;color:#64748b;font-size:0.8rem;display:block;margin-bottom:2px;}
-    .key-item .kans{color:#4338ca;font-weight:800;font-size:1rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:3px;}
+    @media(max-width:500px){}
   </style>
 </head>
 <body>
@@ -347,48 +338,9 @@
   </section>
 
   <!-- Answer Key -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="document.getElementById('answer-key').style.display=(document.getElementById('answer-key').style.display==='none'?'block':'none');this.textContent=(document.getElementById('answer-key').style.display==='none'?'Show Answer Key':'Hide Answer Key');">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Multiple Choice</h3>
-      <div class="key-grid">
-        <div class="key-item"><span class="knum">Question 1</span><span class="kans">B — ⊙ (dot inside circle)</span><div class="kexpl">⊙ = arrowhead coming toward you = out of page</div></div>
-        <div class="key-item"><span class="knum">Question 2</span><span class="kans">C — Tail feathers (fletching)</span><div class="kexpl">The cross looks like the feathered tail of an arrow flying away</div></div>
-        <div class="key-item"><span class="knum">Question 3</span><span class="kans">C — Perpendicular to the x-y plane</span><div class="kexpl">z is at 90° to both x and y; it points in/out of the page</div></div>
-        <div class="key-item"><span class="knum">Question 4</span><span class="kans">C — z-axis</span><div class="kexpl">z comes out toward you (or goes away from you into the screen)</div></div>
-        <div class="key-item"><span class="knum">Question 5</span><span class="kans">B — Into the page (negative z)</span><div class="kexpl">⊙ on left and ⊗ on right = current flowing into the page</div></div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Read the Field Pattern</h3>
-      <div class="key-text"><strong>Question 6:</strong> Current is flowing UPWARD out of the page.<br>Reasoning: ⊗ (into page) on the left and ⊙ (out of page) on the right matches the standard pattern for current flowing out of the page.</div>
-      <div class="key-text"><strong>Question 7:</strong> Current is flowing DOWNWARD into the page.<br>Reasoning: ⊙ (out of page) on the left and ⊗ (into page) on the right — the entire pattern is flipped compared to Q6. When current reverses, the magnetic field reverses with it.</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Complete the Diagram</h3>
-      <div class="key-text"><strong>Question 8 — Current out of page:</strong><br>Left side: all ⊗ (field into the page) &nbsp;·&nbsp; blank: "into"<br>Right side: all ⊙ (field out of the page) &nbsp;·&nbsp; blank: "out of"</div>
-      <div class="key-text"><strong>Question 9 — Current into page:</strong><br>Left side: all ⊙ (field out of the page) &nbsp;·&nbsp; blank: "out of"<br>Right side: all ⊗ (field into the page) &nbsp;·&nbsp; blank: "into"<br><em>Difference: All symbols are swapped — reversing current direction reverses every field direction.</em></div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Extended Response</h3>
-      <div class="key-text"><strong>Question 10:</strong> "B = 0.5 T to the right" describes the x-component only. In a 3D situation, the field could also have a y-component (up/down) or z-component (into/out of page). If the field is purely in the x-direction and we are looking at a flat 2D diagram, the description may be complete. But in a 3D context — e.g., a magnetic field around a wire — the field often has a z-component, which would be shown using ⊙ or ⊗ symbols on the diagram.</div>
-      <div class="key-text"><strong>Question 11:</strong> A dimension is an independent direction of motion — any movement along one axis cannot move you along another. Each axis must be at 90° to all others because this is the definition of independence. If two axes were NOT at 90°, moving along one would automatically create motion along the other — they would no longer be independent directions. You would not truly have an additional degree of freedom.</div>
-      <div class="key-text"><strong>Question 12:</strong> Accept any two good reasons, e.g.: (1) The symbols are compact and fit inside a diagram cell — words would take too much space. (2) The symbols are universal across languages — every physicist in the world recognizes ⊙ and ⊗ regardless of language. (3) The symbols are visually intuitive — they literally look like what they represent (arrowhead / tail feathers). (4) They can be drawn quickly in a grid to show a field pattern over a whole region.</div>
-      <div class="key-text"><strong>Question 13:</strong><br>(a) Region A (left): fill with ⊗ symbols; Region B (right): fill with ⊙ symbols.<br>(b) Current is flowing UPWARD out of the page. Reasoning: the pattern ⊗ on the left and ⊙ on the right matches a current flowing out of the page — the magnetic field circles the wire, going into the page on the left and out on the right.<br>(c) The symbols would NOT need to change. The same ⊗ and ⊙ pattern would remain — doubling the current doubles the strength (magnitude) of the field but does not change its direction. The symbols only convey direction, not magnitude.</div>
-    </div>
-  </div>
-
-</main>
-
-<footer style="text-align:center;padding:28px 20px;font-size:0.85rem;color:#94a3b8;">IB Physics · Unit 27: 3D Vectors — Homework &nbsp;·&nbsp; ⊙ = out of page &nbsp; ⊗ = into page</footer>
+  
 
 
 <script>
