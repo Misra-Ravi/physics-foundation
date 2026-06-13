@@ -115,8 +115,6 @@ table.blank td{min-width:70px;height:28px;background:#f8faff;}
 .challenge-card p{font-size:.95rem;color:#374151;margin-bottom:.6rem;}
 
 /* ANSWER KEY */
-#answer-key{display:none;background:linear-gradient(135deg,#fefce8,#fef9c3);
-  border:2px solid var(--amber);border-radius:16px;padding:1.5rem;margin-top:2rem;}
 #answer-key h3{color:#92400e;font-weight:800;margin-bottom:1.2rem;font-size:1.1rem;}
 .ak-section{margin-bottom:1.2rem;}
 .ak-section h4{font-weight:800;color:#78350f;font-size:.95rem;margin-bottom:.6rem;
@@ -128,9 +126,6 @@ table.blank td{min-width:70px;height:28px;background:#f8faff;}
 .ak-item .tf-verdict{font-weight:800;font-size:.92rem;}
 .ak-item .tf-verdict.true{color:var(--green);}
 .ak-item .tf-verdict.false{color:var(--red);}
-#toggle-key-btn{background:var(--amber);color:#fff;border:none;border-radius:12px;
-  padding:.75rem 2rem;font-size:1rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;
-  display:block;margin:1.5rem auto 0;}
 </style>
 </head>
 <body>
@@ -442,117 +437,7 @@ table.blank td{min-width:70px;height:28px;background:#f8faff;}
   <!-- ANSWER KEY TOGGLE -->
   <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
 
-  <div id="answer-key">
-    <h3>Answer Key — Homework Unit 14</h3>
-
-    <div class="ak-section">
-      <h4>Part A — Full Working Problems</h4>
-
-      <div class="ak-item">
-        <span class="anum">A1.</span>
-        u<sub>x</sub>=8 m/s, u<sub>y</sub>=0 (horizontal launch), s<sub>y</sub>=45 m (+down), a<sub>y</sub>=9.8 m/s²<br/>
-        <strong>(a) Y-table, find t:</strong> s = ½at² → 45 = 4.9t² → t² = 9.184 → <span class="afinal">t = 3.03 s</span><br/>
-        <strong>(b) X-table:</strong> s<sub>x</sub> = u<sub>x</sub>×t = 8 × 3.03 = <span class="afinal">24.2 m</span> from the base of the cliff.
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">A2.</span>
-        u=18 m/s, θ=35°. u<sub>x</sub>=18cos35°=14.74 m/s, u<sub>y</sub>=18sin35°=10.32 m/s, a<sub>y</sub>=−9.8 m/s², s<sub>y</sub>=0 (lands at same height)<br/>
-        <strong>(a) Y-table, find t:</strong> 0 = 10.32t − 4.9t² → t = 10.32/4.9 = <span class="afinal">2.106 s</span><br/>
-        <strong>(b) X-table:</strong> s<sub>x</sub> = 14.74 × 2.106 = <span class="afinal">31.0 m</span>
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">A3.</span>
-        u=25 m/s, θ=50°. u<sub>y</sub>=25sin50°=19.15 m/s, v<sub>y</sub>=0 at max height, a<sub>y</sub>=−9.8 m/s²<br/>
-        v² = u² + 2as → 0 = 19.15² − 2×9.8×s<sub>y</sub><br/>
-        s<sub>y</sub> = 366.7/(2×9.8) = 366.7/19.6 = <span class="afinal">18.7 m</span>
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">A4.</span>
-        u<sub>x</sub>=6 m/s, u<sub>y</sub>=0, s<sub>x</sub>=18 m<br/>
-        <strong>(a) X-table, find t:</strong> s<sub>x</sub> = u<sub>x</sub>×t → 18 = 6t → <span class="afinal">t = 3.0 s</span><br/>
-        <strong>(b) Y-table:</strong> s<sub>y</sub> = ½×9.8×t² = 4.9×9 = <span class="afinal">44.1 m</span> (height of building)
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">A5.</span>
-        u=14 m/s, θ=45°. u<sub>x</sub>=14cos45°=9.90 m/s, u<sub>y</sub>=14sin45°=9.90 m/s, a<sub>y</sub>=−9.8 m/s², t=0.5 s<br/>
-        v<sub>x</sub> = 9.90 + 0 = 9.90 m/s<br/>
-        v<sub>y</sub> = 9.90 + (−9.8)×0.5 = 9.90 − 4.90 = 5.00 m/s (upward)<br/>
-        v = √(9.90² + 5.00²) = √(98.01 + 25) = √123.01 = <span class="afinal">11.09 m/s</span><br/>
-        Direction: θ = arctan(5.00/9.90) ≈ 26.8° above horizontal.
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">A6.</span>
-        u=20 m/s, θ=30°. u<sub>x</sub>=20cos30°=17.32 m/s, u<sub>y</sub>=20sin30°=10 m/s, a<sub>y</sub>=−9.8 m/s², s<sub>y</sub>=+4 m<br/>
-        <strong>Y-table (find t):</strong> s = u<sub>y</sub>t + ½a<sub>y</sub>t²<br/>
-        4 = 10t − 4.9t² → 4.9t² − 10t + 4 = 0<br/>
-        t = [10 ± √(100 − 4×4.9×4)] / (2×4.9) = [10 ± √(100 − 78.4)] / 9.8 = [10 ± √21.6] / 9.8<br/>
-        t = (10 ± 4.648)/9.8 → t = 1.495 s or t = 0.546 s<br/>
-        Use t = 1.495 s (ball is on the way down onto the ledge, taking the later time)<br/>
-        <strong>X-table:</strong> s<sub>x</sub> = 17.32 × 1.495 = <span class="afinal">25.9 m</span>
-      </div>
-    </div>
-
-    <div class="ak-section">
-      <h4>Part B — True or False</h4>
-
-      <div class="ak-item">
-        <span class="anum">B1.</span>
-        <span class="tf-verdict false">FALSE.</span> The acceleration of a projectile is <strong>always 9.8 m/s² straight downward</strong> at every point — including at the highest point. It never changes direction. Only the velocity changes direction at the apex.
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">B2.</span>
-        <span class="tf-verdict false">FALSE.</span> The formulas are reversed. The correct decomposition is: u<sub>x</sub> = u <strong>cos</strong> θ (horizontal) and u<sub>y</sub> = u <strong>sin</strong> θ (vertical). Cosine gives the adjacent side (horizontal); sine gives the opposite side (vertical).
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">B3.</span>
-        <span class="tf-verdict true">TRUE.</span> "Launched horizontally" is indeed a code word meaning u<sub>y</sub> = 0 m/s. There is no initial vertical velocity when the launch direction is purely horizontal.
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">B4.</span>
-        <span class="tf-verdict false">FALSE.</span> Time is the <strong>same</strong> in both the X-table and Y-table — it is the only variable shared between the two tables. The x and y motions happen simultaneously; the same amount of time elapses for both. This is the fundamental linking variable (Rule 3).
-      </div>
-    </div>
-
-    <div class="ak-section">
-      <h4>Part C — Challenge Problems</h4>
-
-      <div class="ak-item">
-        <span class="anum">C1.</span>
-        u=15 m/s, θ=30°. u<sub>x</sub>=15cos30°=12.99 m/s, u<sub>y</sub>=15sin30°=7.5 m/s<br/>
-        Convention: up = +. Launch at top of building, ground is 20 m below → s<sub>y</sub> = −20 m, a<sub>y</sub>=−9.8 m/s²<br/>
-        <strong>(a) Y-table (find t):</strong> −20 = 7.5t − 4.9t²<br/>
-        4.9t² − 7.5t − 20 = 0<br/>
-        t = [7.5 ± √(56.25 + 4×4.9×20)] / 9.8 = [7.5 ± √(56.25 + 392)] / 9.8 = [7.5 ± √448.25] / 9.8<br/>
-        t = (7.5 + 21.17) / 9.8 = 28.67/9.8 = <span class="afinal">2.93 s</span> (take positive root)<br/>
-        <strong>(b) X-table:</strong> s<sub>x</sub> = 12.99 × 2.93 = <span class="afinal">38.1 m</span> from the base of the building.<br/>
-        <strong>(c) Speed just before impact:</strong><br/>
-        v<sub>x</sub> = 12.99 m/s (unchanged)<br/>
-        v<sub>y</sub> = 7.5 + (−9.8)×2.93 = 7.5 − 28.71 = −21.21 m/s (downward)<br/>
-        v = √(12.99² + 21.21²) = √(168.7 + 449.9) = √618.6 = <span class="afinal">24.9 m/s</span>
-      </div>
-
-      <div class="ak-item">
-        <span class="anum">C2.</span>
-        Both balls fall from 20 m with u<sub>y</sub>=0 (Ball A has horizontal speed but vertical initial velocity is still zero).<br/>
-        <strong>Ball A:</strong> s<sub>y</sub>=20 m, a<sub>y</sub>=9.8 m/s², u<sub>y</sub>=0 → t = √(2×20/9.8) = √4.082 = 2.02 s<br/>
-        <strong>Ball B:</strong> s<sub>y</sub>=20 m, a<sub>y</sub>=9.8 m/s², u<sub>y</sub>=0 → t = √(2×20/9.8) = 2.02 s<br/>
-        <strong>(a)</strong> They hit the ground at <span class="afinal">exactly the same time (2.02 s)</span>. The horizontal velocity of Ball A does not affect its vertical fall time — this demonstrates the independence of x and y motion.<br/>
-        <strong>(b)</strong> Ball B lands directly below (0 m horizontal). Ball A lands at s<sub>x</sub> = 10×2.02 = 20.2 m away.<br/>
-        They are <span class="afinal">20.2 m apart</span> horizontally.
-      </div>
-    </div>
-  </div>
-
-</div><!-- container -->
-</div><!-- main -->
+  
 
 <script>
 // PASSWORD GATE
