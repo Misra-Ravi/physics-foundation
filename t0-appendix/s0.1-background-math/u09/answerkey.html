@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propagating Uncertainty: Adding &amp; Subtracting — Answer Key</title>
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:#fffbf0;background-image:radial-gradient(circle,#fde68a 1px,transparent 1px);background-size:28px 28px;color:#1a1a2e;font-size:16px;line-height:1.7;}
+    header{background:linear-gradient(135deg,#92400e 0%,#b45309 60%,#d97706 100%);color:white;padding:32px 60px 28px;}
+    header .label{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:0.85;margin-bottom:6px;}
+    header h1{font-size:2rem;font-weight:800;margin-bottom:4px;}
+    header .meta{opacity:0.85;font-size:0.9rem;}
+    main{max-width:920px;margin:36px auto;padding:0 24px 60px;}
+    /* reference box */
+    .rules-box{background:white;border:2px solid #fde68a;border-radius:10px;padding:18px 22px;margin-bottom:36px;}
+    .rules-box h3{color:#78350f;font-size:1rem;margin-bottom:10px;font-weight:800;}
+    .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    @media(max-width:600px){.rules-grid{grid-template-columns:1fr;}}
+    .rule-item{background:#fffbeb;border-radius:8px;padding:10px 14px;font-size:0.88rem;color:#374151;}
+    .rule-item strong{color:#78350f;}
+    .rule-item code{font-family:'Space Mono',monospace;background:#fef3c7;padding:1px 5px;border-radius:3px;font-size:0.83rem;color:#78350f;}
+    .tip{margin-top:10px;padding:10px 14px;background:#fffbeb;border-left:4px solid #d97706;border-radius:4px;font-size:0.88rem;color:#78350f;font-weight:600;}
+    /* sections */
+    section{margin-bottom:44px;}
+    h2{font-size:1.25rem;font-weight:700;color:#78350f;border-left:5px solid #d97706;padding-left:12px;margin-bottom:18px;}
+    .instructions{color:#4b5563;font-size:0.92rem;margin-bottom:18px;font-style:italic;}
+    /* problem cards */
+    .problem-card{background:white;border-radius:8px;padding:18px 22px;box-shadow:0 1px 5px rgba(0,0,0,0.07);margin-bottom:16px;}
+    .problem-num{font-size:0.75rem;font-weight:700;text-transform:uppercase;color:#6b7280;margin-bottom:6px;}
+    .problem-display{font-family:'Space Mono',monospace;font-size:1.35rem;font-weight:700;color:#1a1a2e;margin-bottom:14px;}
+    .work-space{margin-bottom:10px;}
+    .work-label{font-size:0.8rem;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+    .work-lines{display:flex;flex-direction:column;gap:12px;}
+    .work-line{border-bottom:2px solid #e5e7eb;min-height:26px;width:100%;}
+    .answer-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+    .answer-label{font-size:0.88rem;font-weight:700;color:#78350f;}
+    .answer-line{border-bottom:2px solid #b45309;min-height:28px;width:200px;display:inline-block;}
+    /* harder card */
+    .harder-card{background:white;border-radius:8px;padding:18px 22px;box-shadow:0 1px 5px rgba(0,0,0,0.07);margin-bottom:16px;border-left:4px solid #f59e0b;}
+    .harder-badge{display:inline-block;background:#fef3c7;color:#92400e;font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;padding:2px 8px;border-radius:4px;margin-bottom:8px;}
+    .step-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:0.88rem;color:#374151;}
+    .step-dot{width:20px;height:20px;border-radius:50%;background:#fef3c7;color:#92400e;font-weight:800;font-size:0.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+    .step-blank{border-bottom:1px solid #9ca3af;display:inline-block;min-width:80px;min-height:18px;vertical-align:bottom;}
+    /* Part C — T/F */
+    .tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:600px){.tf-grid{grid-template-columns:1fr;}}
+    .tf-card{background:white;border-radius:8px;padding:16px 18px;box-shadow:0 1px 5px rgba(0,0,0,0.07);}
+    .tf-card .tf-q{font-size:0.9rem;color:#1a1a2e;margin-bottom:10px;font-weight:600;line-height:1.5;}
+    .tf-options{display:flex;gap:12px;}
+    .tf-lbl{display:flex;align-items:center;gap:6px;font-size:0.92rem;font-weight:700;cursor:pointer;}
+    .tf-lbl input{width:16px;height:16px;accent-color:#d97706;}
+    .tf-T{color:#15803d;}.tf-F{color:#dc2626;}
+    /* Part D — extended answer */
+    .short-answer{background:white;border-radius:8px;padding:18px 22px;box-shadow:0 1px 5px rgba(0,0,0,0.07);margin-bottom:14px;}
+    .short-answer .q{font-weight:600;margin-bottom:10px;font-size:0.95rem;color:#1a1a2e;}
+    .write-lines{display:flex;flex-direction:column;gap:14px;}
+    .write-line{border-bottom:2px solid #d1d5db;min-height:28px;width:100%;}
+    /* bonus */
+    .bonus-card{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fbbf24;border-radius:10px;padding:18px 22px;margin-bottom:14px;}
+    .bonus-card .bonus-badge{display:inline-block;background:#f59e0b;color:white;font-size:0.75rem;font-weight:800;text-transform:uppercase;padding:2px 8px;border-radius:4px;margin-bottom:8px;}
+    .bonus-card .q{font-weight:600;margin-bottom:10px;font-size:0.95rem;color:#78350f;}
+    /* answer key */
+    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
+    #toggle-key-btn{background:#92400e;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
+    #toggle-key-btn:hover{background:#78350f;}
+    #answer-key{display:none;background:#fffbeb;border:2px solid #fbbf24;border-radius:12px;padding:28px 32px;}
+    #answer-key h2{color:#78350f;border-left-color:#d97706;margin-bottom:22px;}
+    .key-section{margin-bottom:28px;}
+    .key-section h3{font-size:1rem;font-weight:700;color:#78350f;margin-bottom:12px;}
+    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+    @media(max-width:500px){.key-grid{grid-template-columns:1fr;}}
+    .key-item{background:white;border-radius:6px;padding:12px 16px;font-size:0.9rem;border-left:3px solid #fbbf24;}
+    .key-item .knum{font-size:0.75rem;font-weight:700;text-transform:uppercase;color:#6b7280;margin-bottom:4px;}
+    .key-item .kproblem{font-family:'Space Mono',monospace;font-size:0.85rem;color:#374151;margin-bottom:6px;}
+    .key-item .kans{font-family:'Space Mono',monospace;font-weight:700;color:#92400e;font-size:1rem;}
+    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:4px;}
+    .tf-key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+    .tf-key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.88rem;border-left:3px solid #fbbf24;}
+    .tf-key-item .knum{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#6b7280;margin-bottom:3px;}
+    .tf-key-item .kans{font-weight:800;font-size:1rem;}
+    .tf-key-item .kans-T{color:#15803d;}.tf-key-item .kans-F{color:#dc2626;}
+    .tf-key-item .kexpl{font-size:0.8rem;color:#4b5563;margin-top:3px;}
+    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;margin-bottom:10px;font-size:0.92rem;border-left:3px solid #f59e0b;}
+    .short-ans-key strong{color:#78350f;}
+  
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Propagating Uncertainty: Adding &amp; Subtracting — Homework</p>
+  </div>
+  <p>Answer key content not found.</p>
+</body>
+</html>
