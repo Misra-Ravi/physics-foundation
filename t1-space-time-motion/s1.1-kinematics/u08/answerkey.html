@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 8 Answer Key – Translating P‑T &amp; V‑T Graphs</title>
+  <style>
+
+  :root{
+    --blue:#3b82f6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+    --dark:#0f172a;--bg:#f8faff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Nunito',sans-serif;background:var(--bg);
+    background-image:radial-gradient(circle,#c7d2fe 1px,transparent 1px);
+    background-size:28px 28px;min-height:100vh;color:var(--dark);
+  }
+
+  /* GATE */
+  #gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1e3a5f,#1d4ed8);display:flex;align-items:center;justify-content:center;}
+  .gate-card{background:#fff;border-radius:20px;padding:40px 48px;text-align:center;max-width:360px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.35);}
+  .gate-card h2{font-size:1.5rem;color:var(--dark);margin-bottom:8px;}
+  .gate-card p{color:#64748b;font-size:.9rem;margin-bottom:24px;}
+  .gate-card input{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:1rem;font-family:'Nunito',sans-serif;outline:none;transition:border .2s;margin-bottom:14px;}
+  .gate-card input:focus{border-color:var(--blue);}
+  .gate-card button{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:1rem;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;}
+  #gate-err{color:var(--red);font-size:.85rem;margin-top:8px;display:none;}
+
+  /* HEADER */
+  .hw-header{
+    background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);
+    padding:44px 32px 36px;position:relative;overflow:hidden;
+  }
+  .star{position:absolute;border-radius:50%;background:#fff;opacity:0;animation:twinkle 3s infinite;}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(1);}50%{opacity:.7;transform:scale(1.3);}}
+  .chip{display:inline-block;background:rgba(255,255,255,.15);color:#e0e7ff;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.25);margin-bottom:14px;}
+  .hw-header h1{font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:900;background:linear-gradient(90deg,#fff 0%,#bfdbfe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;}
+  .hw-header .subtitle{color:#93c5fd;font-size:.95rem;margin-top:8px;}
+  .ndp-line{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;max-width:680px;margin:24px auto 0;}
+  .ndp-field{border-bottom:2px solid rgba(255,255,255,.5);padding:6px 2px;color:#fff;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:600;display:flex;justify-content:space-between;align-items:flex-end;}
+  .ndp-field label{color:#93c5fd;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;}
+
+  /* MAIN */
+  main{max-width:940px;margin:0 auto;padding:36px 20px 80px;}
+
+  /* REF + TIP */
+  .ref-tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;}
+  @media(max-width:600px){.ref-tip-grid{grid-template-columns:1fr;}}
+  .ref-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #93c5fd;border-left:4px solid var(--blue);border-radius:12px;padding:16px 22px;}
+  .ref-box h4{color:#1d4ed8;font-weight:800;margin-bottom:8px;font-size:.95rem;}
+  .ref-box ul{list-style:none;padding:0;}
+  .ref-box ul li{padding:3px 0 3px 22px;position:relative;color:#1e40af;font-size:.86rem;line-height:1.55;}
+  .ref-box ul li::before{content:'→';position:absolute;left:4px;color:var(--blue);font-weight:700;}
+  .tip-box{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid #fed7aa;border-left:4px solid var(--amber);border-radius:12px;padding:16px 22px;}
+  .tip-box h4{color:#b45309;font-weight:800;margin-bottom:8px;font-size:.95rem;}
+  .tip-box p{color:#92400e;font-size:.86rem;line-height:1.6;}
+
+  /* SECTION LABELS */
+  .sec-label{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+  .sec-label .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);}
+  .sec-label.green{color:var(--green);}.sec-label.green .dot{background:var(--green);}
+  .sec-label.amber{color:var(--amber);}.sec-label.amber .dot{background:var(--amber);}
+  .sec-label.red{color:var(--red);}.sec-label.red .dot{background:var(--red);}
+
+  h2.pt{font-size:1.25rem;font-weight:800;color:var(--dark);margin-bottom:16px;}
+
+  /* CARDS */
+  .card{background:#fff;border-radius:16px;padding:24px 28px;box-shadow:0 2px 14px rgba(0,0,0,.06);border:1px solid #e2e8f0;margin-bottom:24px;}
+  .card-blue{border-top:4px solid var(--blue);}
+  .card-green{border-top:4px solid var(--green);}
+  .card-amber{border-top:4px solid var(--amber);}
+  .card-red{border-top:4px solid var(--red);}
+
+  /* PROBLEM GRID */
+  .prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+  @media(max-width:600px){.prob-grid{grid-template-columns:1fr;}}
+  .prob-box{background:#f8faff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+  .prob-num{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px;}
+  .prob-desc{font-size:.9rem;line-height:1.6;color:#334155;margin-bottom:10px;}
+  .prob-q{font-weight:700;color:var(--dark);font-size:.9rem;margin-bottom:8px;}
+  .ans-line{border-bottom:2px solid #e2e8f0;margin:8px 0 4px;min-height:26px;}
+  .ans-label{font-size:.75rem;color:#94a3b8;font-style:italic;}
+  .graph-space{border:2px dashed #cbd5e1;border-radius:10px;min-height:120px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:.82rem;font-style:italic;margin-top:8px;background:#fafbff;}
+  .math{font-family:'Space Mono',monospace;font-size:.85rem;background:#f1f5f9;padding:2px 8px;border-radius:5px;color:#1e3a5f;}
+  svg text{font-family:'Nunito',sans-serif;}
+
+  /* TRUE/FALSE */
+  .tf-block{background:#f8faff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:16px;}
+  .tf-statement{font-weight:700;color:var(--dark);font-size:.9rem;margin-bottom:10px;line-height:1.5;}
+  .tf-choices{display:flex;gap:20px;margin-bottom:10px;}
+  .tf-choice{display:flex;align-items:center;gap:6px;font-size:.9rem;font-weight:700;color:#334155;cursor:pointer;}
+  .tf-choice input{accent-color:var(--blue);}
+  .tf-correct-label{font-size:.75rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+  .tf-correction{border-bottom:2px solid #e2e8f0;min-height:26px;margin:4px 0;}
+  .tf-correction-label{font-size:.75rem;color:#94a3b8;font-style:italic;}
+
+  /* CHALLENGE */
+  .chal-box{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:18px;margin-bottom:18px;}
+  .chal-badge{display:inline-block;background:var(--amber);color:#fff;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:999px;margin-bottom:8px;}
+  .chal-q{font-weight:700;color:var(--dark);font-size:.9rem;margin-bottom:10px;line-height:1.55;}
+  .chal-lines{display:flex;flex-direction:column;gap:8px;}
+  .chal-line{border-bottom:2px solid #fed7aa;min-height:26px;}
+
+  /* ANSWER KEY */
+  #toggle-key-btn{padding:10px 24px;background:var(--amber);color:#fff;border:none;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;margin-bottom:16px;display:block;}
+  #answer-key{display:none;background:#fff;border:2px solid var(--amber);border-radius:14px;padding:24px 28px;}
+  #answer-key h3{color:var(--amber);font-weight:800;margin-bottom:16px;font-size:1.1rem;}
+  .ak-section{margin-bottom:18px;}
+  .ak-section h4{font-weight:800;color:var(--dark);font-size:.9rem;margin-bottom:8px;border-bottom:1px solid #fef3c7;padding-bottom:4px;}
+  .ak-item{padding:5px 0;font-size:.88rem;color:#334155;border-bottom:1px solid #f1f5f9;line-height:1.6;}
+  .ak-item:last-child{border-bottom:none;}
+  .ak-item strong{color:var(--dark);}
+  .ak-tf-true{color:#15803d;font-weight:800;}
+  .ak-tf-false{color:#b91c1c;font-weight:800;}
+
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Unit 8 Homework – Translating P‑T &amp; V‑T Graphs</p>
+  </div>
+  <!-- ANSWER KEY -->
+  <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
+  <div id="answer-key">
+    <h3>Answer Key — Unit 8 Homework</h3>
+
+    <div class="ak-section">
+      <h4>Part A</h4>
+      <div class="ak-item"><strong>A1a:</strong> v₁ = (10−0)/5 = <strong>+2 ms⁻¹</strong>; v₂ = (2−10)/4 = <strong>−2 ms⁻¹</strong></div>
+      <div class="ak-item"><strong>A1b:</strong> V‑T shows a horizontal line at +2 ms⁻¹ for t = 0–5 s, then a horizontal line at −2 ms⁻¹ for t = 5–9 s. Jump (vertical dashed line) at t = 5 s.</div>
+      <div class="ak-item"><strong>A2:</strong> Δp₁ = −5×3 = −15 m → p(3s) = 20−15 = <strong>5 m</strong>. Δp₂ = +5×4 = +20 m → p(7s) = 5+20 = <strong>25 m</strong>.</div>
+      <div class="ak-item"><strong>A3:</strong> Δp₁ = 2×4 = 8 → p(4s) = <strong>8 m</strong>. Δp₂ = 6×2 = 12 → p(6s) = <strong>20 m</strong>. Δp₃ = 0×3 = 0 → p(9s) = <strong>20 m</strong>. Δp₄ = −3×2 = −6 → p(11s) = <strong>14 m</strong>.</div>
+      <div class="ak-item"><strong>A4:</strong> v₁ = 0 ms⁻¹ (flat at 3 m); v₂ = (9−3)/3 = <strong>+2 ms⁻¹</strong>; v₃ = (0−9)/2 = <strong>−4.5 ms⁻¹</strong>; v₄ = 0 ms⁻¹ (flat at 0 m).</div>
+      <div class="ak-item"><strong>A5:</strong> Δp₁ = 4×3 = 12 m → p(3s) = <strong>12 m</strong>. Δp₂ = −2×4 = −8 m → p(7s) = <strong>4 m</strong>. Δp₃ = 3×3 = 9 m → p(10s) = <strong>13 m</strong>. P‑T: rises steeply to 12 m, drops to 4 m, then rises again to 13 m.</div>
+      <div class="ak-item"><strong>A6a:</strong> p_X = 3×8 = <strong>24 m</strong>; p_Y = 5×3 + 0×5 = <strong>15 m</strong>. <strong>A6b:</strong> Object X is ahead by 24−15 = <strong>9 m</strong>.</div>
+    </div>
+
+    <div class="ak-section">
+      <h4>Part B — True / False</h4>
+      <div class="ak-item"><strong>B1:</strong> <span class="ak-tf-false">FALSE</span> — A horizontal line at v = 0 ms⁻¹ means the object is at rest. A horizontal line at any other value means the object moves at constant, non-zero velocity — position IS changing (P‑T graph has a non-zero slope).</div>
+      <div class="ak-item"><strong>B2:</strong> <span class="ak-tf-true">TRUE</span> — Speed is the magnitude of velocity. A steeper slope (positive OR negative) means a greater rate of change of position = greater speed.</div>
+      <div class="ak-item"><strong>B3:</strong> <span class="ak-tf-false">FALSE</span> — The area under a V‑T graph gives the <em>displacement</em> (change in position, including sign/direction). To find total distance you must sum the magnitudes of each area separately (areas above and below the axis both counted as positive).</div>
+      <div class="ak-item"><strong>B4:</strong> <span class="ak-tf-true">TRUE</span> — In the slope method, the velocity value from the V‑T graph becomes the slope (Δp/Δt) of the corresponding segment on the P‑T graph.</div>
+    </div>
+
+    <div class="ak-section">
+      <h4>Part C — Challenge</h4>
+      <div class="ak-item"><strong>C1a:</strong>
+        Δp₁ = +3×4 = +12 m → p(4s) = 10+12 = <strong>22 m</strong>.
+        Δp₂ = −5×2 = −10 m → p(6s) = 22−10 = <strong>12 m</strong>.
+        Δp₃ = +2×4 = +8 m → p(10s) = 12+8 = <strong>20 m</strong>.
+        Δp₄ = 0 → p(12s) = <strong>20 m</strong>.
+      </div>
+      <div class="ak-item"><strong>C1b:</strong> The object never returns exactly to p = 10 m after t = 0 in this scenario — the lowest point is 12 m (at t = 6 s), which is still above 10 m. If the question is about crossing p = 10 m going downward during segment 2: segment 2 starts at 22 m and drops at −5 ms⁻¹. Time to drop from 22 to 10 m: Δp = −12 m → t = 12/5 = 2.4 s after t = 4 s → <strong>t = 6.4 s</strong> (but in this case it only lasts to t = 6 s, reaching 12 m). So the object does NOT return to 10 m.</div>
+      <div class="ak-item"><strong>C2a:</strong> v₁ = (15−0)/(5−0) = <strong>+3 ms⁻¹</strong>. v₂ = (3−15)/(9−5) = −12/4 = <strong>−3 ms⁻¹</strong>.</div>
+      <div class="ak-item"><strong>C2b:</strong> V‑T graph: horizontal line at +3 ms⁻¹ from t = 0–5 s; horizontal line at −3 ms⁻¹ from t = 5–9 s. (Equal speed, opposite directions.)</div>
+      <div class="ak-item"><strong>C2c:</strong> Total displacement = final p − initial p = 3 − 0 = <strong>+3 m</strong>. Via area: Δp = (+3)(5) + (−3)(4) = 15 − 12 = +3 m. ✓ Both methods agree.</div>
+      <div class="ak-item"><strong>C2d:</strong> Continuing at v = −3 ms⁻¹ from t = 9 to 12 s (3 s): Δp = −3×3 = −9 m → p(12s) = 3+(−9) = <strong>−6 m</strong>.</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// GATE
+(function(){
+  const KEY='pg_ok',PWD=btoa('physics2024');
+  if(localStorage.getItem(KEY)===PWD)document.getElementById('gate').style.display='none';
+})();
+function checkGate(){
+  if(btoa(document.getElementById('gate-input').value)===btoa('physics2024')){
+    localStorage.setItem('pg_ok',btoa('physics2024'));
+    document.getElementById('gate').style.display='none';
+  } else document.getElementById('gate-err').style.display='block';
+}
+// ANSWER KEY TOGGLE
+function toggleKey(){
+  const k=document.getElementById('answer-key');
+  const b=document.getElementById('toggle-key-btn');
+  if(k.style.display==='none'||k.style.display===''){
+    k.style.display='block';b.textContent='Hide Answer Key';
+  } else {
+    k.style.display='none';b.textContent='Show Answer Key';
+  }
+}
+</script>
+
+<script>
+(function(){
+  if(new URLSearchParams(window.location.search).get('key')==='show'){
+    var k=document.getElementById('answer-key');
+    var b=document.getElementById('toggle-key-btn');
+    if(k) k.style.display='block';
+    if(b) b.style.display='none';
+  } else {
+    var k=document.getElementById('answer-key');
+    var b=document.getElementById('toggle-key-btn');
+    var w=document.querySelector('.key-btn-wrap');
+    if(k) k.style.display='none';
+    if(b) b.style.display='none';
+    if(w) w.style.display='none';
+  }
+})();
+</script>
+</body>
+</html>
