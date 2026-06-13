@@ -39,21 +39,9 @@
     .challenge-card{background:#fff7ed;border:2px solid #fed7aa;border-radius:8px;padding:18px 22px;box-shadow:0 1px 5px rgba(0,0,0,0.07);margin-bottom:14px;}
     .challenge-card .c-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#c2410c;margin-bottom:6px;}
     .challenge-card .q{font-weight:600;font-size:0.95rem;margin-bottom:10px;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e40af;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#1e40af;border-left-color:#3b82f6;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#1e40af;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;font-family:'Space Mono',monospace;font-size:0.88rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#1d4ed8;}
-    .tf-key-item{background:white;border-radius:6px;padding:10px 14px;margin-bottom:8px;font-size:0.92rem;display:flex;gap:12px;}
-    .tf-key-item .tans{font-family:'Space Mono',monospace;font-weight:700;min-width:36px;color:#15803d;}
     .tf-key-item .tans.false{color:#dc2626;}
   </style>
 </head>
@@ -199,58 +187,6 @@
     </div>
   </section>
 
-  <!-- ANSWER KEY -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="document.getElementById('answer-key').style.display='block';this.style.display='none';">Show Answer Key</button>
-  </div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Calculations</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Problem 1</div><div class="kans">d = 11 m, s = 5 m west</div><div class="kexpl">8+3=11m; net = 8−3=5m, still westward</div></div>
-        <div class="key-item"><div class="kq">Problem 2</div><div class="kans">d = 60 m, s = 0 m</div><div class="kexpl">15×4=60m; closed square → back to start</div></div>
-        <div class="key-item"><div class="kq">Problem 3</div><div class="kans">d = 21 m, |s| = 15 m</div><div class="kexpl">9+12=21m; √(9²+12²)=√225=15m</div></div>
-        <div class="key-item"><div class="kq">Problem 4</div><div class="kans">d = 13 m, s = −3 m</div><div class="kexpl">path: +5m then −8m = 13m; s = 1−4 = −3m</div></div>
-        <div class="key-item"><div class="kq">Problem 5</div><div class="kans">d = 8 m, s = +8 m</div><div class="kexpl">s = 3−(−5) = +8m; straight path → d = s</div></div>
-        <div class="key-item"><div class="kq">Problem 6</div><div class="kans">d = 31 m, |s| = 25 m</div><div class="kexpl">7+24=31m; √(7²+24²)=√(49+576)=√625=25m</div></div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — True or False</h3>
-      <div class="tf-key-item"><div class="tans false">FALSE</div><div>Distance is a <em>scalar</em> (no direction). It is not a vector.</div></div>
-      <div class="tf-key-item"><div class="tans">TRUE</div><div>Displacement = x_f − x_i. If start = end, then s = 0 regardless of path.</div></div>
-      <div class="tf-key-item"><div class="tans false">FALSE</div><div>Displacement can <em>never</em> be larger than distance. Speed is irrelevant. The straight-line is always the shortest path.</div></div>
-      <div class="tf-key-item"><div class="tans">TRUE</div><div>Variable: s, unit: metres (m).</div></div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Challenge</h3>
-      <div class="short-ans-key"><strong>11.</strong> (a) Third leg = √(3²+4²) = 5m. (b) Total distance = 3+4+5 = 12m. (c) Displacement = 0m — they return to the exact start point.</div>
-      <div class="short-ans-key"><strong>12.</strong> If |displacement| = distance, the object must have travelled in a perfectly straight line in one direction only — no turns or backtracking at all. There is only one possibility: a straight-line path with no change in direction.</div>
-    </div>
-  </div>
-
-</main>
-
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+  
 </body>
 </html>
