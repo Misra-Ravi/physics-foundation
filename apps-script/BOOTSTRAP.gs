@@ -1241,7 +1241,7 @@ function populateAnswerKeyURLs() {
     }
   }
   SpreadsheetApp.flush();
-  SpreadsheetApp.getUi().alert('✅ Populated ' + updated + ' AnswerKeyURL entries.');
+  Logger.log('✅ Populated ' + updated + ' AnswerKeyURL entries.');
   Logger.log('populateAnswerKeyURLs: updated ' + updated + ' rows.');
 }
 
