@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inverse Trig Functions — Answer Key</title>
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:#fdf4ff;background-image:radial-gradient(circle,#e9d5ff 1px,transparent 1px);background-size:28px 28px;color:#1a1a2e;font-size:16px;line-height:1.7;}
+    header{background:linear-gradient(135deg,#581c87 0%,#7e22ce 50%,#9333ea 100%);color:white;padding:32px 60px 28px;}
+    header .label{font-size:12px;text-transform:uppercase;letter-spacing:2px;opacity:0.85;margin-bottom:6px;}
+    header h1{font-size:2rem;font-weight:800;margin-bottom:4px;}
+    header .meta{opacity:0.85;font-size:0.9rem;}
+    main{max-width:820px;margin:36px auto;padding:0 24px 60px;}
+    .ref-box{background:white;border:2px solid #e9d5ff;border-radius:10px;padding:16px 22px;margin-bottom:36px;box-shadow:0 2px 8px rgba(147,51,234,0.07);}
+    .ref-box h3{color:#581c87;font-size:0.95rem;margin-bottom:10px;font-weight:800;}
+    .ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+    @media(max-width:580px){.ref-grid{grid-template-columns:1fr;}}
+    .ref-item{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:1px solid #c4b5fd;border-radius:8px;padding:9px 12px;text-align:center;}
+    .ref-item .ri-type{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+    .ref-item .ri-formula{font-family:'Space Mono',monospace;font-size:0.82rem;font-weight:700;}
+    .ri-sin .ri-type{color:#be185d;} .ri-sin .ri-formula{color:#9d174d;}
+    .ri-cos .ri-type{color:#1d4ed8;} .ri-cos .ri-formula{color:#1e3a8a;}
+    .ri-tan .ri-type{color:#15803d;} .ri-tan .ri-formula{color:#14532d;}
+    section{margin-bottom:44px;}
+    h2{font-size:1.2rem;font-weight:800;color:#581c87;border-left:5px solid #9333ea;padding-left:12px;margin-bottom:18px;}
+    .instructions{color:#4b5563;font-size:0.92rem;margin-bottom:18px;font-style:italic;}
+    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    @media(max-width:600px){.problem-grid{grid-template-columns:1fr;}}
+    .problem-card{background:white;border-radius:12px;padding:18px 20px;box-shadow:0 1px 6px rgba(147,51,234,0.08);border:1px solid #f3e8ff;}
+    .problem-num{font-size:0.75rem;font-weight:800;text-transform:uppercase;color:#9333ea;margin-bottom:8px;letter-spacing:0.5px;}
+    .problem-given{font-size:0.88rem;color:#374151;margin-bottom:10px;line-height:1.5;}
+    .problem-given strong{color:#581c87;}
+    .answer-area{display:flex;flex-direction:column;gap:6px;}
+    .answer-row{display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#4b5563;}
+    .answer-line{border-bottom:2px solid #c4b5fd;min-height:24px;flex:1;max-width:190px;display:inline-block;}
+    .pill-sin{display:inline-block;background:#fce7f3;color:#be185d;border-radius:12px;padding:2px 10px;font-size:0.75rem;font-weight:700;}
+    .pill-cos{display:inline-block;background:#dbeafe;color:#1d4ed8;border-radius:12px;padding:2px 10px;font-size:0.75rem;font-weight:700;}
+    .pill-tan{display:inline-block;background:#dcfce7;color:#15803d;border-radius:12px;padding:2px 10px;font-size:0.75rem;font-weight:700;}
+    .pill-mixed{display:inline-block;background:#fef9c3;color:#92400e;border-radius:12px;padding:2px 10px;font-size:0.75rem;font-weight:700;}
+
+    /* word problem cards */
+    .word-card{background:white;border-radius:12px;padding:20px 22px;box-shadow:0 1px 6px rgba(147,51,234,0.08);border:1px solid #f3e8ff;margin-bottom:16px;}
+    .word-card .scenario{font-size:0.92rem;color:#374151;margin-bottom:12px;padding:10px 14px;background:#faf5ff;border-left:3px solid #9333ea;border-radius:0 8px 8px 0;}
+    .word-card .wq{font-weight:700;font-size:0.92rem;color:#1a1a2e;margin-bottom:10px;}
+    .wlines{display:flex;flex-direction:column;gap:10px;}
+    .wline{border-bottom:2px solid #c4b5fd;min-height:28px;width:100%;}
+
+    /* key */
+    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
+    #toggle-key-btn{background:linear-gradient(135deg,#581c87,#9333ea);color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
+    #toggle-key-btn:hover{opacity:0.9;}
+    #answer-key{display:none;background:#faf5ff;border:2px solid #c4b5fd;border-radius:12px;padding:28px 32px;}
+    #answer-key h2{color:#581c87;border-left-color:#9333ea;margin-bottom:22px;}
+    .key-section{margin-bottom:28px;}
+    .key-section h3{font-size:1rem;font-weight:800;color:#7e22ce;margin-bottom:12px;}
+    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+    @media(max-width:580px){.key-grid{grid-template-columns:1fr;}}
+    .key-item{background:white;border-radius:8px;padding:12px 16px;border:1px solid #e9d5ff;font-size:0.92rem;}
+    .key-item .k-num{font-weight:800;color:#9333ea;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
+    .key-item .k-formula{font-family:'Space Mono',monospace;font-size:0.88rem;color:#374151;margin-bottom:4px;}
+    .key-item .k-ans{font-family:'Space Mono',monospace;font-weight:700;color:#581c87;font-size:1.05rem;}
+    .key-item .k-note{font-size:0.78rem;color:#6b7280;margin-top:2px;}
+    .word-key{background:white;border-radius:8px;padding:14px 18px;border:1px solid #e9d5ff;font-size:0.92rem;margin-bottom:10px;}
+    .word-key strong{color:#7e22ce;}
+    .sel-option{display:flex;align-items:center;gap:8px;font-size:0.88rem;margin-bottom:4px;}
+    .sel-option input[type=radio]{accent-color:#9333ea;width:14px;height:14px;}
+  
+  .ak-header{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:white;border-radius:12px;padding:22px 28px;margin-bottom:28px;}
+  .ak-header h1{font-size:1.3rem;margin:0;font-weight:800;}
+  .ak-header p{margin:6px 0 0;opacity:.75;font-size:.88rem;}
+  #answer-key{display:block!important;}
+  </style>
+</head>
+<body>
+  <div class="ak-header">
+    <h1>🔑 Answer Key</h1>
+    <p>Inverse Trig Functions — Homework</p>
+  </div>
+  <p>Answer key content not found.</p>
+</body>
+</html>
