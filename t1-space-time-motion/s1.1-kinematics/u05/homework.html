@@ -125,13 +125,7 @@ main{max-width:900px;margin:0 auto;padding:36px 20px 80px;}
 
 /* ANSWER KEY */
 .key-toggle-wrap{text-align:center;margin:40px 0 16px;}
-#toggle-key-btn{background:linear-gradient(135deg,#1e40af,#2563eb);color:#fff;
-  border:none;border-radius:10px;padding:12px 28px;font-family:'Nunito',sans-serif;
-  font-size:.95rem;font-weight:700;cursor:pointer;}
-#answer-key{display:none;background:#fff;border-radius:16px;border:2px solid #e2e8f0;
-  padding:28px 32px;margin-top:8px;}
 #answer-key h3{font-size:1.1rem;font-weight:800;margin-bottom:20px;color:var(--dark);}
-.key-item{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #f1f5f9;}
 .key-item:last-child{border-bottom:none;}
 .key-num{font-family:'Space Mono',monospace;font-size:.72rem;font-weight:700;color:var(--indigo);
   text-transform:uppercase;margin-bottom:4px;}
@@ -470,119 +464,7 @@ main{max-width:900px;margin:0 auto;padding:36px 20px 80px;}
     <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
   </div>
 
-  <div id="answer-key">
-    <h3>Answer Key — Homework: Position-Time Graphs</h3>
-
-    <div class="key-item">
-      <div class="key-num">A1</div>
-      <div class="key-ans">a) P₀ = <strong>0m</strong> &nbsp;|&nbsp; b) v = <strong>+0.5 m/s</strong></div>
-      <div class="key-work">v = Rise/Run = (4m − 0m)/(8s − 0s) = 4m/8s = 0.5 m/s (moving forward)</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">A2</div>
-      <div class="key-ans">a) P₀ = <strong>5m</strong> &nbsp;|&nbsp; b) v = <strong>−0.5 m/s</strong> (backward)</div>
-      <div class="key-work">v = (0m − 5m)/(10s − 0s) = −5m/10s = −0.5 m/s
-Negative slope → moving backward (in the negative direction)</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">A3</div>
-      <div class="key-ans">a) P₀ = <strong>3m</strong> &nbsp;|&nbsp; b) v = <strong>+1.0 m/s</strong> &nbsp;|&nbsp; c) v = <strong>0 m/s</strong></div>
-      <div class="key-work">Seg 1: v = (8m−3m)/(5s−0s) = 5m/5s = +1.0 m/s
-Seg 2: v = (8m−8m)/(12s−5s) = 0m/7s = 0 m/s (horizontal → stationary)</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">A4 (graph: (0,1)→(4,5)→(8,5)→(12,2))</div>
-      <div class="key-ans">a) P₀ = <strong>1m</strong></div>
-      <div class="key-work">Seg 1 (0→4s): v = (5−1)/(4−0) = 4/4 = +1.0 m/s → v at t=2s = +1.0 m/s
-Seg 2 (4→8s): v = 0/4 = 0 m/s → v at t=6s = 0 m/s
-Seg 3 (8→12s): v = (2−5)/(12−8) = −3/4 = −0.75 m/s → v at t=10s = −0.75 m/s</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">A5 (graph: (0,6)→(4,2)→(8,2)→(12,5))</div>
-      <div class="key-ans">a) P₀ = <strong>6m</strong> &nbsp;|&nbsp; b) Distance = <strong>11m</strong> &nbsp;|&nbsp; c) Displacement = <strong>−1m</strong></div>
-      <div class="key-work">Seg 1: |2−6| = 4m
-Seg 2: |2−2| = 0m
-Seg 3: |5−2| = 3m
-Distance = 4+0+3 = 7m ...
-Wait: Seg1 (6→2)=4m↓, Seg3 (2→5)=3m↑
-Distance = 4 + 0 + 3 = 7m
-Displacement = P_final − P_initial = 5m − 6m = −1m</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">A6 (graph: (0,2)→(3,8)→(5,8)→(9,4)→(12,4))</div>
-      <div class="key-ans">a) Distance = <strong>16m</strong> &nbsp;|&nbsp; b) Displacement = <strong>+2m</strong> &nbsp;|&nbsp; c) v = <strong>+2.0 m/s</strong> &nbsp;|&nbsp; d) v = <strong>−1.0 m/s</strong></div>
-      <div class="key-work">Seg 1 (0→3s): |8−2|=6m
-Seg 2 (3→5s): |8−8|=0m
-Seg 3 (5→9s): |4−8|=4m
-Seg 4 (9→12s): |4−4|=0m
-Distance = 6+0+4+0 = 10m
-(Correction: segments are 6+0+4+0 = 10m)
-Displacement = 4m − 2m = +2m
-v (0→3s) = (8−2)/(3−0) = 6/3 = +2.0 m/s
-v (5→9s) = (4−8)/(9−5) = −4/4 = −1.0 m/s</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">B1 — FALSE</div>
-      <div class="key-ans">Correction: A horizontal line on a P-T graph means the object is <strong>stationary (not moving)</strong>. Its position is constant but not necessarily zero.</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">B2 — TRUE</div>
-      <div class="key-ans">Correct. The y-intercept (t = 0) gives the starting position P₀.</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">B3 — FALSE</div>
-      <div class="key-ans">Correction: A steeper slope means the object is moving <strong>faster</strong>, not slower. Greater slope = greater velocity (more position change per unit time).</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">B4 — FALSE</div>
-      <div class="key-ans">Correction: The <strong>distance</strong> is always greater than or equal to the magnitude of displacement (|displacement| ≤ distance). Displacement can be less in magnitude because it only measures net change, while distance counts all movement including reversals.</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">C1</div>
-      <div class="key-ans">
-        P at t=6s = <strong>13m</strong> &nbsp;|&nbsp; P at t=10s = <strong>13m</strong> &nbsp;|&nbsp; P at t=13s = <strong>7m</strong><br/>
-        Total Distance = <strong>15m</strong> &nbsp;|&nbsp; Displacement = <strong>+3m</strong>
-      </div>
-      <div class="key-work">Seg 1 (0→6s, v=+1.5 m/s): Δd = 1.5×6 = +9m → P = 4+9 = 13m
-Seg 2 (6→10s, v=0): P stays at 13m
-Seg 3 (10→13s, v=−2.0 m/s): Δd = −2.0×3 = −6m → P = 13−6 = 7m
-Distance = |9| + |0| + |−6| = 9+0+6 = 15m
-Displacement = 7m − 4m = +3m
-Graph: rises steeply from 4m to 13m (t=0 to 6), flat at 13m (t=6 to 10), drops steeply to 7m (t=10 to 13)</div>
-    </div>
-
-    <div class="key-item">
-      <div class="key-num">C2</div>
-      <div class="key-ans">
-        v(A) = <strong>+0.5 m/s</strong> &nbsp;|&nbsp; v(B) = <strong>−0.5 m/s</strong><br/>
-        They meet at t = <strong>6s</strong>, position = <strong>3m</strong>
-      </div>
-      <div class="key-work">v(A) = (6−0)/(12−0) = 6/12 = +0.5 m/s
-v(B) = (0−6)/(12−0) = −6/12 = −0.5 m/s
-
-Position of A at time t: P_A = 0 + 0.5t
-Position of B at time t: P_B = 6 − 0.5t
-
-They meet when P_A = P_B:
-0.5t = 6 − 0.5t
-1.0t = 6
-t = 6s
-
-Position: P_A(6) = 0.5×6 = 3m (verified: P_B(6) = 6−0.5×6 = 6−3 = 3m ✓)</div>
-    </div>
-  </div>
-
-</main>
+  
 
 <script>
 const PWD_KEY='ptgraph_auth';
