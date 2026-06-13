@@ -37,15 +37,13 @@ function bootstrapPortal() {
   Logger.log('   Answer Keys:    ' + answerKeysF.getUrl());
 
   // 2. Google Sheet
-  Logger.log('
-📊 Creating Portal Tracker sheet...');
+  Logger.log('\n📊 Creating Portal Tracker sheet...');
   var ss = _getOrCreateSheet(rootFolder, 'IB Physics — Portal Tracker');
   var sheetId = ss.getId();
   Logger.log('   Sheet URL: ' + ss.getUrl());
 
   // 3. Sheet tabs
-  Logger.log('
-📋 Setting up sheet tabs...');
+  Logger.log('\n📋 Setting up sheet tabs...');
   _setupRoster(ss);
   _setupUnits(ss);
   _setupProgress(ss);
@@ -54,27 +52,23 @@ function bootstrapPortal() {
   Logger.log('   Tabs created: Roster, Units, Progress, EmailLog');
 
   // 4. Seed units
-  Logger.log('
-🔢 Seeding 130 unit rows...');
+  Logger.log('\n🔢 Seeding 130 unit rows...');
   _seedUnits(ss);
   Logger.log('   Done.');
 
   // 5. Seed progress
-  Logger.log('
-📈 Seeding progress rows for sample students...');
+  Logger.log('\n📈 Seeding progress rows for sample students...');
   _seedProgress(ss);
   Logger.log('   Done.');
 
   // 6. Form A — Homework Submission
-  Logger.log('
-📝 Creating Form A: Homework Submission...');
+  Logger.log('\n📝 Creating Form A: Homework Submission...');
   var formA = _createHomeworkForm(rootFolder, ss);
   var formAId = formA.getId();
   Logger.log('   Form A URL: ' + formA.getPublishedUrl());
 
   // 7. Form B — Parent Approval
-  Logger.log('
-📝 Creating Form B: Parent Approval...');
+  Logger.log('\n📝 Creating Form B: Parent Approval...');
   var formB = _createApprovalForm(rootFolder);
   var formBId = formB.getId();
   Logger.log('   Form B URL: ' + formB.getPublishedUrl());
@@ -88,25 +82,20 @@ function bootstrapPortal() {
     SUBMISSIONS_FOLDER_ID: submissionsF.getId(),
     ANSWER_KEYS_FOLDER_ID: answerKeysF.getId(),
   });
-  Logger.log('
-✅ Config saved to Script Properties.');
+  Logger.log('\n✅ Config saved to Script Properties.');
 
   // 9. Install form triggers
-  Logger.log('
-⚡ Installing form submit triggers...');
+  Logger.log('\n⚡ Installing form submit triggers...');
   _installTriggers(ss, formA, formB);
   Logger.log('   Triggers installed.');
 
-  Logger.log('
-═══════════════════════════════════════');
+  Logger.log('\n═══════════════════════════════════════');
   Logger.log(' BOOTSTRAP COMPLETE');
   Logger.log('═══════════════════════════════════════');
-  Logger.log('
-Sheet:  ' + ss.getUrl());
+  Logger.log('\nSheet:  ' + ss.getUrl());
   Logger.log('Form A: ' + formA.getPublishedUrl());
   Logger.log('Form B: ' + formB.getPublishedUrl());
-  Logger.log('
-NEXT STEP:');
+  Logger.log('\nNEXT STEP:');
   Logger.log('Deploy this project as a Web App:');
   Logger.log('  Deploy → New Deployment → Web App');
   Logger.log('  Execute as: User accessing the web app');
