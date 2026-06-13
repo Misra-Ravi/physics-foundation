@@ -797,7 +797,7 @@ function _sendWelcomeEmail(ss, rowData) {
   var parentEmail= rowData[3];
   var parentName = rowData[4];
 
-  var portalUrl  = 'https://script.google.com/macros/s/AKfycby_xSG6aKlluOcmWHht3eYWeXINS58mQbPF05neZVxZ0KTV2oxreE6HE_hI-Qqe9ZpHag/exec';
+  var portalUrl  = 'https://script.google.com/macros/s/AKfycbz-D92oFVYk6tfPv0xMPmvf4FkDAF4-1Pr_2GDN_dvQ9UWH0DdOta66V9rcAc31FVD6sQ/exec';
   var siteUrl    = 'https://physicsfoundation.netlify.app/';
 
   var studentBody = '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
@@ -1096,7 +1096,7 @@ function adminResendWelcome() {
 // ── Unlock email template ─────────────────────────────────────────────────────
 function _unlockEmailHtml(student, unit, audience) {
   var isParent = (audience === 'parent');
-  var portalUrl = 'https://script.google.com/macros/s/AKfycby_xSG6aKlluOcmWHht3eYWeXINS58mQbPF05neZVxZ0KTV2oxreE6HE_hI-Qqe9ZpHag/exec';
+  var portalUrl = 'https://script.google.com/macros/s/AKfycbz-D92oFVYk6tfPv0xMPmvf4FkDAF4-1Pr_2GDN_dvQ9UWH0DdOta66V9rcAc31FVD6sQ/exec';
 
   if (isParent) {
     return '<!DOCTYPE html><html><head>'+_ES+'</head><body><div class="w">'+
