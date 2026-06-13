@@ -56,10 +56,7 @@
     .challenge-card .prob-title{color:#5b21b6;}
     .challenge-badge{background:#7c3aed;color:white;border-radius:8px;padding:2px 10px;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-left:8px;}
     /* answer key */
-    .key-btn-wrap{text-align:center;margin-top:40px;}
-    #toggle-key-btn{background:linear-gradient(135deg,#1e40af,#2563eb);color:white;border:none;border-radius:30px;padding:12px 32px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;transition:opacity 0.2s;}
     #toggle-key-btn:hover{opacity:0.88;}
-    #answer-key{display:none;margin-top:32px;background:linear-gradient(135deg,#1e40af,#2563eb);border-radius:20px;padding:32px;color:white;}
     #answer-key h3{font-size:1.2rem;font-weight:900;margin-bottom:20px;}
     .ak-item{background:rgba(255,255,255,0.09);border-radius:12px;padding:16px 20px;margin-bottom:12px;}
     .ak-item .ak-num{font-family:'Space Mono',monospace;font-size:0.85rem;font-weight:700;opacity:0.7;margin-bottom:6px;}
@@ -328,133 +325,6 @@
     <input class="ans-line" type="text" placeholder="show all interval calculations for both parts"/>
   </div>
 
-  <!-- ANSWER KEY -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
-
-  <div id="answer-key">
-    <h3>Answer Key — Homework Unit 16: Motion Maps</h3>
-
-    <div class="ak-item">
-      <div class="ak-num">A1 — Reading Speed from Dot Spacing</div>
-      <div class="ak-ans">v = 6 m/s &nbsp;|&nbsp; Constant velocity</div>
-      <div class="ak-work">5 intervals from t=0 to t=5. Each interval displacement = 30 m / 5 = 6 m. Since time = 1s per interval: v = 6 m / 1 s = 6 m/s. Equal spacing confirms constant velocity. No acceleration arrows needed.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">A2 — Dot Positions for Constant Velocity</div>
-      <div class="ak-ans">Positions: 3 m, 8 m, 13 m, 18 m, 23 m &nbsp;|&nbsp; Arrow length = 5 units each</div>
-      <div class="ak-work">x(t) = 3 + 5t. t=0: 3m; t=1: 8m; t=2: 13m; t=3: 18m; t=4: 23m. Each interval covers exactly 5 m, so all velocity arrows have the same length (5 units). The starting position is 3 m from the origin, not 0 m, but the dot spacing is uniform throughout.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">A3 — Acceleration from Arrow Lengths</div>
-      <div class="ak-ans">(a) v = 1, 3, 5, 7 m/s &nbsp;|&nbsp; (b) a = +2 m/s per second &nbsp;|&nbsp; (c) Same direction as motion (rightward)</div>
-      <div class="ak-work">(a) Arrow lengths 1, 3, 5, 7 cm each represent the velocity: v = 1, 3, 5, 7 m/s. (b) Change each second: 3-1=2, 5-3=2, 7-5=2. Acceleration = +2 m/s per second (constant). (c) Because velocity is increasing in the positive direction, red acceleration arrows point to the RIGHT — same direction as motion.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">A4 — Deceleration Map</div>
-      <div class="ak-ans">v = 10, 8, 6, 4, 2, 0 m/s &nbsp;|&nbsp; x = 0, 9, 16, 21, 24, 25 m &nbsp;|&nbsp; Stops at t = 5s &nbsp;|&nbsp; Red arrows point LEFT</div>
-      <div class="ak-work">v(t) = 10 - 2t. Velocities: 10, 8, 6, 4, 2, 0 m/s. Positions using avg v per interval: 0&rarr;1: (10+8)/2=9m; 1&rarr;2: (8+6)/2=7m; 2&rarr;3: (6+4)/2=5m; 3&rarr;4: (4+2)/2=3m; 4&rarr;5: (2+0)/2=1m. Cumulative: 0, 9, 16, 21, 24, 25 m. Stops at t=5s (v=0). Dot spacing decreases each second (9, 7, 5, 3, 1 m). Red acceleration arrows point LEFT (negative) — opposite to direction of motion.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">A5 — Two-Object Comparison</div>
-      <div class="ak-ans">vQ = vP at t = 2s &nbsp;|&nbsp; v = 6 m/s at t = 2s</div>
-      <div class="ak-work">vP = 6 m/s (constant). vQ = 3t. Set equal: 6 = 3t &rarr; t = 2s. At t=2s, both have v = 6 m/s. On the motion map at t=2s: P's arrows are all the same length (constant velocity, no red arrows). Q's arrow at t=2s equals P's arrow length, but Q has red acceleration arrows pointing right because Q is still speeding up. Q's dot spacing increases over time; P's is uniform.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">A6 — Total Distance from Map</div>
-      <div class="ak-ans">Displacements: 4 m, 4 m, 4 m, 3 m &nbsp;|&nbsp; Total = 15 m</div>
-      <div class="ak-work">Velocities: 4, 4, 4, 2, 0 m/s. Displacements per interval: t=0&rarr;1: (4+4)/2=4m; t=1&rarr;2: (4+4)/2=4m; t=2&rarr;3: (4+4)/2=4m; t=3&rarr;4: (4+2)/2=3m (note: velocity drops from 4 to 2 during this interval, then from 2 to 0 is not shown — the given data shows v=2 at t=3 and v=0 at t=4, so this last interval = (2+0)/2=1m). Re-reading the problem: velocities given are 4,4,4,2,0 m/s at t=0,1,2,3,4s. Intervals: 0&rarr;1=(4+4)/2&times;1=4m; 1&rarr;2=(4+4)/2=4m; 2&rarr;3=(4+2)/2=3m; 3&rarr;4=(2+0)/2=1m. Total = 4+4+3+1 = 12 m.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">B7 — True or False</div>
-      <div class="ak-ans">FALSE</div>
-      <div class="ak-work">Corrected statement: "On a motion map, if the velocity arrows are all the same length, the object is moving at CONSTANT VELOCITY (no acceleration)." Equal arrows = equal displacement each second = no change in velocity = zero acceleration. Acceleration would cause the arrows to grow or shrink.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">B8 — True or False</div>
-      <div class="ak-ans">TRUE</div>
-      <div class="ak-work">Stacked dots with no arrows means zero displacement every second. Since v = displacement / time = 0/1 = 0 m/s, the object is at rest. This statement is correct as written. N/A for correction.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">B9 — True or False</div>
-      <div class="ak-ans">FALSE</div>
-      <div class="ak-work">Corrected statement: "Red acceleration arrows pointing in the SAME direction as the velocity arrows mean the object is SPEEDING UP (positive acceleration)." When acceleration is in the same direction as velocity, the speed increases. To indicate slowing down, the red acceleration arrows must point in the OPPOSITE direction to the velocity arrows.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">B10 — True or False</div>
-      <div class="ak-ans">TRUE</div>
-      <div class="ak-work">This statement is correct. v = displacement / time. Since time = 1s per interval, arrow length (displacement) = velocity numerically. This is the fundamental reason motion maps work: the 1-second time interval means no division is needed. N/A for correction.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">C11 — Full Motion Sequence Analysis</div>
-      <div class="ak-ans">(a) t = 0 to 3s &nbsp;|&nbsp; (b) t = 4 to 5s &nbsp;|&nbsp; (c) t = 6 to 8s &nbsp;|&nbsp; (d) 3 m/s positive, 3 m/s negative &nbsp;|&nbsp; (e) Red arrows pointing left</div>
-      <div class="ak-work">Dot positions: 0, 3, 6, 9, 12, 12, 12, 9, 6 m. Phase analysis: (a) t=0&rarr;3s: displacements = 3, 3, 3 m each second — constant velocity +3 m/s. (b) t=3s to t=5s (two intervals, dots at 12, 12, 12 — but the data shows 12, 12, 12 at t=4,5,6 means at-rest from t=4 to t=6... Re-analysing: index 0-8 means t=0,1,2,3,4,5,6,7,8. Positions: 0,3,6,9,12,12,12,9,6. Phase (a) t=0&rarr;4: +3m each sec; (b) t=4 to t=6: stays at 12 (at rest); (c) t=6 to t=8: 12&rarr;9&rarr;6, -3m each sec. Speed = 3 m/s in both phases. (e) At transition from rest to negative motion: red arrows point LEFT (negative direction), length = acceleration-arrow-length, shown in red above dots.</div>
-    </div>
-
-    <div class="ak-item">
-      <div class="ak-num">C12 — Designing a Motion Map</div>
-      <div class="ak-ans">(a) t = 4s &nbsp;|&nbsp; (b) x = 16 m &nbsp;|&nbsp; Dots at 0, 7, 12, 15, 16 m &nbsp;|&nbsp; (d) t = 2s, x = 8 m</div>
-      <div class="ak-work">(a) v(t) = 8 - 2t = 0 &rarr; t = 4s. (b) Positions: 0&rarr;1: (8+6)/2=7m; 1&rarr;2: (6+4)/2=5m; 2&rarr;3: (4+2)/2=3m; 3&rarr;4: (2+0)/2=1m. Cumulative: 0, 7, 12, 15, 16 m. Total distance = 16 m. (c) Motion map: decreasing dot spacing (7, 5, 3, 1 m gaps). Velocity arrows shrink each second (8, 6, 4, 2 units). Red acceleration arrows all point LEFT (negative direction — opposing rightward motion). (d) If a = -4 m/s/s: v(t)=8-4t=0 &rarr; t=2s. Positions: (8+4)/2=6m; (4+0)/2=2m. Cumulative: 0, 6, 8 m. Final position = 8 m. The map has only 3 dots (t=0,1,2), spacing decreases faster (6, 2 m gaps). Arrows shrink more steeply. Object stops in half the time at half the distance.</div>
-    </div>
-
-  </div>
-
-</main>
-
-<footer>
-  <p>Kinematics &middot; Unit 16 &mdash; Motion Maps &nbsp;&bull;&nbsp; Homework</p>
-</footer>
-
-<script>
-function toggleKey() {
-  var key = document.getElementById('answer-key');
-  var btn = document.getElementById('toggle-key-btn');
-  if (key.style.display === 'none' || key.style.display === '') {
-    key.style.display = 'block';
-    btn.textContent = 'Hide Answer Key';
-  } else {
-    key.style.display = 'none';
-    btn.textContent = 'Show Answer Key';
-  }
-}
-function selectTF(btn, val, qnum) {
-  var card = btn.closest('.tf-card');
-  card.querySelectorAll('.tf-btn').forEach(function(b) {
-    b.classList.remove('selected-true','selected-false');
-  });
-  if (val === 'true') btn.classList.add('selected-true');
-  else btn.classList.add('selected-false');
-}
-</script>
-
-
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+  
 </body>
 </html>
