@@ -43,17 +43,8 @@
     .short-answer .q{font-weight:600;margin-bottom:10px;font-size:0.95rem;}
     .write-lines{display:flex;flex-direction:column;gap:14px;}
     .write-line{border-bottom:2px solid #d1d5db;min-height:28px;width:100%;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e40af;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#1e3a5f;border-left-color:#2563eb;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#1e3a5f;margin-bottom:12px;}
-    .key-item{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:4px;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;font-family:'Space Mono',monospace;font-size:0.9rem;margin-bottom:4px;}
-    .key-item .kexpl{color:#374151;font-size:0.85rem;line-height:1.6;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#1d4ed8;}
     .tf-key-row{display:flex;gap:12px;align-items:flex-start;background:white;border-radius:6px;padding:12px 16px;margin-bottom:10px;}
     .tf-verdict{font-family:'Space Mono',monospace;font-weight:700;font-size:0.95rem;min-width:50px;}
@@ -270,119 +261,6 @@
 
   </section>
 
-  <!-- ANSWER KEY -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="document.getElementById('answer-key').style.display='block';this.style.display='none';">Show Answer Key</button>
-  </div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Calculations</h3>
-
-      <div class="key-item">
-        <div class="kq">Problem 1 — 12m east, 4s</div>
-        <div class="kans">Speed = 3 ms⁻¹ &nbsp;|&nbsp; Velocity = 3 ms⁻¹ east</div>
-        <div class="kexpl">d = 12m, s = 12m east (straight line). Speed = 12/4 = 3 ms⁻¹. Velocity = 12/4 = 3 ms⁻¹ east. Since the path is straight and in one direction, speed = |velocity|.</div>
-      </div>
-
-      <div class="key-item">
-        <div class="kq">Problem 2 — 18m right then 6m left, 6s</div>
-        <div class="kans">Speed = 4 ms⁻¹ &nbsp;|&nbsp; Velocity = 2 ms⁻¹ right</div>
-        <div class="kexpl">d = 18+6 = 24m. s = 18−6 = 12m right. Speed = 24/6 = 4 ms⁻¹. Velocity = 12/6 = 2 ms⁻¹ right. Note: speed ≠ |velocity| because the path changed direction.</div>
-      </div>
-
-      <div class="key-item">
-        <div class="kq">Problem 3 — Square loop back to start, 20s</div>
-        <div class="kans">Speed = 1 ms⁻¹ &nbsp;|&nbsp; Velocity = 0 ms⁻¹</div>
-        <div class="kexpl">d = 5+5+5+5 = 20m. s = 0m (returns to start: N+S cancel, E+W cancel → displacement = 0). Speed = 20/20 = 1 ms⁻¹. Velocity = 0/20 = 0 ms⁻¹. Classic example of speed ≠ velocity.</div>
-      </div>
-
-      <div class="key-item">
-        <div class="kq">Problem 4 — +14m to +2m, 4s</div>
-        <div class="kans">Speed = 3 ms⁻¹ &nbsp;|&nbsp; Velocity = −3 ms⁻¹</div>
-        <div class="kexpl">d = |14−2| = 12m. s = 2−14 = −12m (moving leftward = negative). Speed = 12/4 = 3 ms⁻¹. Velocity = −12/4 = −3 ms⁻¹. Negative velocity confirms leftward motion.</div>
-      </div>
-
-      <div class="key-item">
-        <div class="kq">Problem 5 — velocity = −9 ms⁻¹ for 3s (rearranging)</div>
-        <div class="kans">Distance = 27m &nbsp;|&nbsp; Displacement = −27m</div>
-        <div class="kexpl">Rearranging V = s/t: s = V × t = −9 × 3 = −27m. Displacement = −27m (in the negative direction). Distance = |−27| = 27m (always positive). Speed = 27/3 = 9 ms⁻¹.</div>
-      </div>
-
-      <div class="key-item">
-        <div class="kq">Problem 6 — Object A vs Object B</div>
-        <div class="kans">A: 3 ms⁻¹, 3 ms⁻¹ right &nbsp;|&nbsp; B: 3 ms⁻¹, 0 ms⁻¹</div>
-        <div class="kexpl">Object A: d=6m, s=6m right, t=2s. Speed = 6/2 = 3 ms⁻¹. V = 6/2 = 3 ms⁻¹ right. Object B: d=12m (6+6), s=0m (returns to start), t=4s. Speed = 12/4 = 3 ms⁻¹. V = 0/4 = 0 ms⁻¹. Both have the same speed (3 ms⁻¹) but very different velocities!</div>
-      </div>
-
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — True or False</h3>
-
-      <div class="tf-key-row">
-        <div class="tf-verdict false">FALSE</div>
-        <div class="tf-key-body"><strong>Statement 7.</strong> Speed and velocity do NOT always have the same numerical value. They are equal only when the path is a straight line in one direction. When the object changes direction, distance ≠ |displacement|, so speed ≠ |velocity|. Example: out-and-back journey — speed = 3 ms⁻¹, velocity = 0 ms⁻¹.</div>
-      </div>
-
-      <div class="tf-key-row">
-        <div class="tf-verdict true">TRUE</div>
-        <div class="tf-key-body"><strong>Statement 8.</strong> True. If the object returns to its starting position, displacement = x_f − x_i = 0. Therefore velocity = s/t = 0/t = 0 ms⁻¹. (Average speed for the same journey would be non-zero, since distance > 0.)</div>
-      </div>
-
-      <div class="tf-key-row">
-        <div class="tf-verdict false">FALSE</div>
-        <div class="tf-key-body"><strong>Statement 9.</strong> False. A velocity of −4 ms⁻¹ means the object is moving in the negative direction (e.g. leftward). It says nothing about whether the object is slowing down or speeding up. The magnitude of velocity (speed) is 4 ms⁻¹ — the object could be moving at constant speed in the negative direction.</div>
-      </div>
-
-      <div class="tf-key-row">
-        <div class="tf-verdict true">TRUE</div>
-        <div class="tf-key-body"><strong>Statement 10.</strong> True. Speed is a scalar because it only has magnitude (how fast) with no directional information. Velocity is a vector because it includes both magnitude (how fast) and direction (which way). Speed = |velocity| always.</div>
-      </div>
-
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Challenge Problems</h3>
-
-      <div class="key-item">
-        <div class="kq">Problem 11 — Two-stage athlete</div>
-        <div class="kans">(a) 6 ms⁻¹ &nbsp;(b) −4 ms⁻¹ &nbsp;(c) 5.33 ms⁻¹ &nbsp;(d) 2.67 ms⁻¹ east</div>
-        <div class="kexpl">
-          (a) Stage 1: Speed = 60/10 = 6 ms⁻¹ east.<br>
-          (b) Stage 2: s = −20m (westward = negative), t = 5s. V = −20/5 = −4 ms⁻¹ (i.e. 4 ms⁻¹ west).<br>
-          (c) Total distance = 60+20 = 80m. Total time = 10+5 = 15s. Average speed = 80/15 ≈ 5.33 ms⁻¹.<br>
-          (d) Total displacement = 60−20 = 40m east. Average velocity = 40/15 ≈ 2.67 ms⁻¹ east.
-        </div>
-      </div>
-
-      <div class="short-ans-key">
-        <strong>Problem 12.</strong> Yes, this IS possible — as an average over a complete journey. Consider an object that walks 10m right in 1s, then 10m left in 1s (returning to start). Total time = 2s. Distance = 20m, so Speed = 20/2 = 10 ms⁻¹. Displacement = 0m, so Velocity = 0/2 = 0 ms⁻¹. This shows speed = 10 ms⁻¹ while velocity = 0 ms⁻¹ simultaneously. The key: speed uses distance (path length, never zero here) while velocity uses displacement (zero when start = end). However, at any single instant where the object is moving, both |instantaneous velocity| and speed will be equal. The difference arises for averages over direction-changing journeys.
-      </div>
-
-    </div>
-
-  </div>
-
-</main>
-
-<script>
-(function(){
-  if(new URLSearchParams(window.location.search).get('key')==='show'){
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    if(k) k.style.display='block';
-    if(b) b.style.display='none';
-  } else {
-    var k=document.getElementById('answer-key');
-    var b=document.getElementById('toggle-key-btn');
-    var w=document.querySelector('.key-btn-wrap');
-    if(k) k.style.display='none';
-    if(b) b.style.display='none';
-    if(w) w.style.display='none';
-  }
-})();
-</script>
+  
 </body>
 </html>
