@@ -58,19 +58,9 @@
     .challenge-card .field-row{color:white;}
     .challenge-card .fill-line{border-bottom-color:rgba(255,255,255,0.4);}
     .challenge-card .eq-label{color:rgba(255,255,255,0.6);}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e40af;color:white;border:none;padding:12px 36px;font-size:1rem;font-weight:800;border-radius:10px;cursor:pointer;font-family:inherit;transition:background 0.2s;}
     #toggle-key-btn:hover{background:#2563eb;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:14px;padding:28px 32px;margin-top:16px;}
     #answer-key h2{color:#1e3a5f;border-left-color:#2563eb;margin-bottom:24px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:800;color:#1e3a5f;margin-bottom:14px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:8px;padding:12px 16px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.78rem;color:#6b7280;margin-bottom:3px;font-weight:700;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;font-family:'Space Mono',monospace;font-size:0.9rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:4px;line-height:1.55;}
-    .short-ans-key{background:white;border-radius:8px;padding:14px 18px;font-size:0.92rem;margin-bottom:10px;line-height:1.6;}
     .short-ans-key strong{color:#1d4ed8;}
     .tf-key{background:white;border-radius:8px;padding:12px 16px;margin-bottom:8px;}
     .tf-key .tfk-q{font-size:0.8rem;color:#6b7280;font-weight:700;margin-bottom:4px;}
@@ -313,92 +303,9 @@
   </section>
 
   <!-- Answer Key Toggle -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A &mdash; Calculations</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="kq">Problem 1 — Sprinter's acceleration</div>
-          <div class="kans">a = 3 ms&#8315;&#178;</div>
-          <div class="kexpl">v = u + at &rarr; 9 = 0 + a(3) &rarr; a = 9/3 = 3 ms&#8315;&#178;</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 2 — Braking car</div>
-          <div class="kans">s = 62.5 m</div>
-          <div class="kexpl">v&#178; = u&#178; + 2as &rarr; 0 = 625 + 2(-5)s &rarr; 10s = 625 &rarr; s = 62.5 m</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 3 — Rocket acceleration</div>
-          <div class="kans">a = 30 ms&#8315;&#178;</div>
-          <div class="kexpl">v&#178; = u&#178; + 2as &rarr; 250000 = 40000 + 2a(3500) &rarr; 210000 = 7000a &rarr; a = 30 ms&#8315;&#178;</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 4 — Ball thrown down (downward +)</div>
-          <div class="kans">v = 29 ms&#8315;&#185; downward</div>
-          <div class="kexpl">u = +4, a = +10, t = 2.5. v = 4 + 10(2.5) = 4 + 25 = 29 ms&#8315;&#185; (positive = downward)</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 5 — Ball up ramp (upward +)</div>
-          <div class="kans">s = 3.6 m</div>
-          <div class="kexpl">u = +6, v = 0, a = -5. v&#178; = u&#178; + 2as &rarr; 0 = 36 + 2(-5)s &rarr; 10s = 36 &rarr; s = 3.6 m</div>
-        </div>
-        <div class="key-item">
-          <div class="kq">Problem 6 — Bus three phases</div>
-          <div class="kans">s&#8321; = 135 m, s&#8322; = 540 m, s&#8323; = 90 m, Total = 765 m</div>
-          <div class="kexpl">P1: u=0,a=1.2,t=15 &rarr; v=18 ms&#8315;&#185;, s=&frac12;(1.2)(225)=135 m. P2: u=v=18,t=30 &rarr; s=540 m. P3: u=18,v=0,t=10 &rarr; s=(18+0)(10)/2=90 m. Total=135+540+90=765 m</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B &mdash; True or False</h3>
-      <div class="tf-key">
-        <div class="tfk-q">Statement 1</div>
-        <div class="tfk-ans false">FALSE</div>
-        <div class="tfk-expl">The kinematic equations can only be used when acceleration is constant throughout the portion of motion being analysed. If acceleration changes, the journey must be split into separate phases — one SUVAT table per constant-acceleration segment.</div>
-      </div>
-      <div class="tf-key">
-        <div class="tfk-q">Statement 2</div>
-        <div class="tfk-ans true">TRUE</div>
-        <div class="tfk-expl">If "right" is defined as positive, any velocity in the leftward (negative) direction must be written with a minus sign in the SUVAT table. This is essential for the algebra to give the correct result.</div>
-      </div>
-      <div class="tf-key">
-        <div class="tfk-q">Statement 3</div>
-        <div class="tfk-ans true">TRUE</div>
-        <div class="tfk-expl">The equation v&#178; = u&#178; + 2as does not contain time (t), making it ideal when time is either unknown or not required. It connects velocities, acceleration, and displacement.</div>
-      </div>
-      <div class="tf-key">
-        <div class="tfk-q">Statement 4</div>
-        <div class="tfk-ans false">FALSE</div>
-        <div class="tfk-expl">Displacements from each phase are added together using standard vector addition (taking signs into account). If phases occur in opposite directions, the signed displacements are added — some may cancel. You do not need all phases to be in the same direction to add them.</div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C &mdash; Challenge Problems</h3>
-      <div class="short-ans-key">
-        <strong>Challenge 1:</strong><br>
-        Phase 1 (accelerating): u = 0, a = 0.5, t = 60 &rarr; <strong>v = 0 + 0.5(60) = 30 ms&#8315;&#185;</strong> (max speed). s&#8321; = &frac12;(0.5)(60)&#178; = 900 m.<br>
-        Phase 2 (constant): u = v = 30, t = 120 &rarr; s&#8322; = 30 &times; 120 = 3600 m.<br>
-        Phase 3 (braking): u = 30, v = 0, t = 40 &rarr; s&#8323; = (30+0)(40)/2 = 600 m. Deceleration: v = u + at &rarr; 0 = 30 + a(40) &rarr; <strong>a = &minus;0.75 ms&#8315;&#178;</strong>.<br>
-        <strong>Total displacement = 900 + 3600 + 600 = 5100 m</strong>
-      </div>
-      <div class="short-ans-key">
-        <strong>Challenge 2:</strong> Define upward = positive. u = +20, a = &minus;10.<br>
-        <strong>(a)</strong> At max height v = 0: v = u + at &rarr; 0 = 20 &minus; 10t &rarr; <strong>t = 2 s</strong>.<br>
-        <strong>(b)</strong> v&#178; = u&#178; + 2as &rarr; 0 = 400 + 2(&minus;10)s &rarr; 20s = 400 &rarr; <strong>s = 20 m</strong>.<br>
-        <strong>(c)</strong> At t = 3.5 s: v = 20 + (&minus;10)(3.5) = 20 &minus; 35 = <strong>&minus;15 ms&#8315;&#185;</strong>.<br>
-        <strong>(d)</strong> The velocity is negative (&minus;15 ms&#8315;&#185;). Since upward was defined as positive, a negative velocity means the ball is moving <em>downward</em>. At 3.5 s the ball has already passed its maximum height (at 2 s) and is falling back toward the ground.
-      </div>
-    </div>
-  </div>
-</main>
+  
 
 <script>
 function toggleKey(){
