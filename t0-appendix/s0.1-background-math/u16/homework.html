@@ -58,17 +58,8 @@
     .tf-circle{width:28px;height:28px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#9ca3af;}
 
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e40af;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#1e40af;border-left-color:#2563eb;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#1e40af;margin-bottom:12px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;margin-bottom:8px;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;}
-    .key-item .kexpl{color:#4b5563;font-size:0.82rem;margin-top:4px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;line-height:1.8;}
     .short-ans-key strong{color:#1d4ed8;}
     .short-ans-key .kfml{font-family:'Space Mono',monospace;font-size:0.85rem;color:#1d4ed8;background:#eff6ff;padding:4px 10px;border-radius:6px;display:inline-block;margin:3px 0;}
   </style>
@@ -255,97 +246,8 @@
   </section>
 
   <!-- ANSWER KEY TOGGLE -->
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — Q1: Spring Experiment</h3>
-      <div class="short-ans-key">
-        <strong>Calculations:</strong><br>
-        <span class="kfml">Average slope = (21.2 + 15.6) / 2 = 36.8 / 2 = 18.4 N/m</span><br>
-        <span class="kfml">Slope uncertainty = (21.2 &#8722; 15.6) / 2 = 5.6 / 2 = 2.8 N/m</span><br>
-        <span class="kfml">% slope unc = (2.8 / 18.4) &#215; 100% &#8773; 15.2%</span><br>
-        <span class="kfml">Average y-int = (&#8722;1.8 + 2.4) / 2 = 0.6 / 2 = 0.3 N</span><br>
-        <span class="kfml">&#916;b = |2.4 &#8722; (&#8722;1.8)| / 2 = |4.2| / 2 = 2.1 N</span><br>
-        <span class="kfml">% y-int unc = (2.1 / 0.3) &#215; 100% = 700% (very large — b is near zero)</span>
-      </div>
-      <div class="short-ans-key">
-        <strong>Average best-fit equation:</strong><br>
-        <span class="kfml">Force(N) = ( 18.4 &#177; 2.8 N/m ) &#215; stretch(m) + ( 0.3 &#177; 2.1 N )</span>
-      </div>
-      <div class="short-ans-key">
-        <strong>Max slope equation:</strong><br>
-        <span class="kfml">Force(N) = ( 21.2 N/m ) &#215; stretch(m) + ( &#8722;1.8 N )</span><br>
-        <strong>Min slope equation:</strong><br>
-        <span class="kfml">Force(N) = ( 15.6 N/m ) &#215; stretch(m) + ( 2.4 N )</span><br>
-        <strong>Spring constant:</strong> k = 18.4 &#177; 2.8 N/m (same as slope, since F = kx)
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part A — Q2: Pendulum T² vs L</h3>
-      <div class="short-ans-key">
-        <strong>Calculations:</strong><br>
-        <span class="kfml">Average slope = (4.22 + 3.70) / 2 = 7.92 / 2 = 3.96 s²/m</span><br>
-        <span class="kfml">Slope uncertainty = (4.22 &#8722; 3.70) / 2 = 0.52 / 2 = 0.26 s²/m</span><br>
-        <span class="kfml">% slope unc = (0.26 / 3.96) &#215; 100% &#8773; 6.6%</span><br>
-        <span class="kfml">Average y-int = (&#8722;0.14 + 0.30) / 2 = 0.16 / 2 = 0.08 s²</span><br>
-        <span class="kfml">&#916;b = |0.30 &#8722; (&#8722;0.14)| / 2 = 0.44 / 2 = 0.22 s²</span>
-      </div>
-      <div class="short-ans-key">
-        <strong>Average best-fit equation:</strong><br>
-        <span class="kfml">Period²(s²) = ( 3.96 &#177; 0.26 s²/m ) &#215; Length(m) + ( 0.08 &#177; 0.22 s² )</span>
-      </div>
-      <div class="short-ans-key">
-        <strong>Finding g:</strong><br>
-        <span class="kfml">slope = 4&#960;² / g  &#8594;  g = 4&#960;² / 3.96 = 39.48 / 3.96 &#8773; 9.97 m/s²</span><br>
-        <span class="kfml">% unc in g = % unc in slope = 6.6%</span><br>
-        <span class="kfml">&#916;g = 0.066 &#215; 9.97 &#8773; 0.66 m/s²</span><br>
-        <span class="kfml">g = 9.97 &#177; 0.66 m/s² (or rounded to 10.0 &#177; 0.7 m/s²)</span>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Q3: Slope and Y-intercept Units</h3>
-      <div class="short-ans-key">
-        <strong>Force (N) vs acceleration (m/s²):</strong> slope unit = N/(m/s²) = kg &nbsp;|&nbsp; y-int unit = N<br>
-        <strong>Voltage (V) vs Current (A):</strong> slope unit = V/A = &#937; (Ohms) &nbsp;|&nbsp; y-int unit = V<br>
-        <strong>KE (J) vs v² (m²/s²):</strong> slope unit = J/(m²/s²) = kg &nbsp;|&nbsp; y-int unit = J<br>
-        <strong>Period² (s²) vs Length (m):</strong> slope unit = s²/m &nbsp;|&nbsp; y-int unit = s²
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — True / False</h3>
-      <div class="short-ans-key"><strong>4. TRUE</strong> — Average slope = (m_max + m_min) / 2 ✓</div>
-      <div class="short-ans-key"><strong>5. FALSE</strong> — The maximum slope line has the <em>lowest</em> y-intercept (it pivots steeply, forcing its intercept down). The minimum slope line has the highest y-intercept.</div>
-      <div class="short-ans-key"><strong>6. TRUE</strong> — Slope unit = y-unit / x-unit = m/s ✓ (y in meters, x in seconds)</div>
-      <div class="short-ans-key"><strong>7. FALSE</strong> — When writing the max slope equation, use b<sub>max</sub> (the y-intercept from the max slope line itself), not the average y-intercept. Each individual line equation uses that line's own slope and intercept.</div>
-      <div class="short-ans-key"><strong>8. TRUE</strong> — A negative y-intercept is physically acceptable (e.g., the line crosses the y-axis below zero). The uncertainty value (positive) is also correct. ✓</div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Extended Response</h3>
-      <div class="short-ans-key">
-        <strong>Q9:</strong><br>
-        <strong>(a)</strong><br>
-        <span class="kfml">Average slope = (0.69 + 0.55) / 2 = 0.62</span><br>
-        <span class="kfml">Slope uncertainty = (0.69 &#8722; 0.55) / 2 = 0.07</span><br>
-        <span class="kfml">Average y-int = (&#8722;0.12 + 0.04) / 2 = &#8722;0.04 m</span><br>
-        <span class="kfml">&#916;b = |0.04 &#8722; (&#8722;0.12)| / 2 = 0.16 / 2 = 0.08 m</span><br><br>
-        <strong>(b)</strong> <span class="kfml">bounce height(m) = ( 0.62 &#177; 0.07 ) &#215; drop height(m) + ( &#8722;0.04 &#177; 0.08 m )</span><br>
-        Note: slope is dimensionless (m/m), so slope unit = m/m (dimensionless ratio)<br><br>
-        <strong>(c)</strong> e = 0.62 &#177; 0.07, % uncertainty = (0.07/0.62) &#215; 100% &#8773; 11.3%<br><br>
-        <strong>(d)</strong> The y-intercept represents the bounce height when drop height = 0 m, which should ideally be 0 m (a ball dropped from zero height has zero bounce). The average y-intercept of &#8722;0.04 &#177; 0.08 m is consistent with zero within its uncertainty, so the intercept is not significantly different from the ideal value.
-      </div>
-      <div class="short-ans-key">
-        <strong>Q10:</strong> When the slope increases (steeper line), the line must still pass through the same cluster of data points. To be steeper while passing through the middle of the data, the line pivots: its left side drops and its right side rises. This means the y-intercept (where the line hits the y-axis, which is to the left of the data) goes down as the slope goes up. Therefore m<sub>max</sub> corresponds to b<sub>max</sub> being the lowest intercept value, and m<sub>min</sub> corresponds to b<sub>min</sub> being the highest. Since b<sub>min</sub> &gt; b<sub>max</sub>, (b<sub>min</sub> &minus; b<sub>max</sub>) is positive. We write it this way (rather than b<sub>max</sub> &minus; b<sub>min</sub>) to get a positive result without needing the absolute value. However, this relationship can reverse in some data configurations, which is why the formula uses |b<sub>min</sub> &minus; b<sub>max</sub>| to guarantee a positive uncertainty regardless.
-      </div>
-    </div>
-  </div>
-
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
 <script>
