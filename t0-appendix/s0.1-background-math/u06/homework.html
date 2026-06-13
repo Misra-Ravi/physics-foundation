@@ -43,18 +43,8 @@
     .short-answer .q{font-weight:600;margin-bottom:10px;font-size:0.95rem;}
     .write-lines{display:flex;flex-direction:column;gap:14px;}
     .write-line{border-bottom:2px solid #d1d5db;min-height:28px;width:100%;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#312e81;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#eef2ff;border:2px solid #a5b4fc;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#312e81;border-left-color:#6366f1;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#312e81;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#312e81;font-weight:700;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#312e81;}
   </style>
 </head>
@@ -176,41 +166,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-    <div class="key-section">
-      <h3>Part A — Relationships</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q1: W = Fd, W vs d</div><div class="kans">Linear (W ∝ d)</div><div class="kexpl">F = c; W = c·d → straight line</div></div>
-        <div class="key-item"><div class="kq">Q2: P = F²/2m, P vs F</div><div class="kans">Quadratic (P ∝ F²)</div><div class="kexpl">1/2m = c; P = c·F² → parabola</div></div>
-        <div class="key-item"><div class="kq">Q3: T vs L (pendulum)</div><div class="kans">T² ∝ L (linear); T ∝ √L</div><div class="kexpl">T² = (4π²/g)·L → T² vs L is linear; T vs L is a square-root curve</div></div>
-        <div class="key-item"><div class="kq">Q4: F = kq₁q₂/r², F vs r</div><div class="kans">Inverse Square (F ∝ 1/r²)</div><div class="kexpl">kq₁q₂ = c; F = c/r² → steep drop</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part B — Predictions</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q5: v tripled in Eₖ = ½mv²</div><div class="kans">Eₖ × 9</div><div class="kexpl">Eₖ ∝ v²; (3v)² = 9v² → Eₖ multiplies by 9</div></div>
-        <div class="key-item"><div class="kq">Q6: r halved in g = Gm/r²</div><div class="kans">g × 4</div><div class="kexpl">g ∝ 1/r²; (r/2)² = r²/4 → g = c/(r²/4) = 4c/r² → g quadruples</div></div>
-        <div class="key-item" style="grid-column:span 2;"><div class="kq">Q7: q₁,q₂ doubled AND r doubled</div><div class="kans">Net: F × 1 (unchanged)</div><div class="kexpl">Charges: (2q₁)(2q₂) = 4q₁q₂ → F×4. Distance: (2r)² = 4r² → F÷4. Net: 4/4 = 1 → no change.</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part C — True/False</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q8</div><div class="kans">TRUE</div><div class="kexpl">A straight line through origin ↔ y = cx ↔ y ∝ x ✓</div></div>
-        <div class="key-item"><div class="kq">Q9</div><div class="kans">FALSE</div><div class="kexpl">Correction: (3x)² = 9x² → y becomes 9× larger, not 3×</div></div>
-        <div class="key-item"><div class="kq">Q10</div><div class="kans">TRUE</div><div class="kexpl">y = c/x² → yx² = c = constant ✓</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part D — Extended</h3>
-      <div class="short-ans-key"><strong>Q11:</strong> (a) F ∝ M — linear (straight line on F vs M graph). (b) F ∝ 1/r² — inverse square. (c) If M triples: F × 3. If r doubles: F ÷ 4. Net effect: F × 3/4 = 0.75× original F (F decreases by 25%).</div>
-      <div class="short-ans-key"><strong>Q12:</strong> From V = IR → R = V/I = c/I (V held constant). This is an inverse relationship (R ∝ 1/I). The graph will be a hyperbola — as current increases, resistance decreases proportionally, and the curve will never touch either axis. The physics: with fixed voltage, more resistance = less current flowing (and vice versa).</div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
 <script>
