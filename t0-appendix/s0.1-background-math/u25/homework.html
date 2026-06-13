@@ -63,19 +63,10 @@
     .ss-line{border-bottom:2px solid #d1d5db;flex:1;min-height:26px;}
 
     /* answer key */
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#15803d;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#14532d;}
-    #answer-key{display:none;background:#f0fdf4;border:2px solid #86efac;border-radius:14px;padding:28px 32px;}
     #answer-key h2{color:#14532d;border-left-color:#16a34a;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:0.95rem;font-weight:800;color:#14532d;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    @media(max-width:560px){.key-grid{grid-template-columns:1fr;}}
-    .key-item{background:white;border-radius:8px;padding:12px 16px;font-size:0.9rem;border-left:3px solid #16a34a;}
-    .key-item .knum{font-size:0.72rem;font-weight:800;color:#15803d;text-transform:uppercase;margin-bottom:4px;}
-    .key-item .kans{font-family:'Space Mono',monospace;font-weight:700;color:#14532d;font-size:0.95rem;}
-    .key-item .kexpl{color:#64748b;font-size:0.8rem;margin-top:3px;}
+    @media(max-width:560px){}
     .key-note{background:white;border-radius:8px;padding:14px 18px;font-size:0.92rem;color:#374151;margin-bottom:10px;border-left:3px solid #16a34a;}
   </style>
 </head>
@@ -383,116 +374,9 @@
   </section>
 
   <!-- ANSWER KEY TOGGLE -->
-  <div class="key-btn-wrap">
-    <button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button>
-  </div>
+  
 
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-
-    <div class="key-section">
-      <h3>Part A — All 6 Forms</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="knum">Problem 1 — O = H·Sin(&theta;)</div>
-          <div class="kans">O = 45 &middot; Sin(28&deg;) = 45 &times; 0.469 = 21.1</div>
-          <div class="kexpl">Sin(28&deg;) &approx; 0.469</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 2 — H = O/Sin(&theta;)</div>
-          <div class="kans">H = 11 / Sin(42&deg;) = 11 / 0.669 = 16.4</div>
-          <div class="kexpl">Sin(42&deg;) &approx; 0.669</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 3 — A = H·Cos(&theta;)</div>
-          <div class="kans">A = 20 &middot; Cos(60&deg;) = 20 &times; 0.500 = 10.0</div>
-          <div class="kexpl">Cos(60&deg;) = 0.500 exactly</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 4 — H = A/Cos(&theta;)</div>
-          <div class="kans">H = 16 / Cos(37&deg;) = 16 / 0.799 = 20.0</div>
-          <div class="kexpl">Cos(37&deg;) &approx; 0.799</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 5 — O = A·Tan(&theta;)</div>
-          <div class="kans">O = 9 &middot; Tan(52&deg;) = 9 &times; 1.280 = 11.5</div>
-          <div class="kexpl">Tan(52&deg;) &approx; 1.280</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 6 — A = O/Tan(&theta;)</div>
-          <div class="kans">A = 4 / Tan(18&deg;) = 4 / 0.325 = 12.3</div>
-          <div class="kexpl">Tan(18&deg;) &approx; 0.325</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part B — Applied Physics Problems</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="knum">Problem 7 — Ski Slope</div>
-          <div class="kans">O = 200 &middot; Sin(25&deg;) = 200 &times; 0.423 = 84.5 m</div>
-          <div class="kexpl">O &amp; H &rarr; Sin; O = H&middot;Sin(&theta;)</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 8 — Ladder Safety</div>
-          <div class="kans">H = 1.2 / Cos(75&deg;) = 1.2 / 0.259 = 4.6 m</div>
-          <div class="kexpl">A &amp; H &rarr; Cos; H = A/Cos(&theta;)</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 9 — River Crossing</div>
-          <div class="kans">O = 80 &middot; Sin(30&deg;) = 80 &times; 0.500 = 40.0 m</div>
-          <div class="kexpl">O &amp; H &rarr; Sin; O = H&middot;Sin(&theta;)</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 10 — Force at Angle</div>
-          <div class="kans">H = 40 / Cos(35&deg;) = 40 / 0.819 = 48.8 N</div>
-          <div class="kexpl">A &amp; H &rarr; Cos; H = A/Cos(&theta;)</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part C — Mixed</h3>
-      <div class="key-grid">
-        <div class="key-item">
-          <div class="knum">Problem 11</div>
-          <div class="kans">O = 100 &middot; Sin(15&deg;) = 100 &times; 0.259 = 25.9</div>
-          <div class="kexpl">O &amp; H &rarr; Sin</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 12</div>
-          <div class="kans">H = 30 / Sin(58&deg;) = 30 / 0.848 = 35.4</div>
-          <div class="kexpl">O &amp; H &rarr; Sin; divide</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 13</div>
-          <div class="kans">O = 5 &middot; Tan(72&deg;) = 5 &times; 3.078 = 15.4</div>
-          <div class="kexpl">O &amp; A &rarr; Tan</div>
-        </div>
-        <div class="key-item">
-          <div class="knum">Problem 14</div>
-          <div class="kans">A = 22 &middot; Cos(44&deg;) = 22 &times; 0.719 = 15.8</div>
-          <div class="kexpl">A &amp; H &rarr; Cos</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="key-section">
-      <h3>Part D — Analysis</h3>
-      <div class="key-note">
-        <strong>15.</strong> The student multiplied both sides by H but forgot to then divide by Sin(&theta;). The correct rearrangement from Sin(&theta;) = O/H is: multiply both sides by H to get H&middot;Sin(&theta;) = O, then divide both sides by Sin(&theta;) to get H = O/Sin(&theta;). <strong>Never multiply by H and multiply by Sin — that gives H = O&times;Sin, which is wrong.</strong>
-      </div>
-      <div class="key-note">
-        <strong>16.</strong> O = H&middot;Sin(30&deg;) = 10 &times; 0.5 = <strong>5</strong>. Sin(30&deg;) = 0.5 exactly because in an equilateral triangle split in half, the short side is exactly half the hypotenuse — no rounding needed.
-      </div>
-      <div class="key-note">
-        <strong>17.</strong> As &theta; increases toward 90&deg;, Sin(&theta;) increases toward 1, so O = H&middot;Sin(&theta;) increases toward H (the opposite side grows). Meanwhile Cos(&theta;) decreases toward 0, so A = H&middot;Cos(&theta;) decreases toward 0 (the adjacent side shrinks). At 90&deg; the triangle would be a vertical line — no adjacent side at all.
-      </div>
-    </div>
-  </div>
-
-</main>
+  
 
 <script>
 function toggleKey() {
