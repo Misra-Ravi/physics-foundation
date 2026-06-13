@@ -36,18 +36,8 @@
     .tf-stmt{flex:1;font-size:0.93rem;}
     .tf-circles{display:flex;gap:10px;flex-shrink:0;}
     .tf-circle{width:28px;height:28px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#9ca3af;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#1e40af;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-    #answer-key{display:none;background:#eff6ff;border:2px solid #93c5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#1e40af;border-left-color:#3b82f6;margin-bottom:22px;}
-    .key-section{margin-bottom:24px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#1e40af;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;}
-    .key-item .kq{font-size:0.8rem;color:#6b7280;margin-bottom:2px;}
-    .key-item .kans{color:#1d4ed8;font-weight:700;font-family:'Space Mono',monospace;font-size:0.88rem;}
-    .key-item .kexpl{color:#4b5563;font-size:0.8rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;font-size:0.92rem;margin-bottom:10px;}
     .short-ans-key strong{color:#1d4ed8;}
   </style>
 </head>
@@ -140,35 +130,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-    <div class="key-section">
-      <h3>Part A</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q1: 18.5 ± 2</div><div class="kans">16.5 to 20.5</div></div>
-        <div class="key-item"><div class="kq">Q2: 55.3 ± 0.11</div><div class="kans">55.19 to 55.41</div></div>
-        <div class="key-item"><div class="kq">Q3: 450 to 550</div><div class="kans">500 ± 50</div><div class="kexpl">a=500; Δa=50</div></div>
-        <div class="key-item"><div class="kq">Q4: −10 to −3</div><div class="kans">−6.5 ± 3.5</div><div class="kexpl">a=(−3+−10)/2=−6.5; Δa=3.5</div></div>
-        <div class="key-item"><div class="kq">Q5: 9 ± 5</div><div class="kans">4 to 14</div></div>
-        <div class="key-item"><div class="kq">Q6: 0.02 to 0.08</div><div class="kans">0.05 ± 0.03</div><div class="kexpl">a=0.05; Δa=0.03</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part B</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="kq">Q7</div><div class="kans">FALSE</div><div class="kexpl">Max = 5+3 = 8. Since 8.001 > 8, it is outside the range.</div></div>
-        <div class="key-item"><div class="kq">Q8</div><div class="kans">FALSE</div><div class="kexpl">Correction: a = (max + min)/2 (addition, not subtraction)</div></div>
-        <div class="key-item"><div class="kq">Q9</div><div class="kans">TRUE</div><div class="kexpl">−6.5−3.5 = −10; −6.5+3.5 = −3 ✓</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part C</h3>
-      <div class="short-ans-key"><strong>Q10:</strong> (a) a = (101.4+98.6)/2 = 100.0°C; Δa = (101.4−98.6)/2 = 1.4°C → <strong>100.0 ± 1.4°C</strong>. (b) No — 98.5°C is below the minimum (98.6°C), so it is not a possible value.</div>
-      <div class="short-ans-key"><strong>Q11:</strong> Student A: 15±4 → range 11 to 19 cm. Student B: 12 to 22 cm. There is overlap (12–19 cm), so their measurements are partially consistent. However, Student B's range is wider. The measurements do not fully agree — Student B allows values up to 22 cm which Student A does not.</div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key';}}</script>
 
 <script>
