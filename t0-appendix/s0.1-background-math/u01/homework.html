@@ -37,19 +37,9 @@
     .short-answer .q{font-weight:600;margin-bottom:10px;}
     .write-lines{display:flex;flex-direction:column;gap:14px;}
     .write-line{border-bottom:2px solid #d1d5db;min-height:28px;width:100%;}
-    .key-btn-wrap{text-align:center;margin:40px 0 20px;}
-    #toggle-key-btn{background:#4c1d95;color:white;border:none;padding:12px 32px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
     #toggle-key-btn:hover{background:#5b21b6;}
-    #answer-key{display:none;background:#faf5ff;border:2px solid #c4b5fd;border-radius:12px;padding:28px 32px;}
     #answer-key h2{color:#4c1d95;border-left-color:#7c3aed;margin-bottom:22px;}
-    .key-section{margin-bottom:28px;}
     .key-section h3{font-size:1rem;font-weight:700;color:#4c1d95;margin-bottom:12px;}
-    .key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .key-item{background:white;border-radius:6px;padding:10px 14px;font-size:0.92rem;}
-    .key-item .knum{font-family:'Space Mono',monospace;font-weight:700;font-size:1rem;}
-    .key-item .kans{color:#4c1d95;font-weight:700;}
-    .key-item .kexpl{color:#4b5563;font-size:0.82rem;margin-top:2px;}
-    .short-ans-key{background:white;border-radius:6px;padding:12px 16px;margin-bottom:10px;font-size:0.92rem;}
     .short-ans-key strong{color:#4c1d95;}
   </style>
 </head>
@@ -120,46 +110,8 @@
     </div>
   </section>
 
-  <div class="key-btn-wrap"><button id="toggle-key-btn" onclick="toggleKey()">Show Answer Key (Teacher Use)</button></div>
-  <div id="answer-key">
-    <h2>Answer Key</h2>
-    <div class="key-section">
-      <h3>Part A</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="knum">1. 0.00450</div><div class="kans">3 sig figs</div><div class="kexpl">Leading zeros not significant; 4, 5, 0 count (decimal)</div></div>
-        <div class="key-item"><div class="knum">2. 123400</div><div class="kans">4 sig figs</div><div class="kexpl">No decimal; rightmost non-zero is 4; 1,2,3,4 count</div></div>
-        <div class="key-item"><div class="knum">3. 123400.</div><div class="kans">6 sig figs</div><div class="kexpl">Decimal; all 6 digits count</div></div>
-        <div class="key-item"><div class="knum">4. 6.022 × 10²³</div><div class="kans">4 sig figs</div><div class="kexpl">Coefficient only: 6,0,2,2</div></div>
-        <div class="key-item"><div class="knum">5. 0.1010</div><div class="kans">4 sig figs</div><div class="kexpl">Leading 0 not significant; 1,0,1,0 count (decimal)</div></div>
-        <div class="key-item"><div class="knum">6. 3050.0</div><div class="kans">5 sig figs</div><div class="kexpl">Decimal; 3,0,5,0,0 all count</div></div>
-        <div class="key-item"><div class="knum">7. 2700</div><div class="kans">2 sig figs</div><div class="kexpl">No decimal; rightmost non-zero is 7; 2,7 count</div></div>
-        <div class="key-item"><div class="knum">8. 8.00</div><div class="kans">3 sig figs</div><div class="kexpl">Decimal; 8,0,0 all count</div></div>
-        <div class="key-item"><div class="knum">9. 0.070</div><div class="kans">2 sig figs</div><div class="kexpl">Leading zeros not significant; 7,0 count (decimal)</div></div>
-        <div class="key-item"><div class="knum">10. 900.</div><div class="kans">3 sig figs</div><div class="kexpl">Decimal; 9,0,0 all count</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part B</h3>
-      <div class="key-grid">
-        <div class="key-item"><div class="knum">11. 48,263 → 3 sf</div><div class="kans">48,300</div><div class="kexpl">Keep 4,8; next digit 6 rounds 2 up → 48,300</div></div>
-        <div class="key-item"><div class="knum">12. 0.007842 → 2 sf</div><div class="kans">0.0078</div><div class="kexpl">Keep 7,8; next digit 4 → round down</div></div>
-        <div class="key-item"><div class="knum">13. 9,560,000 → 2 sf</div><div class="kans">9.6 × 10⁶</div><div class="kexpl">Keep 9,5; next digit 6 rounds 5 up → 9.6</div></div>
-        <div class="key-item"><div class="knum">14. 1.63842 → 4 sf</div><div class="kans">1.638</div><div class="kexpl">Keep 1,6,3,8; next digit 4 → round down</div></div>
-        <div class="key-item"><div class="knum">15. 302.55 → 3 sf</div><div class="kans">303</div><div class="kexpl">Keep 3,0,2; next digit 5 → round up</div></div>
-      </div>
-    </div>
-    <div class="key-section">
-      <h3>Part C</h3>
-      <div class="short-ans-key"><strong>Q16.</strong> 1200 mm is ambiguous because there is no decimal point. It could be 2 sig figs (±50 mm) or 4 sig figs (±0.5 mm). To remove ambiguity use scientific notation: 1.2 × 10³ mm (2 sf), 1.20 × 10³ mm (3 sf), or 1.200 × 10³ mm (4 sf).</div>
-      <br>
-      <div class="short-ans-key"><strong>Q17.</strong> No. A stopwatch measuring to 0.1 s limits the precision of the speed result. Writing 12.347 m/s falsely claims 5 sig figs. The answer should be rounded to reflect the instrument's precision — likely <strong>12.3 m/s</strong> (3 sig figs).</div>
-    </div>
-    <div class="key-section">
-      <h3>Bonus</h3>
-      <div class="short-ans-key"><strong>Bonus.</strong> 3.00 × 10⁸ m/s has <strong>3 sig figs</strong>. Rounding from 299,792,458 m/s drops six places of precision (~207,542 m/s lost). For everyday physics 3 sf is enough. For GPS synchronisation, interferometry, or testing physical constants, the full 9-digit precision is essential.</div>
-    </div>
-  </div>
-</main>
+  
+  
 <script>function toggleKey(){var k=document.getElementById('answer-key');var b=document.getElementById('toggle-key-btn');if(k.style.display==='none'||k.style.display===''){k.style.display='block';b.textContent='Hide Answer Key';}else{k.style.display='none';b.textContent='Show Answer Key (Teacher Use)';}}</script>
 
 <script>
