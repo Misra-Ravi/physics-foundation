@@ -20,8 +20,8 @@ var CONFIG = {
   // Drive folder ID for answer keys (teacher-only)
   ANSWER_KEYS_FOLDER_ID: 'PASTE_ANSWER_KEYS_FOLDER_ID_HERE',
 
-  // Base URL for GitHub Pages
-  BASE_URL: 'https://misra-ravi.github.io/physics-foundation/',
+  // Base URL for Netlify
+  BASE_URL: 'https://physicsfoundation.netlify.app/',
 
   // Portal admin email (receives error alerts)
   ADMIN_EMAIL: 'misra.ravikant@gmail.com',

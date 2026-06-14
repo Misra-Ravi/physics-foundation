@@ -1185,49 +1185,49 @@ function populateAnswerKeyURLs() {
   }
 
   var urlMap = {
-    '0.1.01': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u01/answerkey.html',
-    '0.1.02': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u02/answerkey.html',
-    '0.1.03': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u03/answerkey.html',
-    '0.1.04': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u04/answerkey.html',
-    '0.1.05': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u05/answerkey.html',
-    '0.1.06': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u06/answerkey.html',
-    '0.1.07': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u07/answerkey.html',
-    '0.1.08': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u08/answerkey.html',
-    '0.1.09': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u09/answerkey.html',
-    '0.1.10': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u10/answerkey.html',
-    '0.1.11': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u11/answerkey.html',
-    '0.1.12': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u12/answerkey.html',
-    '0.1.13': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u13/answerkey.html',
-    '0.1.14': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u14/answerkey.html',
-    '0.1.15': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u15/answerkey.html',
-    '0.1.16': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u16/answerkey.html',
-    '0.1.17': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u17/answerkey.html',
-    '0.1.18': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u18/answerkey.html',
-    '0.1.19': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u19/answerkey.html',
-    '0.1.20': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u20/answerkey.html',
-    '0.1.21': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u21/answerkey.html',
-    '0.1.22': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u22/answerkey.html',
-    '0.1.23': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u23/answerkey.html',
-    '0.1.24': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u24/answerkey.html',
-    '0.1.25': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u25/answerkey.html',
-    '0.1.26': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u26/answerkey.html',
-    '0.1.27': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u27/answerkey.html',
-    '1.1.01': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u01/answerkey.html',
-    '1.1.02': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u02/answerkey.html',
-    '1.1.03': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u03/answerkey.html',
-    '1.1.04': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u04/answerkey.html',
-    '1.1.05': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u05/answerkey.html',
-    '1.1.06': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u06/answerkey.html',
-    '1.1.07': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u07/answerkey.html',
-    '1.1.08': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u08/answerkey.html',
-    '1.1.09': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u09/answerkey.html',
-    '1.1.10': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u10/answerkey.html',
-    '1.1.11': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u11/answerkey.html',
-    '1.1.12': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u12/answerkey.html',
-    '1.1.13': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u13/answerkey.html',
-    '1.1.14': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u14/answerkey.html',
-    '1.1.15': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u15/answerkey.html',
-    '1.1.16': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u16/answerkey.html'
+    '0.1.01': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u01/answerkey.html?key=show',
+    '0.1.02': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u02/answerkey.html?key=show',
+    '0.1.03': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u03/answerkey.html?key=show',
+    '0.1.04': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u04/answerkey.html?key=show',
+    '0.1.05': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u05/answerkey.html?key=show',
+    '0.1.06': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u06/answerkey.html?key=show',
+    '0.1.07': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u07/answerkey.html?key=show',
+    '0.1.08': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u08/answerkey.html?key=show',
+    '0.1.09': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u09/answerkey.html?key=show',
+    '0.1.10': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u10/answerkey.html?key=show',
+    '0.1.11': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u11/answerkey.html?key=show',
+    '0.1.12': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u12/answerkey.html?key=show',
+    '0.1.13': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u13/answerkey.html?key=show',
+    '0.1.14': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u14/answerkey.html?key=show',
+    '0.1.15': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u15/answerkey.html?key=show',
+    '0.1.16': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u16/answerkey.html?key=show',
+    '0.1.17': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u17/answerkey.html?key=show',
+    '0.1.18': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u18/answerkey.html?key=show',
+    '0.1.19': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u19/answerkey.html?key=show',
+    '0.1.20': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u20/answerkey.html?key=show',
+    '0.1.21': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u21/answerkey.html?key=show',
+    '0.1.22': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u22/answerkey.html?key=show',
+    '0.1.23': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u23/answerkey.html?key=show',
+    '0.1.24': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u24/answerkey.html?key=show',
+    '0.1.25': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u25/answerkey.html?key=show',
+    '0.1.26': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u26/answerkey.html?key=show',
+    '0.1.27': 'https://physicsfoundation.netlify.app/t0-appendix/s0.1-background-math/u27/answerkey.html?key=show',
+    '1.1.01': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u01/answerkey.html?key=show',
+    '1.1.02': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u02/answerkey.html?key=show',
+    '1.1.03': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u03/answerkey.html?key=show',
+    '1.1.04': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u04/answerkey.html?key=show',
+    '1.1.05': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u05/answerkey.html?key=show',
+    '1.1.06': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u06/answerkey.html?key=show',
+    '1.1.07': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u07/answerkey.html?key=show',
+    '1.1.08': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u08/answerkey.html?key=show',
+    '1.1.09': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u09/answerkey.html?key=show',
+    '1.1.10': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u10/answerkey.html?key=show',
+    '1.1.11': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u11/answerkey.html?key=show',
+    '1.1.12': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u12/answerkey.html?key=show',
+    '1.1.13': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u13/answerkey.html?key=show',
+    '1.1.14': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u14/answerkey.html?key=show',
+    '1.1.15': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u15/answerkey.html?key=show',
+    '1.1.16': 'https://physicsfoundation.netlify.app/t1-space-time-motion/s1.1-kinematics/u16/answerkey.html?key=show'
   };
 
   var updated = 0;
@@ -1241,6 +1241,34 @@ function populateAnswerKeyURLs() {
   SpreadsheetApp.flush();
   Logger.log('✅ Populated ' + updated + ' AnswerKeyURL entries.');
   Logger.log('populateAnswerKeyURLs: updated ' + updated + ' rows.');
+}
+
+// ── Fix LessonURL/ClassworkURL/HomeworkURL columns (run once after deploy) ────
+function fixUnitURLs() {
+  var OLD = 'https://misra-ravi.github.io/physics-foundation/';
+  var NEW = 'https://physicsfoundation.netlify.app/';
+
+  var ss     = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var unitSh = ss.getSheetByName('Units');
+  var data   = unitSh.getDataRange().getValues();
+  var header = data[0];
+
+  var cols = ['LessonURL', 'ClassworkURL', 'HomeworkURL'].map(function(name) {
+    return header.indexOf(name);
+  }).filter(function(i) { return i >= 0; });
+
+  var updated = 0;
+  for (var r = 1; r < data.length; r++) {
+    cols.forEach(function(c) {
+      var val = String(data[r][c] || '');
+      if (val.indexOf(OLD) !== -1) {
+        unitSh.getRange(r + 1, c + 1).setValue(val.replace(OLD, NEW));
+        updated++;
+      }
+    });
+  }
+  SpreadsheetApp.flush();
+  Logger.log('fixUnitURLs: updated ' + updated + ' cells.');
 }
 
 function seedProgress() {
