@@ -1030,6 +1030,30 @@ function adminUnlockSpecific() {
   ui.alert('✅ Unlocked: ' + unit.UnitName + ' for ' + student.StudentName + '. Email sent.');
 }
 
+// ── Resend unlock email from Apps Script editor (no Sheet UI needed) ──────────
+// Set RESEND_STUDENT_ID and RESEND_UNIT_ID below, then run resendUnlockEmail().
+var RESEND_STUDENT_ID = '';   // e.g. 's003'
+var RESEND_UNIT_ID    = '';   // e.g. '1.1.06'
+
+function resendUnlockEmail() {
+  if (!RESEND_STUDENT_ID || !RESEND_UNIT_ID) {
+    Logger.log('❌ Set RESEND_STUDENT_ID and RESEND_UNIT_ID before running.');
+    return;
+  }
+  var ss      = SpreadsheetApp.openById(_cfg().SHEET_ID);
+  var student = _studentById(ss, RESEND_STUDENT_ID);
+  var unit    = _unit(ss, RESEND_UNIT_ID);
+  if (!student) { Logger.log('❌ Student "' + RESEND_STUDENT_ID + '" not found.'); return; }
+  if (!unit)    { Logger.log('❌ Unit "' + RESEND_UNIT_ID + '" not found.'); return; }
+  _setProg(ss, student.StudentID, unit.UnitID, { Status: 'available', UnlockedAt: new Date() });
+  var body = _unlockEmailHtml(student, unit);
+  GmailApp.sendEmail(student.StudentEmail, '🔓 Unit unlocked — ' + unit.UnitName, _stripHtml(body), {
+    htmlBody: body, cc: student.ParentEmail, name: PORTAL_NAME
+  });
+  _logEmail(ss, 'admin_unlock', student.StudentID, unit.UnitID, student.StudentEmail, '🔓 Unit unlocked — ' + unit.UnitName, 'sent');
+  Logger.log('✅ Email sent to ' + student.StudentEmail + ' (CC: ' + student.ParentEmail + ')');
+}
+
 // ── Refresh the Admin Summary sheet ───────────────────────────────────────────
 function adminRefreshSummary() {
   var ss       = SpreadsheetApp.openById(_cfg().SHEET_ID);
